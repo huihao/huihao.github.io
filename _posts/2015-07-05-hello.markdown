@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "在Github上使用Jekyll建立博客站点"
+date:   2015-07-05 20:48:10
+categories: skill
+---
+
+> 翻阅多篇网络日志，花费一晚上的时间完成个人站点的建设，虽很简陋，却也是百废待兴，待我慢慢完善，现将经验分享如下。
+
+###域名申请
+
+登陆万网使用支付宝购买所需要的域名即可，本来想买.me的域名，但考虑价格因素还是购买了更为便宜的.com域名。
+
+
+###Github建立个人主页
+
+- 建立Github账户，新建仓库（New repository），仓库名称需采用yourname.github.io格式，将yourname替换为自己项目的名称。
+ 
+- 跳转到仓库设置(Settings)页面，在GitHub Pages框中点击Launch automatic page generatro按钮生成基础模板页面。
+
+- 根据指引进行站点信息设置，选择个性模板，完成静态页面生成，访问yourname.github.io
+
+###Git 本地安装（windows环境）
+- 安装<a href="https://git-scm.com/">Git</a>和<a href="http://sourceforge.net/projects/gitextensions/">Git Extensions</a>。
+- 克隆Github上个人主页仓库到本地文件夹。
+
+###安装Jekyll(windows环境，需要安装ruby，python)环境
+
+###解析域名至yourname.github.io
+
+> 未完待续
+
+
