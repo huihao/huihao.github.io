@@ -15,19 +15,70 @@ categories: skill
 ###Github建立个人主页
 
 - 建立Github账户，新建仓库（New repository），仓库名称需采用yourname.github.io格式，将yourname替换为自己项目的名称。
- 
+
 - 跳转到仓库设置(Settings)页面，在GitHub Pages框中点击Launch automatic page generatro按钮生成基础模板页面。
 
 - 根据指引进行站点信息设置，选择个性模板，完成静态页面生成，访问yourname.github.io
 
 ###Git 本地安装（windows环境）
 - 安装<a href="https://git-scm.com/">Git</a>和<a href="http://sourceforge.net/projects/gitextensions/">Git Extensions</a>。
-- 克隆Github上个人主页仓库到本地文件夹。
+- 选定一个文件目录，右击选择GitExt Clone，填入主页仓库的clone URL，将静态页面克隆到本地。
 
 ###安装Jekyll(windows环境，需要安装ruby，python)环境
+- 安装<a href="https://www.ruby-lang.org/en/">Ruby 和 Ruby Development Kit</a>,并且运行以下命令。
+  ```
+    ruby dk.rb init
+  ```
+  ```
+    ruby dk.rb install
+  ```
+- 运行一下命令安装Jeklly
+  ```
+  gem install jekyll
+  ```
+- 安装<a href="https://www.python.org/">Python</a>,
+
+- 安装easy_install，从https://pypi.python.org/pypi/setuptools#windows 处下载 distribute_setup.py 文件，并通过以下命令运行该脚本文件。命令执行完毕后，将Python目录下的Scripts添加到系统环境中。
+  ```
+    python distribute_setup.py
+  ```
+- 通过运行下面的命令安装Pygments
+ ```
+    easy_install Pygments
+ ```
+
+- 删除上一步中克隆到本地的仓库中的所有文件（如果想要使用自动生成的模板文件，可以将这些文件进行备份），运行如下命令新建Jekyll项目
+ ```
+ jekyll new myblog
+ ```
+- 运行Jekyll,并通过http://localhost:4000 地址预览新生成的博客。
+
+  ```
+  cd myblog
+  jekyll serve
+  ```
+### 推送Jkyll博客至Github ###
+
+- 在仓库右击选择打开GitExt Browser,提交修改的文件，并推送到Github远程仓库中，Github将会自动生成博客静态页面，通过yourname.github.io地址访问。
 
 ###解析域名至yourname.github.io
 
-> 未完待续
+- 注册<a href="https://www.dnspod.cn/">DNSpod</a>服务。<a href="https://support.dnspod.cn/Kb/showarticle/tsid/177/">点击查看教程</a>
 
+- 在购买域名的注册商处添加DNSPod的2个DNS短地址
 
+  ```
+    f1g1ns1.dnspod.net
+    f1g1ns2.dnspod.net
+  ```
+- 博客仓库根目录下新建CNAME文件（不带后缀）,文件内只需填写你所购买的域名www.youname.com,推送到Github上完成域名解析。
+
+## 参考网址 ##
+
+http://www.cellier.me/2015/01/04/jekyll%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/
+
+http://justcoding.iteye.com/blog/1959737
+
+http://blog.csdn.net/u012844814/article/details/28869997
+
+http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html
