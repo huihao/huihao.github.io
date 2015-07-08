@@ -26,6 +26,7 @@ categories: skill
 
 ###安装Jekyll(windows环境，需要安装ruby，python)环境
 - 安装<a href="https://www.ruby-lang.org/en/">Ruby 和 Ruby Development Kit</a>,并且运行以下命令。
+
       ruby dk.rb init
       ruby dk.rb install
 
@@ -49,6 +50,7 @@ categories: skill
       jekyll new myblog
 
 - 运行Jekyll,并通过http://localhost:4000 地址预览新生成的博客。
+
       cd myblog
       jekyll serve
 
@@ -61,6 +63,7 @@ categories: skill
 - 注册<a href="https://www.dnspod.cn/">DNSpod</a>服务。<a href="https://support.dnspod.cn/Kb/showarticle/tsid/177/">点击查看教程</a>
 
 - 在购买域名的注册商处添加DNSPod的2个DNS短地址
+
       f1g1ns1.dnspod.net
       f1g1ns2.dnspod.net
 
