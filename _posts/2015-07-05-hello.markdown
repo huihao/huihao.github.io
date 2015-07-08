@@ -26,37 +26,34 @@ categories: skill
 
 ###安装Jekyll(windows环境，需要安装ruby，python)环境
 - 安装<a href="https://www.ruby-lang.org/en/">Ruby 和 Ruby Development Kit</a>,并且运行以下命令。
-  ```
-    ruby dk.rb init
-  ```
-  ```
-    ruby dk.rb install
-  ```
+      ruby dk.rb init
+      ruby dk.rb install
+
 - 运行一下命令安装Jeklly
-  ```
-  gem install jekyll
-  ```
+
+      gem install jekyll
+
 - 安装<a href="https://www.python.org/">Python</a>,
 
 - 安装easy_install，从https://pypi.python.org/pypi/setuptools#windows 处下载 distribute_setup.py 文件，并通过以下命令运行该脚本文件。命令执行完毕后，将Python目录下的Scripts添加到系统环境中。
-  ```
-    python distribute_setup.py
-  ```
+
+        python distribute_setup.py
+
 - 通过运行下面的命令安装Pygments
- ```
-    easy_install Pygments
- ```
+
+      easy_install Pygments
+
 
 - 删除上一步中克隆到本地的仓库中的所有文件（如果想要使用自动生成的模板文件，可以将这些文件进行备份），运行如下命令新建Jekyll项目
- ```
- jekyll new myblog
- ```
+
+      jekyll new myblog
+
 - 运行Jekyll,并通过http://localhost:4000 地址预览新生成的博客。
 
-  ```
-  cd myblog
-  jekyll serve
-  ```
+
+    cd myblog
+    jekyll serve
+
 ### 推送Jkyll博客至Github ###
 
 - 在仓库右击选择打开GitExt Browser,提交修改的文件，并推送到Github远程仓库中，Github将会自动生成博客静态页面，通过yourname.github.io地址访问。
@@ -67,10 +64,10 @@ categories: skill
 
 - 在购买域名的注册商处添加DNSPod的2个DNS短地址
 
-  ```
+
     f1g1ns1.dnspod.net
     f1g1ns2.dnspod.net
-  ```
+
 - 博客仓库根目录下新建CNAME文件（不带后缀）,文件内只需填写你所购买的域名www.youname.com,推送到Github上完成域名解析。
 
 ## 参考网址 ##

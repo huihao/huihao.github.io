@@ -9,4 +9,4 @@ twitter_username: wuhuihao
 github_username:  huihao
 
 # Build settings
-markdown: github
+markdown: kramdown
