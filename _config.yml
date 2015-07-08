@@ -1,8 +1,12 @@
 # Site settings
-title: Mark's Exploration
+title: Mark's Blog
 email: wuhuihao@qq.com
 description: > # this means to ignore newlines until "baseurl:"
-  huihao's blog about java html javascript css life.
+  huihao's blog
+  java
+  html
+  css
+  html
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://wuhuihao.com" # the base hostname & protocol for your site
 twitter_username: wuhuihao
