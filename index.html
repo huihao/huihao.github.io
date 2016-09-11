@@ -3,15 +3,14 @@ layout: default
 ---
 
 {% for post in site.posts %}
-  <article class="article">
+  <article>
       <header>
-        <h1 class="article-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h1>
-        <p class="article-mate">
+        <h4>
+          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h4>
+        <h5>
           {{ post.date | date: "%b %-d, %Y" }}
-        </p>
-        <p class="article-verview">
-          {{post.excerpt}}
-        </p>
+        </h5>
       </header>
     </article>
 {% endfor %}

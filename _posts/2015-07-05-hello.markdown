@@ -7,12 +7,12 @@ categories: skill
 
 > 翻阅多篇网络日志，花费一晚上的时间完成个人站点的建设，虽很简陋，却也是百废待兴，待我慢慢完善，现将经验分享如下。
 
-###域名申请
+### 域名申请 ###
 
 登陆万网使用支付宝购买所需要的域名即可，本来想买.me的域名，但考虑价格因素还是购买了更为便宜的.com域名。
 
 
-###Github建立个人主页
+### Github建立个人主页 ###
 
 - 建立Github账户，新建仓库（New repository），仓库名称需采用yourname.github.io格式，将yourname替换为自己项目的名称。
 
@@ -20,11 +20,11 @@ categories: skill
 
 - 根据指引进行站点信息设置，选择个性模板，完成静态页面生成，访问yourname.github.io
 
-###Git 本地安装（windows环境）
+### Git 本地安装（windows环境）
 - 安装<a href="https://git-scm.com/">Git</a>和<a href="http://sourceforge.net/projects/gitextensions/">Git Extensions</a>。
 - 选定一个文件目录，右击选择GitExt Clone，填入主页仓库的clone URL，将静态页面克隆到本地。
 
-###安装Jekyll(windows环境，需要安装ruby，python)环境
+### 安装Jekyll(windows环境，需要安装ruby，python)环境 ###
 - 安装<a href="https://www.ruby-lang.org/en/">Ruby 和 Ruby Development Kit</a>,并且运行以下命令。
 
       ruby dk.rb init
@@ -58,7 +58,7 @@ categories: skill
 
 - 在仓库右击选择打开GitExt Browser,提交修改的文件，并推送到Github远程仓库中，Github将会自动生成博客静态页面，通过yourname.github.io地址访问。
 
-###解析域名至yourname.github.io
+###解析域名至yourname.github.io ###
 
 - 注册<a href="https://www.dnspod.cn/">DNSpod</a>服务。<a href="https://support.dnspod.cn/Kb/showarticle/tsid/177/">点击查看教程</a>
 

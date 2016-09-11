@@ -13,4 +13,7 @@ twitter_username: wuhuihao
 github_username:  huihao
 
 # Build settings
-markdown: kramdown
+markdown: kramdown                                                           
+kramdown:                                                                       
+   input: GFM
+   hard_wrap: false
