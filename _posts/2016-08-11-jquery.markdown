@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Learn from jQuery"
+date:   2016-08-11 15:44:10
+categories: skill
+---
+
+&emsp;&emsp;如果说jQuery是一把瓦雷利亚利剑，众多骑士靠着这把宝剑在前端界披荆斩棘，那JavaScript就是锻造这把剑的瓦雷利亚钢。瓦雷利亚钢是一种注入了魔法的钢铁，需要特殊的制作工艺制造，当然javascript并不是一种自身拥有魔法的语言，是靠着众多的“工匠”们的聪明才智给其注入了神奇的魔法，才能锻造出众多像jQuery一样的神兵利器。
+
+&emsp;&emsp;不知到多少人跟我一样，接触web脚本编写的初始并不是从javascript入手的，而是一上场就拿着jQuery，一阵糊捅蛮砍之后发现很多的效果也都实现了。当然久而久之，我们会不再满足于万事都依赖jQuery的日子，会想摆脱jQuery的阴影，去创造一把属于自己的宝剑。那么如何去做呢？系统的学习一遍javascript是十分有必要的，像红宝书这样的“圣经”应当时常拿出来诵读。除此之外，既然我们有jQuery这么好的导师，我们为什么不从他开始呢。
+
+&emsp;&emsp;jQuery的源码很轻松的能在github上找到,进入到页面中，我看到了src文件夹，那jQuery的源码自然就在其中，但是打开文件夹看到众多文件和文件夹，平时使用的jQuery不是就只引用了一个文件吗，这么多文件是怎么并成一个文件的呢？这时候，我看到了熟悉的jQuery.js文件，打开这个文件之后，看到了如下的代码
+
+	define( [
+		"./core",
+		"./selector",
+		...//省略部分
+		"./dimensions",
+		"./deprecated",
+		"./exports/amd"
+	], function( jQuery ) {
+
+		"use strict";
+
+		return ( window.jQuery = window.$ = jQuery );
+
+	} );
+&emsp;&emsp;这应该是一个入口文件，谷歌了define这个关键词之后，我知道这是一种被称作AMD的模块加载方式。
+>&emsp;&emsp;异步模块定义规范（AMD）制定了定义模块的规则，这样模块和模块的依赖可以被异步加载。这和浏览器的异步加载模块的环境刚好适应（浏览器同步加载模块会导致性能、可用性、调试和跨域访问等问题）。
+
+&emsp;&emsp;jQuery这样做除了将代码模块化管理之外，也可以方便其他开发者重用代码，以及可以配合[RequireJS](http://requirejs.org/ "RequireJS") 等加载器对资源进行加载。jQuery的功能十分丰富，单在某些场景下其实并不需要所有的功能，模块化之后，可以定义自己需要的模块，减少网页所需加载资源的大小。但是到这里我还不知道jQuery如何将这些小的模块打包成一个文件的，网上翻阅资料后，在“[jQuery小文件合并生成大文件过程](http://hzxiaosheng.bitbucket.org/work/2014/02/17/jQuery-build-process.html "jQuery小文件合并生成大文件过程")”这篇文章中了解到了详细的打包过程，文章介绍的十分详细，具体内容可以点文章中进行查阅。
+
+&emsp;&emsp;前面提到的jQuery.js便是入口文件，依赖的子模块都在define中定义，看到依赖的一个子模块是core.js,那么就从这个文件着手。
+
+&emsp;&emsp;在这里我们先回顾一下工作中是如果使用jQuery的,举个最简单的例子：
+
+	$("#container").height(100);
+	
+&emsp;&emsp;上面这段代码中，实现了将Id为container的元素的高度设置为100。看到$()返回的对象执行了height方法，为指定的元素设置了高度属性。这里先看下，$()方法实现的是什么。
+
+jquery.js
+
+	return ( window.jQuery = window.$ = jQuery );
+
+core.js
+
+	jQuery = function( selector, context ) {
+
+		// The jQuery object is actually just the init constructor 'enhanced'
+		// Need init if jQuery is called (just allow error to be thrown if not included)
+		return new jQuery.fn.init( selector, context );
+	}
+	
+	jQuery.fn = jQuery.prototype = {...};
+	
+	jQuery.extend = jQuery.fn.extend = function() {...}
+	
+init.js
+
+	var init = jQuery.fn.init = function( selector, context, root ) {
+	...
+	};
+	
+	
+	init.prototype = jQuery.fn;
+
+&emsp;&emsp;如上几个代码段实现了我们在上面使用的$()方法，我们大致用JavaScript模拟一下：
+
+	//构造函数
+	var Foo=function(name){
+		
+		//返回以init方法为构造函数的一个实例
+    	return new Foo.fn.init(name); 
+    }
+    
+   	//定义原型
+    Foo.prototype=Foo.fn={
+      say:function(){
+         console.log(this.name);
+      }
+    }
+    
+    //定义原型的一个方法
+    Foo.fn.init=function(name){
+    
+    	this.name=name
+	}
+
+	//将原型赋给的init方法的原型
+	Foo.fn.init.prototype=Foo.fn;
+	
+	$=Foo;
+
+	
+	$("123").say();
+	
+&emsp;&emsp;在写下上面这段代码之前，我先去了解了有关JavaScript原型的知识，查阅相关资料以及教程之后做出的简单模拟。
