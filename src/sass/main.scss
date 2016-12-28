@@ -2,7 +2,10 @@
 @import "susy";
 @import "icon";
 @import "common";
+@import "breakpoint";
 $map: ( container: auto, container-position: center, );
+$basic: 543px;
+$pair: max-width 760px;
 #wrapper {
     header {
         width: 100%;
@@ -15,27 +18,52 @@ $map: ( container: auto, container-position: center, );
         .con {
             @include container($map 960px);
             height: 236px;
+            @include breakpoint($pair) {
+                width: 100%;
+                height: 150px;
+            }
             nav {
                 float: right;
                 @include span(4 of 12 last);
                 position: relative;
                 height: 100%;
-                font-size: 22px;
+                font-size: 18px;
+                @include breakpoint($pair) {
+                    @include span(12 of 12);
+                    height: 20px;
+                    text-align: center;
+                }
                 ul {
                     list-style: none;
                     position: absolute;
                     bottom: 0;
                     left: 38px;
+                    @include breakpoint($pair) {
+                        position: relative;
+                        float: right;
+                        display: inline-block;
+                        left: 0;
+                        margin: 0;
+                        @include gutters(3em inside);
+                        &:after {
+                            @include clearBoth;
+                        }
+                    }
                     li {
                         float: left;
                         margin-right: 10px;
+                        @include breakpoint($pair) {
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
                         a {
-                            color: #000;
+                            color: #555;
                             text-decoration: none;
-                            &:hover{
-                            	color:#20C6F2;
-                            	font-weight: 700;
-                            	transition:0.5s;
+                            font-family: MicrosoftYaHei;
+                            &:hover {
+                                color: #20C6F2;
+                                transition: 0.5s;
                             }
                         }
                     }
@@ -45,6 +73,10 @@ $map: ( container: auto, container-position: center, );
                 @include span(5 of 12);
                 height: 100%;
                 position: relative;
+                @include breakpoint($pair) {
+                    @include span(12 of 12);
+                    height: 120px;
+                }
                 .avator {
                     position: relative;
                     border: 4px solid #20C6F2;
@@ -57,18 +89,39 @@ $map: ( container: auto, container-position: center, );
                     background-size: cover;
                     float: left;
                     top: -10px;
+                    @include breakpoint($pair) {
+                        width: 50px;
+                        height: 50px;
+                        margin-left: 10px;
+                        top: -25px;
+                    }
                 }
                 .basic {
                     float: left;
                     margin-left: 25px;
                     margin-top: 20px;
+                    @include breakpoint($pair) {
+                        margin-top: 17px;
+                        top: -56px;
+                        position: relative;
+                        z-index: 4;
+                    }
                     .name {
                         font-size: 40px;
+                        @include breakpoint($pair) {
+                            font-size: 24px;
+                            line-height: 40px
+                        }
                     }
                     .position {
                         font-size: 20px;
                         height: 40px;
                         line-height: 40px;
+                        @include breakpoint($pair) {
+                            font-size: 16px;
+                            height: 40px;
+                            line-height: 40px;
+                        }
                     }
                     .basic-line {
                         height: 1px;
@@ -78,6 +131,10 @@ $map: ( container: auto, container-position: center, );
                     .icon-con {
                         margin-top: 10px;
                         line-height: 20px;
+                        @include breakpoint($pair) {
+                            line-height: 16px;
+                            margin-top: 0;
+                        }
                         .icon {
                             margin-right: 20px
                         }
@@ -86,6 +143,11 @@ $map: ( container: auto, container-position: center, );
                         margin-top: 10px;
                         line-height: 20px;
                         position: relative;
+                        @include breakpoint($pair) {
+                            line-height: 16px;
+                            margin-top: 9px;
+                            font-size: 16px
+                        }
                         .icon {
                             position: relative;
                             top: 3px;
@@ -98,11 +160,18 @@ $map: ( container: auto, container-position: center, );
                 background-image: url("../img/Oval1.png");
                 width: 124px;
                 height: 124px;
-                border-radius: 50%;
-                position: absolute;
                 top: 116px;
                 left: 248px;
+                border-radius: 50%;
+                position: absolute;
                 background-size: cover;
+                z-index: 2;
+                @include breakpoint($pair) {
+                    width: 7em;
+                    height: 7em;
+                    top: 20px;
+                    left: -34px;
+                }
             }
             .circle-2 {
                 background-image: url("../img/Oval2.png");
@@ -113,6 +182,13 @@ $map: ( container: auto, container-position: center, );
                 top: 72px;
                 left: 292px;
                 background-size: cover;
+                z-index: 2;
+                @include breakpoint($pair) {
+                    width: 8em;
+                    height: 8em;
+                    top: -10px;
+                    left: 10px;
+                }
             }
             .circle-3 {
                 background-image: url("../img/Oval4.png");
@@ -123,6 +199,13 @@ $map: ( container: auto, container-position: center, );
                 top: -40px;
                 left: 386px;
                 background-size: cover;
+                z-index: 2;
+                @include breakpoint($pair) {
+                    width: 13em;
+                    height: 13em;
+                    top: -100px;
+                    left: 100px;
+                }
             }
             .circle-4 {
                 background-image: url("../img/Oval3.png");
@@ -133,17 +216,38 @@ $map: ( container: auto, container-position: center, );
                 top: 71px;
                 left: 533px;
                 background-size: cover;
+                z-index: 2;
+                @include breakpoint($pair) {
+                    width: 10em;
+                    height: 10em;
+                    top: -43px;
+                    right: 0px;
+                    left: auto;
+                }
             }
         }
     }
     #container {
         @include container($map 960px);
+        @include breakpoint($pair) {
+            width: 100%;
+        }
         #main {
             @include span(9 of 12);
+            @include breakpoint($pair) {
+                @include span(12 of 12);
+            }
             article.article {
                 width: 100%;
                 height: auto;
                 margin-bottom: 40px;
+                @include breakpoint($pair) {
+                    box-sizing: border-box;
+                    .diamond {
+                        display: none;
+                    }
+                    @include gutters(3em inside);
+                }
                 .diamond {
                     width: 100px;
                     float: left;
@@ -164,6 +268,9 @@ $map: ( container: auto, container-position: center, );
                         font-size: 24px;
                         color: #020202;
                         margin: 10px 0;
+                        @include breakpoint($pair) {
+                            font-size: 16px;
+                        }
                     }
                     .date {
                         font-size: 12px;
@@ -196,12 +303,12 @@ $map: ( container: auto, container-position: center, );
                             font-size: 10px;
                             color: #74D6F5;
                             background: url("../img/ion-eye.png") no-repeat 10px center;
-                            &:hover{
-                            	 background-color: #74D6F5;
-   								 color:#fff;
-   								 padding: 0;
-   								 text-align: center;
-   								 width: 91px;
+                            &:hover {
+                                background-color: #74D6F5;
+                                color: #fff;
+                                padding: 0;
+                                text-align: center;
+                                width: 91px;
                             }
                         }
                         &:after {
@@ -217,13 +324,16 @@ $map: ( container: auto, container-position: center, );
                 font-size: 10px;
                 color: #74D6F5;
                 width: 100%;
+                @include breakpoint($pair) {
+                    box-sizing: border-box;
+                    @include gutters(3em inside);
+                }
                 .next {
                     width: 43px;
                     height: 23px;
                     line-height: 23px;
                     float: right;
                     text-align: center;
-                    
                 }
                 .prev {
                     width: 43px;
@@ -239,67 +349,89 @@ $map: ( container: auto, container-position: center, );
         }
         aside {
             @include span(3 of 12 last);
-            .aside-header{
-            	position: relative;
-            	height: 20px;
-            	line-height: 20px;
-            	i{
-            		position: relative;
-            		top: 0px;
-            		left: 0;
-            	}
-            	span{
-            		position: absolute;
-					left: 25px;
-					top: 0;
-            	}
+            @include breakpoint($pair) {
+                display: none;
+            }
+            .aside-header {
+                position: relative;
+                height: 20px;
+                line-height: 20px;
+                i {
+                    position: relative;
+                    top: 0px;
+                    left: 0;
+                }
+                span {
+                    position: absolute;
+                    left: 25px;
+                    top: 0;
+                }
             }
             ul {
                 list-style: none;
-                padding-left:25px;
+                padding-left: 25px;
                 li {
                     list-style: none;
                     height: 22px;
                     line-height: 22px;
                     i {
-                        width:25px;
+                        width: 25px;
                     }
                 }
             }
         }
-        .article-content{
-        	.title{
-        		height: 116px;
-        		padding-top: 1px;
-        		border-bottom:  1px solid #C2E6EF;
-        		h1{
-        			margin-top: 38px;
-        		}
-        		.diamond {
+        .article-content {
+        	@include breakpoint($pair) {
+                @include gutters(3em inside);
+            }
+            .title {
+                height: 116px;
+                padding-top: 1px;
+                border-bottom: 1px solid #C2E6EF;
+                @include breakpoint($pair) {
+	               height: 60px;
+	            }
+                h1 {
+                    margin-top: 38px;
+                    @include breakpoint($pair) {
+		                font-size:18px;
+		                margin-top: 10px;
+		            }
+                }
+                .diamond {
                     width: 100px;
                     float: left;
                     margin-top: 10px;
                     margin-right: 40px;
+                    @include breakpoint($pair) {
+                    	margin-right: 10px;
+                    	width: 40px;
+                    }
                     .box {
                         width: 80px;
                         height: 80px;
                         border: 1px solid #C9FBF7;
                         transform: rotate(45deg);
                         background-color: yellow;
+                        @include breakpoint($pair) {
+			                font-size:16px;
+			                width: 30px;
+                        	height: 30px;
+			            }
                     }
                 }
-        	}
-        	.con{
-        		padding-top: 30px;
-        	}
+            }
+            .con {
+                padding-top: 30px;
+            }
         }
     }
     footer {
-    	margin-top: 25px;
-		opacity: 0.31;
-		height: 125px;
-		background-image: linear-gradient(-180deg, #FAFAFA 0%, #51CCE3 100%);
-		box-shadow: 0 7px 10px 0 rgba(200,230,235,0.50);
+        margin-top: 25px;
+        opacity: 0.31;
+        height: 125px;
+        background-image: linear-gradient(-180deg, #FAFAFA 0%, #51CCE3 100%);
+        box-shadow: 0 7px 10px 0 rgba(200, 230, 235, 0.50);
     }
 }
 
