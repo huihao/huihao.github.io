@@ -1,3 +1,8 @@
 _site
 .sass-cache
 _images
+.idea/
+.gitignore
+node_modules/
+bower_components/
+dist/

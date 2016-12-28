@@ -1,0 +1,25 @@
+@mixin clearBoth(){
+	content:"";
+	clear:both;
+	display:block;
+	width: 0;
+	height: 0;
+	visibility:hidden;
+}
+
+a:hover{
+	color:#20C6F2;
+}
+.base-link{
+	border: 1px solid #74D6F5;
+   	border-radius: 6px;
+   	cursor:default;
+   	span{
+   		cursor:default;
+   	}
+   	&:hover{
+   		background-color: #74D6F5;
+   		color:#fff;
+   		transition:.5s;
+   	}
+}

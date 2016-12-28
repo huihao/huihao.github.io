@@ -1,0 +1,33 @@
+{
+  "name": "huihao.github.io",
+  "version": "1.0.0",
+  "description": "my blog",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huihao/huihao.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huihao/huihao.github.io/issues"
+  },
+  "homepage": "https://github.com/huihao/huihao.github.io#readme",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-compass": "^2.1.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.9.1",
+    "jshint": "^2.9.4"
+  },
+  "dependencies": {
+    "github-markdown-css": "^2.4.1"
+  }
+}

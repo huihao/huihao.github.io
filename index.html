@@ -1,16 +1,220 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html>
 
-{% for post in site.posts %}
-  <article>
-      <header>
-        <h4>
-          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h4>
-        <h5>
-          {{ post.date | date: "%b %-d, %Y" }}
-        </h5>
-      </header>
-    </article>
-{% endfor %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mark</title>
+    <link rel="stylesheet" href="dist/css/main.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <div class="top-line">
+            </div>
+            <div class="con">
+                <div class="info">
+                    <div class="avator">
+                    </div>
+                    <div class="basic">
+                        <span class="name">wuhuihao</span>
+                        <div class="basic-line"></div>
+                        <span class="position">Fontend Developer</span>
+                        <div class="icon-con"><i class="icon icon-html"></i><i class="icon icon-js"></i><i class="icon icon-css"></i><i class="icon icon-chrome"></i><i class="icon icon-git"></i></div>
+                        <div class="location"><i class="icon icon-location"></i>Hangzhou,Wenzhou</div>
+                    </div>
+                    <div class="circle-1"></div>
+                    <div class="circle-2"></div>
+                    <div class="circle-3"></div>
+                    <div class="circle-4"></div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="">首页</a></li>
+                        <li><a href="">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div id="container">
+            <div id="main">
+                <article class="article">
+                    <div class="diamond">
+                        <div class="box">
+                        </div>
+                    </div>
+                    <div class="con">
+                        <h1>使用VS Code调试JavaScript代码</h1>
+                        <p class="date"><span>2016/10/10</span></p>
+                        <div class="tip">
+                            插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
+                        </div>
+                        <div class="img">
+                            <img src="./dist/img/article1.png" alt="">
+                        </div>
+                        <div class="addition">
+                             <a class="more base-link">
+                                阅读全文
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <article class="article">
+                    <div class="diamond">
+                        <div class="box">
+                        </div>
+                    </div>
+                    <div class="con">
+                        <h1>使用VS Code调试JavaScript代码</h1>
+                        <p class="date"><span>2016/10/10</span></p>
+                        <div class="tip">
+                            插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
+                        </div>
+                        <div class="img">
+                            <img src="./dist/img/article1.png" alt="">
+                        </div>
+                        <div class="addition">
+                            <a class="more base-link">
+                                阅读全文
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <article class="article">
+                    <div class="diamond">
+                        <div class="box">
+                        </div>
+                    </div>
+                    <div class="con">
+                        <h1>使用VS Code调试JavaScript代码</h1>
+                        <p class="date"><span>2016/10/10</span></p>
+                        <div class="tip">
+                            插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
+                        </div>
+                        <div class="img">
+                            <img src="./dist/img/article1.png" alt="">
+                        </div>
+                        <div class="addition">
+                            <a class="more base-link">
+                                阅读全文
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <article class="article">
+                    <div class="diamond">
+                        <div class="box">
+                        </div>
+                    </div>
+                    <div class="con">
+                        <h1>使用VS Code调试JavaScript代码</h1>
+                        <p class="date"><span>2016/10/10</span></p>
+                        <div class="tip">
+                            插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
+                        </div>
+                        <div class="img">
+                            <img src="./dist/img/article1.png" alt="">
+                        </div>
+                        <div class="addition">
+                            <a class="more base-link">
+                                阅读全文
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <div class="page">
+                	<a class="prev base-link">
+                		Prev
+                	</a>
+                	<a class="next base-link">
+                		Next
+                	</a>
+                </div>
+            </div>
+            <aside>
+            	<section>
+                    <div class="aside-header">
+                        <i class="icon icon-triangle"></i> <span>分类</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="icon icon-node"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-html5"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-chrome2"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-css3"></i><span>JavaScript</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="aside-header">
+                        <i class="icon icon-square"></i> <span>时间归档</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="icon icon-calendar"></i><span>2016年12年</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-calendar"></i><span>2016年11年</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-calendar"></i><span>2016年10年</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-calendar"></i><span>2016年09年</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="aside-header">
+                        <i class="icon icon-cross"></i> <span>标签</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="icon icon-tag"></i><span>IDE</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-tag"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-tag"></i><span>css</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-tag"></i><span>deep leaning</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="aside-header">
+                        <i class="icon icon-circle"></i> <span>友情链接</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <i class="icon icon-arrow"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-arrow"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-arrow"></i><span>JavaScript</span>
+                        </li>
+                        <li>
+                            <i class="icon icon-arrow"></i><span>JavaScript</span>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+        <footer>
+
+        </footer>
+    </div>
+</body>
+
+</html>

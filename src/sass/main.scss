@@ -1,0 +1,306 @@
+@import "normalize/import-now";
+@import "susy";
+@import "icon";
+@import "common";
+$map: ( container: auto, container-position: center, );
+#wrapper {
+    header {
+        width: 100%;
+        .top-line {
+            height: 56px;
+            opacity: 0.74;
+            background: #F9FEFF;
+            box-shadow: 0 7px 10px 0 rgba(200, 230, 235, 0.50);
+        }
+        .con {
+            @include container($map 960px);
+            height: 236px;
+            nav {
+                float: right;
+                @include span(4 of 12 last);
+                position: relative;
+                height: 100%;
+                font-size: 22px;
+                ul {
+                    list-style: none;
+                    position: absolute;
+                    bottom: 0;
+                    left: 38px;
+                    li {
+                        float: left;
+                        margin-right: 10px;
+                        a {
+                            color: #000;
+                            text-decoration: none;
+                            &:hover{
+                            	color:#20C6F2;
+                            	font-weight: 700;
+                            	transition:0.5s;
+                            }
+                        }
+                    }
+                }
+            }
+            .info {
+                @include span(5 of 12);
+                height: 100%;
+                position: relative;
+                .avator {
+                    position: relative;
+                    border: 4px solid #20C6F2;
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    background-image: url("../img/avator.jpeg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                    float: left;
+                    top: -10px;
+                }
+                .basic {
+                    float: left;
+                    margin-left: 25px;
+                    margin-top: 20px;
+                    .name {
+                        font-size: 40px;
+                    }
+                    .position {
+                        font-size: 20px;
+                        height: 40px;
+                        line-height: 40px;
+                    }
+                    .basic-line {
+                        height: 1px;
+                        width: 100%;
+                        background-color: #979797;
+                    }
+                    .icon-con {
+                        margin-top: 10px;
+                        line-height: 20px;
+                        .icon {
+                            margin-right: 20px
+                        }
+                    }
+                    .location {
+                        margin-top: 10px;
+                        line-height: 20px;
+                        position: relative;
+                        .icon {
+                            position: relative;
+                            top: 3px;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+            .circle-1 {
+                background-image: url("../img/Oval1.png");
+                width: 124px;
+                height: 124px;
+                border-radius: 50%;
+                position: absolute;
+                top: 116px;
+                left: 248px;
+                background-size: cover;
+            }
+            .circle-2 {
+                background-image: url("../img/Oval2.png");
+                width: 158px;
+                height: 158px;
+                border-radius: 50%;
+                position: absolute;
+                top: 72px;
+                left: 292px;
+                background-size: cover;
+            }
+            .circle-3 {
+                background-image: url("../img/Oval4.png");
+                width: 272px;
+                height: 272px;
+                border-radius: 50%;
+                position: absolute;
+                top: -40px;
+                left: 386px;
+                background-size: cover;
+            }
+            .circle-4 {
+                background-image: url("../img/Oval3.png");
+                width: 210px;
+                height: 210px;
+                border-radius: 50%;
+                position: absolute;
+                top: 71px;
+                left: 533px;
+                background-size: cover;
+            }
+        }
+    }
+    #container {
+        @include container($map 960px);
+        #main {
+            @include span(9 of 12);
+            article.article {
+                width: 100%;
+                height: auto;
+                margin-bottom: 40px;
+                .diamond {
+                    width: 100px;
+                    float: left;
+                    margin-right: 12px;
+                    margin-top: 25px;
+                    .box {
+                        width: 80px;
+                        height: 80px;
+                        border: 1px solid #C9FBF7;
+                        transform: rotate(45deg);
+                        background-color: yellow;
+                    }
+                }
+                .con {
+                    overflow: hidden;
+                    h1 {
+                        font-family: MicrosoftYaHei;
+                        font-size: 24px;
+                        color: #020202;
+                        margin: 10px 0;
+                    }
+                    .date {
+                        font-size: 12px;
+                        line-height: 16px;
+                        margin: 0;
+                    }
+                    .tip {
+                        font-family: MicrosoftYaHei;
+                        font-size: 12px;
+                        color: rgba(2, 2, 2, 0.52);
+                        margin: 10px 0;
+                        line-height: 16px;
+                    }
+                    .img {
+                        width: 100%;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .addition {
+                        position: relative;
+                        margin-top: 12px;
+                        .more {
+                            float: right;
+                            width: 51px;
+                            height: 23px;
+                            line-height: 23px;
+                            padding-left: 40px;
+                            font-family: MicrosoftYaHei;
+                            font-size: 10px;
+                            color: #74D6F5;
+                            background: url("../img/ion-eye.png") no-repeat 10px center;
+                            &:hover{
+                            	 background-color: #74D6F5;
+   								 color:#fff;
+   								 padding: 0;
+   								 text-align: center;
+   								 width: 91px;
+                            }
+                        }
+                        &:after {
+                            @include clearBoth;
+                        }
+                    }
+                }
+                &:after {
+                    @include clearBoth;
+                }
+            }
+            .page {
+                font-size: 10px;
+                color: #74D6F5;
+                width: 100%;
+                .next {
+                    width: 43px;
+                    height: 23px;
+                    line-height: 23px;
+                    float: right;
+                    text-align: center;
+                    
+                }
+                .prev {
+                    width: 43px;
+                    height: 23px;
+                    line-height: 23px;
+                    float: left;
+                    text-align: center;
+                }
+                &:after {
+                    @include clearBoth;
+                }
+            }
+        }
+        aside {
+            @include span(3 of 12 last);
+            .aside-header{
+            	position: relative;
+            	height: 20px;
+            	line-height: 20px;
+            	i{
+            		position: relative;
+            		top: 0px;
+            		left: 0;
+            	}
+            	span{
+            		position: absolute;
+					left: 25px;
+					top: 0;
+            	}
+            }
+            ul {
+                list-style: none;
+                padding-left:25px;
+                li {
+                    list-style: none;
+                    height: 22px;
+                    line-height: 22px;
+                    i {
+                        width:25px;
+                    }
+                }
+            }
+        }
+        .article-content{
+        	.title{
+        		height: 116px;
+        		padding-top: 1px;
+        		border-bottom:  1px solid #C2E6EF;
+        		h1{
+        			margin-top: 38px;
+        		}
+        		.diamond {
+                    width: 100px;
+                    float: left;
+                    margin-top: 10px;
+                    margin-right: 40px;
+                    .box {
+                        width: 80px;
+                        height: 80px;
+                        border: 1px solid #C9FBF7;
+                        transform: rotate(45deg);
+                        background-color: yellow;
+                    }
+                }
+        	}
+        	.con{
+        		padding-top: 30px;
+        	}
+        }
+    }
+    footer {
+    	margin-top: 25px;
+		opacity: 0.31;
+		height: 125px;
+		background-image: linear-gradient(-180deg, #FAFAFA 0%, #51CCE3 100%);
+		box-shadow: 0 7px 10px 0 rgba(200,230,235,0.50);
+    }
+}
+
+//@ sourceMappingURL=main.css.map
