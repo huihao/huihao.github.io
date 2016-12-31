@@ -1182,6 +1182,7 @@ a:hover, a:link, a:visited, a:active {
   border: 1px solid #C9FBF7;
   transform: rotate(45deg);
   background-color: yellow;
+  background-size: cover;
 }
 @media (max-width: 760px) {
   #wrapper #container .article-content .title .diamond .box {

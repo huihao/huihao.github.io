@@ -455,6 +455,7 @@ $pair: max-width 760px;
                         border: 1px solid #C9FBF7;
                         transform: rotate(45deg);
                         background-color: yellow;
+                        background-size: cover;
                         @include breakpoint($pair) {
 			                font-size:16px;
 			                width: 30px;
