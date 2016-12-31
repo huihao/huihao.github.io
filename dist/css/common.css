@@ -1,0 +1,37 @@
+a {
+  text-decoration: none;
+}
+
+a:hover, a:link, a:visited, a:active {
+  color: #20C6F2;
+}
+
+.base-link {
+  border: 1px solid #74D6F5;
+  border-radius: 6px;
+  cursor: default;
+}
+.base-link span {
+  cursor: default;
+}
+.base-link:hover {
+  background-color: #74D6F5;
+  color: #fff;
+  transition: .5s;
+}
+
+.tag-icon-default {
+  background: transparent url("../img/tag-icon-javascript.png") left top no-repeat;
+}
+
+.tag-icon-javascript {
+  background: transparent url("../img/tag-icon-javascript.png") left top no-repeat;
+}
+
+.tag-icon-css {
+  background: transparent url("../img/tag-icon-css.png") left top no-repeat;
+}
+
+.tag-icon-html {
+  background: transparent url("../img/tag-icon-css.png") left top no-repeat;
+}

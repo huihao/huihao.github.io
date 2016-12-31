@@ -5,4 +5,3 @@ _images
 .gitignore
 node_modules/
 bower_components/
-dist/
