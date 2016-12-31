@@ -1,7 +1,60 @@
-<aside>
-  <ul>
-    <li>
-       <a href="/">首页</a>
-    </li>
-  </ul>
+ <aside>
+	<section>
+        <div class="aside-header">
+            <i class="icon icon-triangle"></i> <span>分类</span>
+        </div>
+        <ul>
+        	{% for category in site.categories %}
+				
+		<li><i class="icon icon-git icon-{{ category.first }}"></i><span><a href="{{ site.baseurl}}/article/categories.html#{{category.first}}">{{category.first}}（{{category.last.size}}）</a></span></li>
+		
+			{% endfor %}
+        </ul>
+    </section>
+   <!--  <section>
+        <div class="aside-header">
+            <i class="icon icon-square"></i> <span>时间归档</span>
+        </div>
+        <ul>
+        {% for tag in tags %}
+            <li>
+                <i class="icon icon-calendar"></i><span>2016年12年</span>
+            </li>
+           {% endfor %}
+        </ul>
+    </section> -->
+    <section>
+        <div class="aside-header">
+            <i class="icon icon-cross"></i> <span>标签</span>
+        </div>
+        <ul>
+         {% for tag in site.tags %}
+            <li>
+                <i class="icon icon-tag"></i><span><a href="/article/tags/#{{ tag.first }}">{{ tag.first }}（{{tag.last.size}}）</a></span>
+            </li>
+          {% endfor %}  
+        </ul>
+    </section>
+    <section>
+        <div class="aside-header">
+            <i class="icon icon-circle"></i> <span>友情链接</span>
+        </div>
+        <ul>
+            <li>
+                <i class="icon icon-arrow"></i><span><a href="http://www.github.com/" target="_blank">Github</a></span></a>
+            </li>
+            <li>
+                <a><i class="icon icon-arrow"></i><span><a href="http://jekyllrb.com/" target="_blank">jekyll</a></span></a>
+            </li>
+            <li>
+                <a><i class="icon icon-arrow"></i><span><a href="http://sassmeister.com/" target="_blank">Sass</a></span></a>
+            </li>
+            <li>
+                <a><i class="icon icon-arrow"></i><span><a href="http://breakpoint-sass.com/" target="_blank">breakpoint</a></span></a>
+            </li>
+             <li>
+                <a><i class="icon icon-arrow"></i><span><a href="http://susydocs.oddbird.net/" target="_blank">Susy</a></span></a>
+            </li>
+        </ul>
+    </section>
 </aside>

@@ -2,7 +2,8 @@
 layout: post
 title:  "Learn from jQuery"
 date:   2016-08-11 15:44:10
-categories: skill
+categories: javascript
+tags: [jquery, javascript]
 ---
 
 &emsp;&emsp;如果说jQuery是一把瓦雷利亚利剑，众多骑士靠着这把宝剑在前端界披荆斩棘，那JavaScript就是锻造这把剑的瓦雷利亚钢。瓦雷利亚钢是一种注入了魔法的钢铁，需要特殊的制作工艺制造，当然javascript并不是一种自身拥有魔法的语言，是靠着众多的“工匠”们的聪明才智给其注入了神奇的魔法，才能锻造出众多像jQuery一样的神兵利器。

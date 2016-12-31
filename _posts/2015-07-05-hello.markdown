@@ -3,6 +3,7 @@ layout: post
 title:  "在Github上使用Jekyll建立博客站点"
 date:   2015-07-05 20:48:10
 categories: skill
+tags: [web, jekyll]
 ---
 
 > 翻阅多篇网络日志，花费一晚上的时间完成个人站点的建设，虽很简陋，却也是百废待兴，待我慢慢完善，现将经验分享如下。

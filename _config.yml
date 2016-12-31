@@ -8,7 +8,7 @@ description: > # this means to ignore newlines until "baseurl:"
   css
   html
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://wuhuihao.com" # the base hostname & protocol for your site
+url: "http://wuhuihao.me" # the base hostname & protocol for your site
 twitter_username: wuhuihao
 github_username:  huihao
 
@@ -17,3 +17,23 @@ markdown: kramdown
 kramdown:                                                                       
    input: GFM
    hard_wrap: false
+
+# 分页
+permalink: /:year/:month/:day/:title.html
+paginate: 5
+paginate_path: "article/:num"
+gems: [jekyll-paginate]
+
+# Navigation (2nd level links supported)
+nav:
+  Home:           
+    - '/'
+  Blog:
+    - '/article'   
+    - { Categories: '/article/categories/' }
+    - { Tags: '/article/tags/' }
+  About:          
+    - '/about/'
+
+tag_page: '/tags/'
+category_page: '/categories/'

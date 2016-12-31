@@ -1,16 +1,32 @@
 ---
-layout: default
+layout: article
 ---
 <div>
 
   <header>
-    <h>{{ page.title }}</h1>
-    <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+    <h></h1>
+    
   </header>
 
   <article>
-    {{ content }}
+   
   </article>
 
-	<div  data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}"></div>
+	<div  ></div>
+</div>
+
+<div class="article-content">
+    <div class="title">
+        <div class="diamond">
+            <div class="box">
+            </div>
+        </div>
+        <h1>
+            {{ page.title }}
+        </h1>
+        <!-- <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p> -->
+    </div>
+    <div class="con markdown-body" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}">
+         {{ content }}
+    </div>
 </div>

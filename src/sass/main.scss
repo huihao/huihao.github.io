@@ -237,6 +237,40 @@ $pair: max-width 760px;
             @include breakpoint($pair) {
                 @include span(12 of 12);
             }
+            .categories-list{
+                .categories-list-item{
+                    line-height: 18px;
+                    margin-left: 10px;
+                    color:#444;
+                    position: relative;
+                    padding-left: 15px;
+                    i{
+                        position: absolute;
+                        top: -2px;
+                        left: 0;
+                    }
+                }
+            }
+            .category{
+                h2{
+
+                }
+                article.article{
+                    .con{
+                        h1{
+                            font-size: 14px;
+                            a{
+                                color: #555;
+                                &:hover{
+                                    color:#20C6F2;
+                                    transition:.5s;
+                                }
+                            }
+                        }
+                    }
+                    margin-bottom: 10px;
+                }
+            }
             article.article {
                 width: 100%;
                 height: auto;
@@ -258,7 +292,7 @@ $pair: max-width 760px;
                         height: 80px;
                         border: 1px solid #C9FBF7;
                         transform: rotate(45deg);
-                        background-color: yellow;
+                        background-size: cover;
                     }
                 }
                 .con {
@@ -286,8 +320,10 @@ $pair: max-width 760px;
                     }
                     .img {
                         width: 100%;
+                        border-radius: 4px;
                         img {
                             width: 100%;
+                            border-radius: 6px;
                         }
                     }
                     .addition {
@@ -365,6 +401,9 @@ $pair: max-width 760px;
                     position: absolute;
                     left: 25px;
                     top: 0;
+                    a{
+                        color: #555;
+                    }
                 }
             }
             ul {
@@ -376,6 +415,9 @@ $pair: max-width 760px;
                     line-height: 22px;
                     i {
                         width: 25px;
+                    }
+                    a{
+                        color: #555;
                     }
                 }
             }

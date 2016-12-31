@@ -6,8 +6,10 @@
 	height: 0;
 	visibility:hidden;
 }
-
-a:hover{
+a{
+   text-decoration: none;
+}
+a:hover,a:link,a:visited,a:active{
 	color:#20C6F2;
 }
 .base-link{
@@ -22,4 +24,17 @@ a:hover{
    		color:#fff;
    		transition:.5s;
    	}
+}
+
+.tag-icon-default{
+   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;
+}
+.tag-icon-javascript{
+   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;
+}
+.tag-icon-css{
+   background:transparent url('../img/tag-icon-css.png') left top no-repeat;
+}
+.tag-icon-html{
+   background:transparent url('../img/tag-icon-css.png') left top no-repeat;
 }

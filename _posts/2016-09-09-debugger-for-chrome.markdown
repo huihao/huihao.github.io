@@ -2,7 +2,8 @@
 layout: post
 title:  "使用VS Code调试JavaScript代码"
 date:   2016-09-09 12:44:10
-categories: IDE
+categories: ide
+tags: [microsoft, javascript]
 ---
 
 在VS Code中，配合Debugger for Chrome插件，可以实现在编辑器中对JavaScript代码进行调试的功能，能更加方便的开发以Tatami为框架的单页面应用。

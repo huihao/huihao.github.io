@@ -1,0 +1,27 @@
+---
+layout: default
+title: Categories
+---
+
+<div id="main">
+ <div class="categories-list">
+    {% for tag in site.tags %}
+    <a href="#{{ tag[0] | slugify }}" class="categories-list-item"><i class="icon icon-tag"></i>{{ tag[0] }}</a>
+    {% endfor %}
+  </div>
+{% for tag in site.tags %}
+<div class="category">
+        <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
+        {% for post in tag[1] %}
+        <article class="article">
+            <div class="con">
+                <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+                <p class="date"><span>{{ post.date | date: "（%Y年%m月%d日）" }}</span></p>
+            </div>
+        </article>
+        {% endfor %}
+      </div>
+    {% endfor %}
+</div>
+
+       

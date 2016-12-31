@@ -4,6 +4,7 @@ require 'rake'
 require 'yaml'
 require 'fileutils'
 require 'rbconfig'
+require 'jekyll-paginate'
 
 # == Configuration =============================================================
 
