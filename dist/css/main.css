@@ -1003,6 +1003,10 @@ a:hover, a:link, a:visited, a:active {
     font-size: 16px;
   }
 }
+#wrapper #container #main article.article .con h1 a {
+  cursor: pointer;
+  color: #020202;
+}
 #wrapper #container #main article.article .con .date {
   font-size: 12px;
   line-height: 16px;

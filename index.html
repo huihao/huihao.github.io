@@ -12,7 +12,7 @@ layout: default
                 </div>
             </div>
             <div class="con">
-                <h1>{{ post.title }}</h1>
+                <h1><a href="{{ site.baseurl}}{{ post.url }}">{{ post.title }}</a></h1>
                 <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
                 <div class="tip">
                     {{ post.excerpt | strip_html }}
