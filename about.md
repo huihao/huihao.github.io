@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-伍辉豪
+Kimi
 
 前端工程师
 
