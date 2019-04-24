@@ -56,7 +56,7 @@ Promise 构造器是一个内部对象企且是全局对象属性Promise的初�
 
  #### Promise.prototype.then ( onFulfilled, onRejected )
 
- 
+---未完成 
 
 
 

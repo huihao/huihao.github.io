@@ -20,4 +20,4 @@ http://www.ecma-international.org/ecma-262/8.0/#sec-ordinary-and-exotic-objects-
 
 #### 构造方式继承
 
-
+-- 未完成
