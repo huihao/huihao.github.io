@@ -12,7 +12,7 @@ title:  "2017 Happy New Year"
 
 害怕的是自己成长的脚步赶不上父母老去的速度，不能相伴身旁只能付出更多辛苦在工作上，新的一年没有希望也要创造希望，新年快乐。
 
-![顽固](http://odbvfd8rb.bkt.clouddn.com/c6a43f4ff5fa2f2fa951009f3f6f89748bcc1ff1.jpg)
+![顽固](//whhbio.oss-cn-beijing.aliyuncs.com/blog/c6a43f4ff5fa2f2fa951009f3f6f89748bcc1ff1.jpg)
 
 
 

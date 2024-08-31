@@ -10,11 +10,11 @@ tags: [microsoft, javascript]
 
 安装插件
 
-![](http://odbvfd8rb.bkt.clouddn.com/install.gif)
+![](//whhbio.oss-cn-beijing.aliyuncs.com/blog/install.gif)
 
 创建配置文件
 
-![](http://odbvfd8rb.bkt.clouddn.com/config.gif)
+![](//whhbio.oss-cn-beijing.aliyuncs.com/blog/config.gif)
 
 插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
 
@@ -47,7 +47,7 @@ tags: [microsoft, javascript]
 
 启动调试前，需要利用命令行，打开Chrome的远程调试功能
 
-![](http://odbvfd8rb.bkt.clouddn.com/iterm.gif)
+![](//whhbio.oss-cn-beijing.aliyuncs.com/blog/iterm.gif)
 
 __Windows__
 
@@ -66,5 +66,5 @@ __Linux__
 
 启动调试
 
-![](http://odbvfd8rb.bkt.clouddn.com/attach.gif)
+![](//whhbio.oss-cn-beijing.aliyuncs.com/blog/attach.gif)
 
