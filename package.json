@@ -2,32 +2,40 @@
   "name": "huihao.github.io",
   "version": "1.0.0",
   "description": "my blog",
-  "main": "gulpfile.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm-run-all build:css build:img build:js",
+    "build:css": "node scripts/build-css.mjs",
+    "build:css:min": "node scripts/build-css.mjs --minify",
+    "build:img": "node scripts/build-img.mjs",
+    "build:js": "node scripts/build-js.mjs",
+    "clean": "node scripts/clean.mjs",
+    "watch:css": "node scripts/build-css.mjs --watch",
+    "dev": "npm-run-all --parallel watch:css dev:serve",
+    "dev:serve": "browser-sync start --server --files \"dist/**/*, *.html, _includes/**/*, _layouts/**/*\" --port 5050 --no-open --ignore \"node_modules/**\" --ignore \".git/**\"",
+    "site": "bundle exec jekyll serve --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/huihao/huihao.github.io.git"
-  },
-  "author": "",
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ],
+  "keywords": [
+    "blog"
+  ],
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/huihao/huihao.github.io/issues"
-  },
-  "homepage": "https://github.com/huihao/huihao.github.io#readme",
   "devDependencies": {
-    "del": "^2.2.2",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-compass": "^2.1.0",
-    "gulp-connect": "^5.0.0",
-    "gulp-imagemin": "^3.1.1",
-    "gulp-jshint": "^2.0.4",
-    "gulp-ruby-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.9.1",
-    "jshint": "^2.9.4"
-  },
-  "dependencies": {
-    "github-markdown-css": "^2.4.1"
+    "autoprefixer": "^10.6.2",
+    "breakpoint-sass": "^2.7.1",
+    "browser-sync": "^3.0.4",
+    "cssnano": "^9.9.0",
+    "npm-run-all": "^4.1.5",
+    "normalize-scss": "^6.0.0",
+    "postcss": "^8.5.32",
+    "sass": "^1.89.2",
+    "sharp": "^0.34.3",
+    "susy": "^2.2.14"
   }
 }

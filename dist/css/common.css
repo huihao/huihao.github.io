@@ -17,7 +17,7 @@ a:hover, a:link, a:visited, a:active {
 .base-link:hover {
   background-color: #74D6F5;
   color: #fff;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .tag-icon-default {
@@ -35,3 +35,4 @@ a:hover, a:link, a:visited, a:active {
 .tag-icon-html {
   background: transparent url("../img/tag-icon-css.png") left top no-repeat;
 }
+/*# sourceMappingURL=common.css.map */

@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAQA,CAAC;EACE,eAAe,EAAE,IAAI;;;AAExB,oCAAiC;EAChC,KAAK,EAAC,OAAO;;;AAEd,UAAU;EACT,MAAM,EAAE,iBAAiB;EACtB,aAAa,EAAE,GAAG;EAClB,MAAM,EAAC,OAAO;;AACd,eAAI;EACH,MAAM,EAAC,OAAO;;AAEf,gBAAO;EACN,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAC,IAAI;EACV,UAAU,EAAC,GAAG;;;AAInB,iBAAiB;EACd,UAAU,EAAC,oEAAoE;;;AAElF,oBAAoB;EACjB,UAAU,EAAC,oEAAoE;;;AAElF,aAAa;EACV,UAAU,EAAC,6DAA6D;;;AAE3E,cAAc;EACX,UAAU,EAAC,6DAA6D",
-"sources": ["../../src/sass/common.scss"],
-"names": [],
-"file": "common.css"
-}
+{"version":3,"sources":["../../src/sass/common.scss"],"names":[],"mappings":"AAQA;EACG,qBAAA;AAPH;;AASA;EACC,cAAA;AAND;;AAQA;EACC,yBAAA;EACG,kBAAA;EACA,eAAA;AALJ;AAMI;EACC,eAAA;AAJL;AAMI;EACC,yBAAA;EACA,WAAA;EACA,gBAAA;AAJL;;AAQA;EACG,gFAAA;AALH;;AAOA;EACG,gFAAA;AAJH;;AAMA;EACG,yEAAA;AAHH;;AAKA;EACG,yEAAA;AAFH","file":"common.css","sourcesContent":["@mixin clearBoth(){\n\tcontent:\"\";\n\tclear:both;\n\tdisplay:block;\n\twidth: 0;\n\theight: 0;\n\tvisibility:hidden;\n}\na{\n   text-decoration: none;\n}\na:hover,a:link,a:visited,a:active{\n\tcolor:#20C6F2;\n}\n.base-link{\n\tborder: 1px solid #74D6F5;\n   \tborder-radius: 6px;\n   \tcursor:default;\n   \tspan{\n   \t\tcursor:default;\n   \t}\n   \t&:hover{\n   \t\tbackground-color: #74D6F5;\n   \t\tcolor:#fff;\n   \t\ttransition:.5s;\n   \t}\n}\n\n.tag-icon-default{\n   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;\n}\n.tag-icon-javascript{\n   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;\n}\n.tag-icon-css{\n   background:transparent url('../img/tag-icon-css.png') left top no-repeat;\n}\n.tag-icon-html{\n   background:transparent url('../img/tag-icon-css.png') left top no-repeat;\n}"]}

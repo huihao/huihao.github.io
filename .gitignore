@@ -1,7 +1,9 @@
 _site
+.jekyll-cache
+.jekyll-metadata
 .sass-cache
 _images
 .idea/
-.gitignore
+.vscode/
+.DS_Store
 node_modules/
-bower_components/
