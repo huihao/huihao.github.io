@@ -1,16 +1,18 @@
 # Site settings
 title: Kimi
 email: wuhuihao@qq.com
-description: > # this means to ignore newlines until "baseurl:"
-  huihao's blog
-  java
-  html
-  css
-  html
+description: huihao 的个人博客，记录 JavaScript、HTML 与 CSS 的实践笔记
+lang: zh-CN
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "//huihao.github.io" # the base hostname & protocol for your site
+url: "https://bio.wuhh.cc" # the base hostname & protocol for your site
 twitter_username: wuhuihao
 github_username:  huihao
+
+# 作者信息（jekyll-feed 会写入 Atom feed 的 <author>）
+author:
+  name: Kimi
+  email: wuhuihao@qq.com
+  uri: https://bio.wuhh.cc
 
 # Build settings
 markdown: kramdown                                                           
@@ -22,7 +24,33 @@ kramdown:
 permalink: /:year/:month/:day/:title.html
 paginate: 5
 paginate_path: "article/:num"
-gems: [jekyll-paginate]
+
+# 第三方插件（均为 GitHub Pages 官方白名单插件）
+#   jekyll-feed     生成 Atom feed（/atom.xml）
+#   jekyll-paginate 分页
+#   jekyll-sitemap  生成 /sitemap.xml
+plugins: [jekyll-feed, jekyll-paginate, jekyll-sitemap]
+
+# Atom feed（由 jekyll-feed 生成）；RSS 2.0 的 /feed.xml 见根目录 feed.xml
+feed:
+  path: /atom.xml
+  posts_limit: 20
+
+# 不发布这些文件（CNAME、node_modules 等是 GitHub Pages 的默认值，保留）
+exclude:
+  - CNAME
+  - node_modules
+  - vendor
+  - .jekyll-cache
+  - .sass-cache
+  - src
+  - scripts
+  - package.json
+  - package-lock.json
+  - README.MD
+  - Rakefile
+  - .stylelintrc.json
+  - .gitignore
 
 # Navigation (2nd level links supported)
 nav:

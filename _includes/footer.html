@@ -1,4 +1,8 @@
 <footer>
     <p class="copyright">© {{ site.time | date: "%Y" }} {{ site.title }} · {{ site.github_username }}</p>
-    <p class="subtitle">huihao.github.io</p>
+    <p class="subtitle">
+        <a href="{{ "/feed.xml" | absolute_url }}">RSS</a> ·
+        <a href="{{ "/atom.xml" | absolute_url }}">Atom</a> ·
+        {{ site.url | remove: "https://" }}
+    </p>
 </footer>

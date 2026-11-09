@@ -16,7 +16,7 @@ tags: [vue, test]
  
  mocha 是一个运行在nodejs和浏览器上的测试框架，它提供了众多特性可以用于进行单元测试。
  
- mocha-webpack 是 mocha 测试的管理工具，集成了webpack 预编译的功能。
+ mocha-webpack 是 mocha 测试的管理工具，集成了webpack 预编译的功能。
  
 ### jsdom 
  

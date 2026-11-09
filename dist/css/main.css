@@ -1380,6 +1380,17 @@ a:active {
   margin-top: var(--space-1);
   color: var(--label-tertiary);
 }
+#wrapper footer .subtitle a {
+  color: var(--accent-text);
+  font-weight: 500;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+#wrapper footer .subtitle a:hover, #wrapper footer .subtitle a:focus-visible {
+  color: var(--accent-text-hover);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
 
 @media (prefers-color-scheme: dark) {
   #wrapper footer {

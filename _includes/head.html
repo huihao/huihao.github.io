@@ -7,12 +7,13 @@
     <meta name="baidu-site-verification" content="jZBFJtnZR3" />
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  	<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
-    <link rel="icon" href="{{ "/favicon.ico" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/dist/css/main.css" | prepend: site.baseurl | prepend: site.url}}">
-    <link rel="stylesheet" href="{{ "/dist/css/markdown.css" | prepend: site.baseurl | prepend: site.url}}">
-    <script src="{{ "/dist/js/site.js" | prepend: site.baseurl | prepend: site.url }}" defer></script>
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}" />
+    {% feed_meta %}
+    <link rel="icon" href="{{ "/favicon.ico" | absolute_url }}">
+    <link rel="stylesheet" href="{{ "/dist/css/main.css" | absolute_url }}">
+    <link rel="stylesheet" href="{{ "/dist/css/markdown.css" | absolute_url }}">
+    <script src="{{ "/dist/js/site.js" | absolute_url }}" defer></script>
     <script>
 	var _hmt = _hmt || [];
 	(function() {
