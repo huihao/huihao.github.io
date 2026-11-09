@@ -1,0 +1,114 @@
+/**
+ * The sidebar, laid out like an inset grouped list.
+ */
+
+#container {
+  aside {
+    .aside-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: auto;
+      margin-bottom: var(--space-2);
+      padding-inline: var(--space-1);
+      line-height: 1.4;
+      font-size: var(--text-footnote);
+      font-weight: 600;
+      color: var(--label-secondary);
+
+      i {
+        position: static;
+        top: 0;
+        left: 0;
+        min-width: 26px;
+        min-height: 26px;
+        padding: 4px;
+        border-radius: 7px;
+        background-color: var(--accent-tint);
+        background-origin: content-box;
+      }
+
+      span {
+        position: static;
+        left: auto;
+        top: auto;
+
+        a {
+          color: inherit;
+        }
+      }
+    }
+
+    section {
+      margin-bottom: var(--space-6);
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-medium);
+      background: var(--background-card);
+      box-shadow: var(--shadow-sm);
+      list-style: none;
+      overflow: hidden;
+
+      li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        min-height: 44px;
+        padding: var(--space-2) var(--space-4);
+        height: auto;
+        line-height: 1.4;
+        font-size: var(--text-subhead);
+        color: var(--label);
+
+        & + li::before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 52px;
+          height: 1px;
+          content: "";
+          background: var(--separator);
+        }
+
+        i {
+          flex: none;
+          min-width: 30px;
+          min-height: 30px;
+          padding: 5px;
+          border-radius: 8px;
+          background-color: var(--fill);
+          background-origin: content-box;
+          opacity: 0.85;
+        }
+
+        span {
+          flex: 1 1 auto;
+          min-width: 0;
+
+          a {
+            color: inherit;
+            transition: color var(--duration-fast) var(--ease-standard);
+
+            &:hover {
+              color: var(--accent);
+            }
+          }
+        }
+
+        &::after {
+          flex: none;
+          content: "\203A";
+          color: var(--label-tertiary);
+          font-size: var(--text-title-3);
+          line-height: 1;
+        }
+      }
+    }
+  }
+}

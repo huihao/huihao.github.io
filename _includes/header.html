@@ -1,5 +1,8 @@
  <header>
     <div class="top-line">
+        <div class="bar">
+            <a class="brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+        </div>
     </div>
     <div class="con">
         <div class="info">
@@ -19,8 +22,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="/">首页</a></li>
-                <li><a href="/about">关于</a></li>
+                <li><a href="{{ site.baseurl }}/"{% if page.url == '/' %} class="active"{% endif %}>首页</a></li>
+                <li><a href="{{ site.baseurl }}/about"{% if page.url == '/about/' or page.url == '/about' %} class="active"{% endif %}>关于</a></li>
             </ul>
         </nav>
     </div>

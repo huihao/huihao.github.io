@@ -7,3 +7,4 @@ _images
 .vscode/
 .DS_Store
 node_modules/
+_preview/

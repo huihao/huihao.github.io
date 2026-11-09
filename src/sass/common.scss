@@ -1,40 +1,60 @@
-@mixin clearBoth(){
-	content:"";
-	clear:both;
-	display:block;
-	width: 0;
-	height: 0;
-	visibility:hidden;
-}
-a{
-   text-decoration: none;
-}
-a:hover,a:link,a:visited,a:active{
-	color:#20C6F2;
-}
-.base-link{
-	border: 1px solid #74D6F5;
-   	border-radius: 6px;
-   	cursor:default;
-   	span{
-   		cursor:default;
-   	}
-   	&:hover{
-   		background-color: #74D6F5;
-   		color:#fff;
-   		transition:.5s;
-   	}
+/**
+ * Shared primitives: links, the pill button and the category artwork.
+ */
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
 }
 
-.tag-icon-default{
-   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;
+a:hover,
+a:link,
+a:visited,
+a:active {
+  color: var(--accent);
 }
-.tag-icon-javascript{
-   background:transparent url('../img/tag-icon-javascript.png') left top no-repeat;
+
+/* The small pill used by the "read more" button and by the pagination. */
+.base-link {
+  display: inline-block;
+  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
 }
-.tag-icon-css{
-   background:transparent url('../img/tag-icon-css.png') left top no-repeat;
+
+/* Category artwork. The badge falls back to the JavaScript mark, so a post
+   without a known category still gets a badge. */
+.box {
+  background-color: var(--badge-surface);
+  background-image: url("../img/tag-icon-javascript.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
-.tag-icon-html{
-   background:transparent url('../img/tag-icon-css.png') left top no-repeat;
+
+.tag-icon-default {
+  background-image: url("../img/tag-icon-javascript.png");
+}
+
+.tag-icon-javascript {
+  background-image: url("../img/tag-icon-javascript.png");
+}
+
+.tag-icon-css {
+  background-image: url("../img/tag-icon-css.png");
+}
+
+.tag-icon-html {
+  background-image: url("../img/tag-icon-html.png");
+}
+
+.tag-icon-skill {
+  background-image: url("../img/tag-icon-css2.png");
+}
+
+.tag-icon-ide {
+  background-image: url("../img/tag-icon-html2.png");
 }

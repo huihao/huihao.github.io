@@ -1,0 +1,331 @@
+/**
+ * The header: a translucent bar on top and the profile card underneath.
+ */
+
+#wrapper {
+  header {
+    position: relative;
+    z-index: 10;
+
+    /* The ambient washes are allowed to bleed past the edge of the header,
+       but they must never widen the page. `clip` keeps the sticky bar
+       working, unlike `hidden`. */
+    overflow-x: clip;
+
+    /* The thin bar on top. It floats above the page with the material
+       treatment iOS gives its bars. */
+    .top-line {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      height: 52px;
+      border-bottom: 1px solid var(--separator);
+      background: var(--material);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+
+      .bar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: var(--container);
+        height: 100%;
+        margin-inline: auto;
+        padding-inline: var(--space-5);
+      }
+
+      .brand {
+        font-family: var(--font-display);
+        font-size: var(--text-subhead);
+        font-weight: 600;
+        letter-spacing: var(--tracking-tight);
+        color: var(--label);
+      }
+    }
+
+    .con {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-6);
+      align-items: end;
+      width: 100%;
+      max-width: var(--container);
+      margin-inline: auto;
+      padding: var(--space-6) var(--space-5) var(--space-5);
+    }
+
+    /* Profile block */
+    .info {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+
+      .avator {
+        position: relative;
+        flex: none;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: var(--background-card);
+        background-image: url("../img/avator.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        box-shadow:
+          0 0 0 4px var(--background),
+          0 0 0 6px var(--accent),
+          var(--shadow-md);
+        transition: transform var(--duration) var(--ease-spring);
+
+        &:hover {
+          transform: scale(1.04);
+        }
+      }
+
+      .basic {
+        min-width: 0;
+        padding-top: var(--space-1);
+
+        .name {
+          font-family: var(--font-display);
+          font-size: var(--text-large-title);
+          font-weight: 700;
+          letter-spacing: var(--tracking-tightest);
+          line-height: 1.1;
+          color: var(--label);
+        }
+
+        .basic-line {
+          width: 72px;
+          height: 2px;
+          margin: var(--space-3) 0;
+          border-radius: var(--radius-pill);
+          background: linear-gradient(90deg, var(--accent) 0%, rgb(32 198 242 / 0%) 100%);
+        }
+
+        .position {
+          font-size: var(--text-headline);
+          font-weight: 500;
+          color: var(--label-secondary);
+        }
+
+        .icon-con {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--space-4);
+          margin-top: var(--space-3);
+
+          .icon {
+            margin: 0;
+            opacity: 0.75;
+            transition:
+              opacity var(--duration-fast) var(--ease-standard),
+              transform var(--duration) var(--ease-spring);
+          }
+
+          .icon:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+          }
+        }
+
+        .location {
+          display: flex;
+          align-items: center;
+          margin-top: var(--space-3);
+          font-size: var(--text-footnote);
+          color: var(--label-tertiary);
+
+          .icon {
+            position: static;
+            margin-right: var(--space-2);
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+
+    /* Navigation, as a segmented control. */
+    nav {
+      padding-bottom: var(--space-2);
+
+      ul {
+        position: static;
+        display: inline-flex;
+        gap: 2px;
+        padding: 3px;
+        border-radius: var(--radius-medium);
+        background: var(--fill);
+        list-style: none;
+
+        li {
+          float: none;
+          margin: 0;
+        }
+
+        a {
+          display: block;
+          padding: 6px 18px;
+          border-radius: 9px;
+          font-size: var(--text-subhead);
+          font-weight: 500;
+          color: var(--label-secondary);
+          transition:
+            color var(--duration-fast) var(--ease-standard),
+            background-color var(--duration-fast) var(--ease-standard),
+            box-shadow var(--duration-fast) var(--ease-standard);
+
+          &:hover {
+            color: var(--label);
+            background: var(--fill-tertiary);
+          }
+
+          &.active {
+            color: var(--label);
+            background: var(--background-card);
+            box-shadow: var(--shadow-sm);
+          }
+
+          &:active {
+            transform: scale(0.97);
+          }
+        }
+      }
+    }
+
+    /* The decorative circles. They are blurred into soft ambient washes,
+       the way the wallpaper colours bleed behind a native window. */
+    .circle-1,
+    .circle-2,
+    .circle-3,
+    .circle-4 {
+      position: absolute;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .circle-1 {
+      top: 96px;
+      left: 208px;
+      width: 124px;
+      height: 124px;
+      background-image: url("../img/Oval1.png");
+      filter: blur(28px);
+      opacity: 0.4;
+    }
+
+    .circle-2 {
+      top: 56px;
+      left: 252px;
+      width: 158px;
+      height: 158px;
+      background-image: url("../img/Oval2.png");
+      filter: blur(34px);
+      opacity: 0.35;
+    }
+
+    .circle-3 {
+      top: -46px;
+      left: 346px;
+      width: 272px;
+      height: 272px;
+      background-image: url("../img/Oval4.png");
+      filter: blur(46px);
+      opacity: 0.28;
+    }
+
+    .circle-4 {
+      top: 55px;
+      left: 493px;
+      width: 210px;
+      height: 210px;
+      background-image: url("../img/Oval3.png");
+      filter: blur(40px);
+      opacity: 0.3;
+    }
+  }
+}
+
+@media (width <= 760px) {
+  #wrapper {
+    header {
+      .con {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-4);
+        align-items: start;
+        padding-block: var(--space-5) var(--space-4);
+      }
+
+      .info {
+        gap: var(--space-4);
+
+        .avator {
+          width: 60px;
+          height: 60px;
+          box-shadow:
+            0 0 0 3px var(--background),
+            0 0 0 5px var(--accent),
+            var(--shadow-sm);
+        }
+
+        .basic {
+          .name {
+            font-size: var(--text-title-1);
+          }
+
+          .position {
+            font-size: var(--text-subhead);
+          }
+
+          .basic-line {
+            margin: var(--space-2) 0;
+          }
+        }
+      }
+
+      nav {
+        justify-self: start;
+        padding-bottom: 0;
+
+        ul {
+          a {
+            padding: 5px 16px;
+          }
+        }
+      }
+
+      .circle-1,
+      .circle-2,
+      .circle-3,
+      .circle-4 {
+        opacity: 0.2;
+      }
+
+      .circle-1 {
+        top: 12px;
+        left: -40px;
+      }
+
+      .circle-2 {
+        top: -20px;
+        left: 10px;
+      }
+
+      .circle-3 {
+        top: -110px;
+        left: 90px;
+      }
+
+      .circle-4 {
+        top: -50px;
+        right: -30px;
+        left: auto;
+      }
+    }
+  }
+}

@@ -1,38 +1,60 @@
+/**
+ * Shared primitives: links, the pill button and the category artwork.
+ */
 a {
+  color: var(--accent);
+  -webkit-text-decoration: none;
   text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
 }
 
-a:hover, a:link, a:visited, a:active {
-  color: #20C6F2;
+a:hover,
+a:link,
+a:visited,
+a:active {
+  color: var(--accent);
 }
 
+/* The small pill used by the "read more" button and by the pagination. */
 .base-link {
-  border: 1px solid #74D6F5;
-  border-radius: 6px;
-  cursor: default;
+  display: inline-block;
+  cursor: pointer;
 }
 .base-link span {
-  cursor: default;
+  cursor: pointer;
 }
-.base-link:hover {
-  background-color: #74D6F5;
-  color: #fff;
-  transition: 0.5s;
+
+/* Category artwork. The badge falls back to the JavaScript mark, so a post
+   without a known category still gets a badge. */
+.box {
+  background-color: var(--badge-surface);
+  background-image: url("../img/tag-icon-javascript.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .tag-icon-default {
-  background: transparent url("../img/tag-icon-javascript.png") left top no-repeat;
+  background-image: url("../img/tag-icon-javascript.png");
 }
 
 .tag-icon-javascript {
-  background: transparent url("../img/tag-icon-javascript.png") left top no-repeat;
+  background-image: url("../img/tag-icon-javascript.png");
 }
 
 .tag-icon-css {
-  background: transparent url("../img/tag-icon-css.png") left top no-repeat;
+  background-image: url("../img/tag-icon-css.png");
 }
 
 .tag-icon-html {
-  background: transparent url("../img/tag-icon-css.png") left top no-repeat;
+  background-image: url("../img/tag-icon-html.png");
+}
+
+.tag-icon-skill {
+  background-image: url("../img/tag-icon-css2.png");
+}
+
+.tag-icon-ide {
+  background-image: url("../img/tag-icon-html2.png");
 }
 /*# sourceMappingURL=common.css.map */

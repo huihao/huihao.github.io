@@ -1,0 +1,59 @@
+/**
+ * Base typography and page frame.
+ */
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-text);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--label);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+  transition:
+    background-color var(--duration) var(--ease-standard),
+    color var(--duration) var(--ease-standard);
+}
+
+#wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The soft colour wash behind the page, the way a native app tints the
+   top of a grouped list. */
+#wrapper::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 520px;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(60% 100% at 12% 0%, var(--accent-tint) 0%, transparent 70%),
+    radial-gradient(50% 90% at 92% 4%, rgb(88 86 214 / 8%) 0%, transparent 72%);
+}
+
+@media (prefers-color-scheme: dark) {
+  #wrapper::before {
+    background:
+      radial-gradient(60% 100% at 12% 0%, rgb(78 212 255 / 12%) 0%, transparent 70%),
+      radial-gradient(50% 90% at 92% 4%, rgb(94 92 230 / 16%) 0%, transparent 72%);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.2;
+}

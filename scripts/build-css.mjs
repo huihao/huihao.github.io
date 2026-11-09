@@ -1,9 +1,10 @@
 /**
  * Compile the Sass sources in src/sass into dist/css.
  *
- * Replaces the old gulp + compass + bower setup. The Sass library partials
- * (susy, breakpoint-sass, normalize-scss) are now regular npm dependencies and
- * are resolved through `loadPaths` instead of bower_components.
+ * Replaces the old gulp + compass + bower setup. The grid is plain CSS Grid
+ * and the breakpoints are plain media queries, so no Sass library is pulled in
+ * any more — the only thing PostCSS adds on top of Sass is the browser
+ * support layer (autoprefixer + postcss-preset-env).
  *
  *   node scripts/build-css.mjs             # expanded output + autoprefixer
  *   node scripts/build-css.mjs --minify    # additionally run cssnano
@@ -16,29 +17,22 @@ import { fileURLToPath } from 'node:url';
 import * as sass from 'sass';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
+import postcssPresetEnv from 'postcss-preset-env';
 import cssnano from 'cssnano';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src', 'sass');
 const outDir = path.join(root, 'dist', 'css');
 
-const loadPaths = [
-  path.join(root, 'node_modules', 'susy', 'sass'),
-  path.join(root, 'node_modules', 'breakpoint-sass', 'stylesheets'),
-  path.join(root, 'node_modules', 'normalize-scss', 'sass'),
-];
-
 const minify = process.argv.includes('--minify');
 const watch = process.argv.includes('--watch');
 
 const sassOptions = {
-  loadPaths,
   style: 'expanded',
   sourceMap: true,
   sourceMapIncludeSources: true,
-  // susy 2 and breakpoint-scss 2 are not maintained and still use @import,
-  // slash-as-division and the old if() function. They work fine, they are
-  // just noisy.
+  // The sources use the Sass module system, but a few remaining @imports in
+  // third party partials would still warn.
   silenceDeprecations: ['import', 'slash-div', 'global-builtin', 'color-functions', 'if-function'],
 };
 
@@ -63,7 +57,29 @@ async function buildOne(file) {
     return path.relative(path.dirname(from), filePath).split(path.sep).join('/');
   });
 
-  const plugins = [autoprefixer()];
+  const plugins = [
+    // The modern CSS support layer. Autoprefixer runs on its own below and the
+    // custom properties are deliberately left alone: they carry the runtime
+    // light/dark theming and must not be inlined.
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        // Autoprefixer runs on its own below.
+        autoprefixer: false,
+        // The custom properties carry the runtime light/dark theming, they
+        // must stay in the output as written.
+        'custom-properties': false,
+        // `prefers-color-scheme` is used as is.
+        'custom-media-queries': false,
+        // Sass already compiles the nesting.
+        'nesting-rules': false,
+        // The site uses media queries as they are, the light/dark pair is
+        // handled by the custom properties.
+        'light-dark-function': false,
+      },
+    }),
+    autoprefixer(),
+  ];
   if (minify) plugins.push(cssnano({ preset: 'default' }));
 
   const result = await postcss(plugins).process(compiled.css, {

@@ -2,6 +2,10 @@
 
 My blog — a [Jekyll](https://jekyllrb.com/) site published through GitHub Pages.
 
+The look follows the Apple Human Interface Guidelines: the system font stack,
+the iOS system colours in both a light and a dark appearance, translucent
+materials, generous corner radii and the spring easing that native apps use.
+
 ## Layout
 
 | Path | What it is |
@@ -9,7 +13,7 @@ My blog — a [Jekyll](https://jekyllrb.com/) site published through GitHub Page
 | `_posts/` | the blog posts |
 | `_layouts/`, `_includes/` | Jekyll templates |
 | `index.html`, `article/`, `about.md` | the pages |
-| `src/sass/` | Sass sources |
+| `src/sass/` | Sass sources — `_tokens.scss` holds the design tokens |
 | `src/img/` | the images the site uses |
 | `dist/css/`, `dist/img/` | build output, committed because GitHub Pages serves the site as plain static files |
 
@@ -22,23 +26,42 @@ npm install     # install the toolchain
 npm run build   # compile src/ -> dist/
 npm run dev     # rebuild on change + local server on http://localhost:5050
 npm run clean   # remove the generated files in dist/
+npm run lint:css   # stylelint over the Sass sources
 ```
 
 | Script | What it does |
 | --- | --- |
-| `build:css` | compiles `src/sass/*.scss` into `dist/css/` and runs autoprefixer over it |
-| `build:css:min` | the same, plus cssnano |
-| `build:img` | copies `src/img/` into `dist/img/`, compressing whatever it can shrink |
+| `build:css` | compiles `src/sass/*.scss` into `dist/css/`, then postcss-preset-env + autoprefixer + cssnano |
+| `build:css:min` | the same, with cssnano forced on |
+| `build:img` | copies `src/img/` into `dist/img/`, re-encoding whatever it can shrink |
 | `build:js` | copies `src/js/` into `dist/js/` |
 | `watch:css` | rebuilds the css whenever `src/sass/` changes |
 | `dev:serve` | browser-sync static server on port 5050 |
+| `lint:css` | stylelint with `stylelint-config-standard-scss` |
 | `site` | `bundle exec jekyll serve --watch`, the Jekyll site itself (needs Ruby) |
 
-The Sass partials — susy, breakpoint-sass and normalize-scss — are npm
-dependencies now, so `bower_components/` is no longer needed. The posts are
-still written with the `Rakefile` helpers (`rake post["Title"]`), that part has
-not changed.
+The posts are still written with the `Rakefile` helpers (`rake post["Title"]`),
+that part has not changed.
 
 `npm run build` has to be run before pushing: `dist/` is committed, the site
 loads `/dist/css/main.css` and `/dist/css/markdown.css` straight from the
 repository.
+
+## Design system
+
+Everything visual is driven by the custom properties in
+`src/sass/_tokens.scss`:
+
+- `--font-text` / `--font-display` / `--font-mono` — the system stack, so
+  macOS and iOS render SF Pro and every other platform its closest match.
+- `--label`, `--label-secondary`, `--label-tertiary` — the text colours. They
+  are opaque enough to clear WCAG AA (4.5:1) on both backgrounds.
+- `--background*`, `--fill*`, `--separator`, `--border` — the surfaces.
+- `--material` — the translucent layer behind the sticky bar.
+- `--accent` — the cyan the site has always used, tuned per appearance.
+- `--space-*`, `--radius-*`, `--duration-*`, `--ease-*` — the 4pt spacing
+  grid, the iOS corner radii and the motion.
+
+The dark appearance is a single `prefers-color-scheme` media query away; no
+class is toggled in the markup. Icons are drawn from a monochrome sprite and
+inverted automatically when the page is dark.

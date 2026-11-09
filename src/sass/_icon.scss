@@ -1,7 +1,16 @@
 .icon {
-    background-image: url(../img/icon.png);
+    background-image: url("../img/icon.png");
     background-repeat: no-repeat;
-    display: inline-block;  
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* The sprite is drawn in black. In the dark appearance every glyph is
+   flattened to white, the way a monochrome symbol behaves in the system. */
+@media (prefers-color-scheme: dark) {
+    .icon {
+        filter: brightness(0) invert(1);
+    }
 }
 
 .icon-arrow {

@@ -1,0 +1,176 @@
+/**
+ * Design tokens.
+ *
+ * The palette follows the Apple Human Interface Guidelines system colours
+ * (iOS / macOS) so the site reads like a native app: the same semantic
+ * background, label, fill and separator colours, in both light and dark.
+ *
+ * Everything is exposed as a custom property, so the dark appearance is a
+ * single media query away and the runtime can still override a token.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* Typography — the system stack, so macOS / iOS get SF Pro and every
+     other platform gets the closest equivalent. */
+  --font-text:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-display:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Cascadia Code", "Roboto Mono",
+    "Courier New", monospace;
+
+  /* Type scale — the sizes Apple uses for large titles down to captions. */
+  --text-large-title: 2.125rem; /* 34px */
+  --text-title-1: 1.75rem; /* 28px */
+  --text-title-2: 1.375rem; /* 22px */
+  --text-title-3: 1.25rem; /* 20px */
+  --text-headline: 1.0625rem; /* 17px */
+  --text-body: 1rem; /* 16px */
+  --text-callout: 1rem;
+  --text-subhead: 0.9375rem; /* 15px */
+  --text-footnote: 0.8125rem; /* 13px */
+  --text-caption: 0.75rem; /* 12px */
+
+  --tracking-tight: -0.022em;
+  --tracking-tightest: -0.03em;
+  --tracking-wide: 0.04em;
+
+  /* Spacing — a 4pt grid, the way Apple lays things out. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Corner radii — iOS keeps them generously round. */
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-xlarge: 22px;
+  --radius-continuous: 28px;
+  --radius-pill: 999px;
+
+  /* Motion — Apple's standard easing plus the springy one used for
+     interactive surfaces. */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 0.15s;
+  --duration: 0.3s;
+  --duration-slow: 0.5s;
+
+  /* Layout */
+  --container: 1040px;
+  --gutter: 40px;
+  --sidebar-width: 280px;
+
+  /* Accent — the cyan the site has always used, tuned for both appearances. */
+  --accent: #20c6f2;
+  --accent-strong: #0aa9d8;
+  --accent-tint: rgb(32 198 242 / 12%);
+  --accent-tint-hover: rgb(32 198 242 / 20%);
+
+  /* Light appearance */
+  --blue: #007aff;
+  --indigo: #5856d6;
+  --green: #34c759;
+  --orange: #ff9500;
+  --pink: #ff2d55;
+  --purple: #af52de;
+  --red: #ff3b30;
+  --teal: #5ac8fa;
+  --yellow: #fc0;
+  --gray: #8e8e93;
+
+  --label: #000;
+  /* Kept opaque enough to clear WCAG AA (4.5:1) against white and
+     against the grouped background. */
+  --label-secondary: rgb(60 60 67 / 80%);
+  --label-tertiary: rgb(60 60 67 / 72%);
+  --label-quaternary: rgb(60 60 67 / 18%);
+
+  --background: #fff;
+  --background-elevated: #fff;
+  --background-secondary: #f2f2f7;
+  --background-grouped: #f2f2f7;
+  --background-card: #fff;
+
+  --fill: rgb(120 120 128 / 20%);
+  --fill-secondary: rgb(120 120 128 / 16%);
+  --fill-tertiary: rgb(118 118 128 / 12%);
+
+  --separator: rgb(60 60 67 / 29%);
+  --separator-opaque: #c6c6c8;
+  --border: rgb(60 60 67 / 16%);
+
+  /* The tile behind the category artwork. It stays light in both
+     appearances, the way an app icon keeps its own colours. */
+  --badge-surface: #fff;
+
+  /* The translucent layer iOS uses for bars and sheets. */
+  --material: rgb(255 255 255 / 72%);
+  --material-thick: rgb(255 255 255 / 88%);
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 8px rgb(0 0 0 / 4%);
+  --shadow-md: 0 2px 6px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 7%);
+  --shadow-lg: 0 8px 32px rgb(0 0 0 / 12%);
+
+  --selection: rgb(32 198 242 / 24%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --blue: #0a84ff;
+    --indigo: #5e5ce6;
+    --green: #30d158;
+    --orange: #ff9f0a;
+    --pink: #ff375f;
+    --purple: #bf5af2;
+    --red: #ff453a;
+    --teal: #64d2ff;
+    --yellow: #ffd60a;
+    --gray: #8e8e93;
+
+    --label: #fff;
+    --label-secondary: rgb(235 235 245 / 70%);
+    --label-tertiary: rgb(235 235 245 / 58%);
+    --label-quaternary: rgb(235 235 245 / 18%);
+
+    --background: #000;
+    --background-elevated: #1c1c1e;
+    --background-secondary: #1c1c1e;
+    --background-grouped: #000;
+    --background-card: #1c1c1e;
+
+    --fill: rgb(120 120 128 / 36%);
+    --fill-secondary: rgb(120 120 128 / 32%);
+    --fill-tertiary: rgb(118 118 128 / 24%);
+
+    --separator: rgb(84 84 88 / 65%);
+    --separator-opaque: #38383a;
+    --border: rgb(84 84 88 / 40%);
+
+    --badge-surface: rgb(255 255 255 / 88%);
+
+    --material: rgb(28 28 30 / 72%);
+    --material-thick: rgb(28 28 30 / 88%);
+
+    --accent: #4ed4ff;
+    --accent-strong: #7ce0ff;
+    --accent-tint: rgb(78 212 255 / 16%);
+    --accent-tint-hover: rgb(78 212 255 / 26%);
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 8px rgb(0 0 0 / 24%);
+    --shadow-md: 0 2px 6px rgb(0 0 0 / 36%), 0 8px 24px rgb(0 0 0 / 40%);
+    --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
+
+    --selection: rgb(78 212 255 / 30%);
+  }
+}
