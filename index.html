@@ -7,23 +7,28 @@ layout: default
 {% for post in paginator.posts %}
 
         <article class="article">
-            <div class="diamond">
-                <div class="box tag-icon-default tag-icon-{{post.categories[0]}}">
-                </div>
-            </div>
-            <div class="con">
-                <h1><a href="{{ site.baseurl}}{{ post.url }}">{{ post.title }}</a></h1>
-                <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
-                <div class="tip">
-                    {{ post.excerpt | strip_html }}
-                </div>
+            <a class="cover" href="{{ site.baseurl }}{{ post.url }}" tabindex="-1" aria-hidden="true">
                 <div class="img">
-                    <img src="//whhbio.oss-cn-beijing.aliyuncs.com/blog/{{ post.title }}.jpg" alt="" width="570px" height="144px">
+                    <img src="//whhbio.oss-cn-beijing.aliyuncs.com/blog/{{ post.title }}.jpg" alt="" width="570" height="144" loading="lazy" decoding="async">
+                </div>
+            </a>
+            <div class="con">
+                <div class="meta">
+                    <div class="diamond">
+                        <div class="box tag-icon-default tag-icon-{{ post.categories[0] }}">
+                        </div>
+                    </div>
+                    <span class="cat">{{ post.categories[0] | default: "note" }}</span>
+                </div>
+                <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+                <div class="tip">
+                    {{ post.excerpt | strip_html | truncate: 160 }}
                 </div>
                 <div class="addition">
-                    <a class="more base-link" href="{{ site.baseurl}}{{ post.url }}">
-                        阅读全文
+                    <a class="more base-link" href="{{ site.baseurl }}{{ post.url }}">
+                        <span>阅读全文</span>
                     </a>
+                    <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
                 </div>
             </div>
         </article>
@@ -32,25 +37,23 @@ layout: default
 
 
     <div class="page">
-      {% if paginator.page == 1 %}
-           
-        {% else %}
+        {% if paginator.page > 1 %}
             {% if paginator.previous_page == 1 %}
-              <a class="prev base-link" href="{{ site.baseurl}}/">
-                <span>Prev</span>
+              <a class="prev base-link" href="{{ site.baseurl }}/">
+                <span>上一页</span>
               </a>
             {% else %}
-              <a class="prev base-link" href="{{ site.baseurl}}/article/{{ paginator.previous_page }}">
-                <span>Prev</span></a>
+              <a class="prev base-link" href="{{ site.baseurl }}/article/{{ paginator.previous_page }}">
+                <span>上一页</span>
               </a>
             {% endif %}
-                
         {% endif %}
-    	 {% if paginator.page == paginator.total_pages %}
-            
-        {% else %}
-        <a class="next base-link" href="{{ site.baseurl}}/article/{{ paginator.next_page }}">
-            <span>Next</span>
+
+        <span class="pager">第 {{ paginator.page }} / {{ paginator.total_pages }} 页</span>
+
+        {% if paginator.page < paginator.total_pages %}
+        <a class="next base-link" href="{{ site.baseurl }}/article/{{ paginator.next_page }}">
+            <span>下一页</span>
         </a>
         {% endif %}
     </div>

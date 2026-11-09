@@ -1,0 +1,132 @@
+/**
+ * The surfaces that the script drives: the reading progress, the copy
+ * buttons on the code blocks and the back to top button.
+ */
+
+/* The thin progress line under the top bar. */
+.reading-progress {
+  position: fixed;
+  z-index: 30;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+  transition: transform 0.1s linear;
+}
+
+/* A code block gets a small bar of its own, the way a native code view
+   does, with the language and the copy action in the corner. */
+.code-block {
+  position: relative;
+  margin: 0 0 var(--space-5);
+
+  pre {
+    margin-bottom: 0;
+  }
+
+  .copy-code {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 26px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--material-thick);
+    box-shadow: var(--shadow-sm);
+    color: var(--label-secondary);
+    font-family: var(--font-text);
+    font-size: var(--text-caption);
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-spring);
+
+    .copy-label {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .copy-action {
+      color: var(--accent-text);
+      font-weight: 500;
+    }
+
+    &:hover {
+      color: var(--label);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+  &:hover .copy-code,
+  .copy-code:focus-visible {
+    opacity: 1;
+  }
+
+  .copy-code.is-copied .copy-action {
+    color: var(--green);
+  }
+}
+
+/* Without a pointer there is no hover, so the action stays visible. */
+@media (hover: none) {
+  .code-block .copy-code {
+    opacity: 1;
+  }
+}
+
+/* The button that takes the reader back to the top of the article. */
+.back-to-top {
+  position: fixed;
+  z-index: 25;
+  right: max(var(--space-5), env(safe-area-inset-right));
+  bottom: max(var(--space-5), env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--material-thick);
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  box-shadow: var(--shadow-md);
+  color: var(--accent-text);
+  font-size: var(--text-headline);
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+  transition:
+    opacity var(--duration) var(--ease-standard),
+    transform var(--duration) var(--ease-spring);
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}

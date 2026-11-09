@@ -4,15 +4,24 @@ layout: article
 <div class="article-content">
     <div class="title">
         <div class="diamond">
-            <div class="box tag-icon-default">
+            <div class="box tag-icon-default tag-icon-{{ page.categories[0] }}">
             </div>
         </div>
-        <h1>
-            {{ page.title }}
-        </h1>
-        <!-- <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p> -->
+        <div class="heading">
+            <h1>{{ page.title }}</h1>
+            <div class="meta">
+                <span class="cat">{{ page.categories[0] | default: "note" }}</span>
+                <p class="date"><span>{{ page.date | date: "%Y年%m月%d日" }}</span></p>
+                <span class="read-time" data-read-time></span>
+            </div>
+        </div>
     </div>
     <div class="con markdown-body" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}">
          {{ content }}
+    </div>
+    <div class="article-footer">
+        <a class="back base-link" href="{{ site.baseurl }}/">
+            <span>返回文章列表</span>
+        </a>
     </div>
 </div>

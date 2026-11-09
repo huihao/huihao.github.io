@@ -41,6 +41,11 @@
         letter-spacing: var(--tracking-tight);
         color: var(--label);
       }
+
+      /* Once the page moves, the bar lifts a little off the content. */
+      &.is-scrolled {
+        box-shadow: 0 1px 0 rgb(0 0 0 / 5%), 0 8px 28px rgb(0 0 0 / 8%);
+      }
     }
 
     .con {

@@ -3,16 +3,20 @@
  */
 
 a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-standard);
 }
 
-a:hover,
+/* Visited links keep the accent, the way they always have. */
 a:link,
-a:visited,
+a:visited {
+  color: var(--accent-text);
+}
+
+a:hover,
 a:active {
-  color: var(--accent);
+  color: var(--accent-text-hover);
 }
 
 /* The small pill used by the "read more" button and by the pagination. */

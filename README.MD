@@ -57,11 +57,24 @@ Everything visual is driven by the custom properties in
 - `--label`, `--label-secondary`, `--label-tertiary` — the text colours. They
   are opaque enough to clear WCAG AA (4.5:1) on both backgrounds.
 - `--background*`, `--fill*`, `--separator`, `--border` — the surfaces.
-- `--material` — the translucent layer behind the sticky bar.
-- `--accent` — the cyan the site has always used, tuned per appearance.
+  `--background-grouped` is the grouped page the list cards float on,
+  `--background` the plain page an article is read on.
+- `--material` / `--material-thick` / `--glass-filter` — the translucent
+  layers and the refraction recipe of a glass surface.
+- `--accent` — the cyan the site has always used, tuned per appearance. It is
+  a fill, so the text variant is `--accent-text` (deeper in the light
+  appearance, so it clears WCAG AA) with `--accent-text-hover` beside it.
+- `--measure` — the width of the reading column, 720px.
+- `--media-ratio` — the proportions of the artwork of a post.
 - `--space-*`, `--radius-*`, `--duration-*`, `--ease-*` — the 4pt spacing
   grid, the iOS corner radii and the motion.
 
 The dark appearance is a single `prefers-color-scheme` media query away; no
 class is toggled in the markup. Icons are drawn from a monochrome sprite and
 inverted automatically when the page is dark.
+
+`src/js/site.js` adds the small pieces a native app has and a blog does not:
+the reading progress under the top bar, the copy button on every code block,
+the reading time under the title, the back to top button, and a fallback for
+a cover image that does not load. Everything works without it; the page is
+the same, only quieter.

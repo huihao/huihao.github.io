@@ -69,11 +69,20 @@
   --container: 1040px;
   --gutter: 40px;
   --sidebar-width: 280px;
+  /* The measure of a reading column, the way Apple Books and Safari
+     keep the line length comfortable. */
+  --measure: 720px;
+  /* The artwork of a post, in the proportions the site has always used. */
+  --media-ratio: 570 / 144;
   /* Accent — the cyan the site has always used, tuned for both appearances. */
   --accent: #20c6f2;
   --accent-strong: #0aa9d8;
   --accent-tint: rgb(32 198 242 / 12%);
   --accent-tint-hover: rgb(32 198 242 / 20%);
+  /* The same cyan as a text colour. The bright cyan is a fill, not a
+     label, so the text variant is deepened until it clears WCAG AA. */
+  --accent-text: #0071a8;
+  --accent-text-hover: #005a86;
   /* Light appearance */
   --blue: #007aff;
   --indigo: #5856d6;
@@ -108,9 +117,15 @@
   /* The translucent layer iOS uses for bars and sheets. */
   --material: rgb(255 255 255 / 72%);
   --material-thick: rgb(255 255 255 / 88%);
+  /* The refraction recipe of a glass surface: saturate the colours behind
+     it, then blur them. */
+  --glass-filter: saturate(180%) blur(20px);
+  --glass-border: rgb(255 255 255 / 60%);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 8px rgb(0 0 0 / 4%);
   --shadow-md: 0 2px 6px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 7%);
   --shadow-lg: 0 8px 32px rgb(0 0 0 / 12%);
+  /* The card surface: a hairline plus a wide, very soft shadow. */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px rgb(0 0 0 / 6%);
   --selection: rgb(32 198 242 / 24%);
 }
 
@@ -144,13 +159,17 @@
     --badge-surface: rgb(255 255 255 / 88%);
     --material: rgb(28 28 30 / 72%);
     --material-thick: rgb(28 28 30 / 88%);
+    --glass-border: rgb(255 255 255 / 12%);
     --accent: #4ed4ff;
     --accent-strong: #7ce0ff;
     --accent-tint: rgb(78 212 255 / 16%);
     --accent-tint-hover: rgb(78 212 255 / 26%);
+    --accent-text: #4ed4ff;
+    --accent-text-hover: #7ce0ff;
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 8px rgb(0 0 0 / 24%);
     --shadow-md: 0 2px 6px rgb(0 0 0 / 36%), 0 8px 24px rgb(0 0 0 / 40%);
     --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
     --selection: rgb(78 212 255 / 30%);
   }
 }
@@ -285,6 +304,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
   transition: background-color var(--duration) var(--ease-standard), color var(--duration) var(--ease-standard);
+}
+
+/* The list is a grouped page, the cards float on top of it. The reader
+   is a plain page, the way a book is. */
+body.layout-list {
+  background-color: var(--background-grouped);
 }
 
 #wrapper {
@@ -467,17 +492,21 @@ h6 {
  * Shared primitives: links, the pill button and the category artwork.
  */
 a {
-  color: var(--accent);
+  color: var(--accent-text);
   -webkit-text-decoration: none;
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-standard);
 }
 
-a:hover,
+/* Visited links keep the accent, the way they always have. */
 a:link,
-a:visited,
+a:visited {
+  color: var(--accent-text);
+}
+
+a:hover,
 a:active {
-  color: var(--accent);
+  color: var(--accent-text-hover);
 }
 
 /* The small pill used by the "read more" button and by the pagination. */
@@ -561,6 +590,12 @@ a:active {
   font-weight: 600;
   letter-spacing: var(--tracking-tight);
   color: var(--label);
+}
+#wrapper header .top-line {
+  /* Once the page moves, the bar lifts a little off the content. */
+}
+#wrapper header .top-line.is-scrolled {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), 0 8px 28px rgba(0, 0, 0, 0.08);
 }
 #wrapper header .con {
   position: relative;
@@ -801,6 +836,10 @@ a:active {
 }
 /**
  * The article list: cards, the tag badge and the pagination.
+ *
+ * The card follows the shape of a native app: a media band on top, a
+ * category kicker, a headline, a short excerpt and a footer row with the
+ * read more action and the date.
  */
 #main .categories-list {
   display: flex;
@@ -826,67 +865,111 @@ a:active {
 }
 #main .categories-list .categories-list-item:hover {
   background: var(--accent-tint);
-  color: var(--accent);
+  color: var(--accent-text-hover);
 }
 #main .category h2 {
   margin: var(--space-6) 0 var(--space-4);
   font-size: var(--text-title-3);
   color: var(--label);
 }
+#main .category {
+  /* The category index is a compact list, not a media card. */
+}
 #main .category article.article {
   margin-bottom: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+}
+#main .category article.article:hover {
+  transform: translateY(-1px);
 }
 #main .category article.article .con h1 {
+  margin: 0;
   font-size: var(--text-headline);
+  font-weight: 600;
+}
+#main .category article.article .date {
+  margin-top: var(--space-1);
+  font-size: var(--text-caption);
 }
 #main article.article {
-  display: flex;
-  gap: var(--space-5);
+  display: block;
   width: 100%;
   height: auto;
   margin-bottom: var(--space-5);
-  padding: var(--space-5);
+  overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: var(--radius-xlarge);
+  border-radius: var(--radius-continuous);
   background: var(--background-card);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
   transition: transform var(--duration) var(--ease-spring), box-shadow var(--duration) var(--ease-standard), border-color var(--duration) var(--ease-standard);
 }
 #main article.article:hover {
-  transform: translateY(-3px);
-  border-color: rgba(32, 198, 242, 0.35);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: rgba(32, 198, 242, 0.32);
+  box-shadow: var(--shadow-lg);
 }
 #main article.article {
-  /* The rotated badge that carries the category artwork. */
+  /* The media band. It sits on top of the card and keeps the radius of
+     the card's top corners. */
 }
-#main article.article .diamond {
+#main article.article .cover {
+  display: block;
+  overflow: hidden;
+  background: var(--fill-tertiary);
+}
+#main article.article .cover .img {
+  aspect-ratio: var(--media-ratio);
+  overflow: hidden;
+}
+#main article.article .cover .img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+#main article.article:hover .cover .img img {
+  transform: scale(1.04);
+}
+#main article.article .con {
+  padding: var(--space-5);
+  /* The kicker: the category artwork next to the category name. */
+}
+#main article.article .con .meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+#main article.article .con .meta .diamond {
   flex: none;
-  width: 88px;
-  margin-top: var(--space-1);
+  width: 26px;
+  height: 26px;
+  margin: 0;
 }
-#main article.article .diamond .box {
-  width: 76px;
-  height: 76px;
+#main article.article .con .meta .diamond .box {
+  width: 26px;
+  height: 26px;
   border: 0;
-  border-radius: 20px;
+  border-radius: 8px;
   background-color: var(--badge-surface);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  transform: rotate(45deg);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), var(--shadow-md);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), var(--shadow-sm);
 }
-#main article.article .con {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
+#main article.article .con .meta .cat {
+  font-size: var(--text-footnote);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-text);
 }
 #main article.article .con h1 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
   font-size: var(--text-title-2);
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.3;
   letter-spacing: var(--tracking-tight);
   color: var(--label);
 }
@@ -896,79 +979,99 @@ a:active {
   transition: color var(--duration-fast) var(--ease-standard);
 }
 #main article.article .con h1 a:hover {
-  color: var(--accent);
+  color: var(--accent-text-hover);
 }
-#main article.article .con .date {
+#main article.article .con .tip {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--text-subhead);
+  line-height: 1.65;
+  color: var(--label-secondary);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+#main article.article .con {
+  /* The footer of the card: the action on the left, the date on the
+     right, the way a native list row is laid out. */
+}
+#main article.article .con .addition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--separator);
+}
+#main article.article .con .addition .more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: auto;
+  padding: 5px 10px 5px 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--accent-tint);
+  color: var(--accent-text);
+  font-size: var(--text-footnote);
+  font-weight: 500;
+  line-height: 1.3;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+  /* The disclosure chevron. */
+}
+#main article.article .con .addition .more::after {
+  content: "›";
+  font-size: 1.1em;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+#main article.article .con .addition .more:hover {
+  background-color: var(--accent-tint-hover);
+  color: var(--accent-text-hover);
+}
+#main article.article .con .addition .more:active {
+  transform: scale(0.96);
+}
+#main article.article .con .addition .date {
   margin: 0;
   font-size: var(--text-footnote);
   line-height: 1.4;
   color: var(--label-tertiary);
 }
-#main article.article .con .tip {
-  margin: var(--space-3) 0 0;
-  font-size: var(--text-callout);
-  line-height: 1.65;
-  color: var(--label-secondary);
-}
-#main article.article .con .img {
-  width: 100%;
-  margin-top: var(--space-4);
-}
-#main article.article .con .img img {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-  box-shadow: var(--shadow-sm);
-}
-#main article.article .con .addition {
-  position: relative;
-  margin-top: var(--space-4);
-}
-#main article.article .con .addition .more {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  height: auto;
-  padding: 7px 16px 7px 12px;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--accent-tint) url("../img/ion-eye.png") no-repeat 12px center;
-  background-size: 15px;
-  color: var(--accent);
-  font-size: var(--text-footnote);
-  font-weight: 500;
-  line-height: 1.3;
-  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
-}
-#main article.article .con .addition .more:hover {
-  background-color: var(--accent-tint-hover);
-  color: var(--accent);
-}
-#main article.article .con .addition .more:active {
-  transform: scale(0.97);
-}
 #main {
-  /* Pagination, as a segmented pair of controls. */
+  /* Pagination, as a pair of capsule buttons around the page counter. */
 }
 #main .page {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: var(--space-3);
   width: 100%;
   font-size: var(--text-footnote);
+}
+#main .page .pager {
+  flex: 1 1 auto;
+  color: var(--label-secondary);
+  text-align: center;
 }
 #main .page .next,
 #main .page .prev {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: none;
   min-width: 88px;
   height: 36px;
   padding: 0 var(--space-4);
   border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-pill);
   background: var(--background-card);
-  color: var(--accent);
+  color: var(--accent-text);
+  font-size: var(--text-footnote);
+  font-weight: 500;
   text-align: center;
+  box-shadow: var(--shadow-sm);
   transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
 }
 #main .page .next:hover,
@@ -977,7 +1080,7 @@ a:active {
 }
 #main .page .next:active,
 #main .page .prev:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 #main .page .prev {
   float: none;
@@ -988,18 +1091,10 @@ a:active {
 
 @media (width <= 760px) {
   #main article.article {
-    gap: var(--space-4);
-    padding: var(--space-4);
     border-radius: var(--radius-large);
   }
-  #main article.article .diamond {
-    width: 52px;
-    margin-top: 0;
-  }
-  #main article.article .diamond .box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+  #main article.article .con {
+    padding: var(--space-4);
   }
   #main article.article .con h1 {
     font-size: var(--text-title-3);
@@ -1007,61 +1102,144 @@ a:active {
   #main article.article .con .tip {
     font-size: var(--text-subhead);
   }
+  #main .page .next,
+  #main .page .prev {
+    min-width: 72px;
+    padding: 0 var(--space-3);
+  }
 }
 /**
- * The single post view: the title block above the article body.
+ * The single post view: the large title block above the article body.
+ *
+ * The body is kept to a comfortable measure, the way a native reader
+ * lays the text out, instead of stretching over the full page.
  */
+#container .article-content {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+}
 #container .article-content .title {
   display: flex;
   align-items: center;
   gap: var(--space-5);
   height: auto;
-  padding: var(--space-5) 0;
+  padding: var(--space-6) 0 var(--space-5);
   margin-bottom: var(--space-6);
   border-bottom: 1px solid var(--separator);
+  /* The category artwork, kept as an app icon: an upright squircle
+     with the artwork inside it. */
 }
 #container .article-content .title .diamond {
   flex: none;
-  width: 88px;
+  width: 72px;
+  height: 72px;
   margin: 0;
 }
 #container .article-content .title .diamond .box {
-  width: 76px;
-  height: 76px;
+  width: 72px;
+  height: 72px;
   border: 0;
-  border-radius: 20px;
+  border-radius: 17px;
   background-color: var(--badge-surface);
-  transform: rotate(45deg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), var(--shadow-md);
 }
-#container .article-content .title h1 {
+#container .article-content .title .heading {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#container .article-content .title .heading h1 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--text-title-1);
+  font-size: var(--text-large-title);
   font-weight: 700;
-  letter-spacing: var(--tracking-tight);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tightest);
   color: var(--label);
+}
+#container .article-content .title .heading .meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-footnote);
+  line-height: 1.4;
+  color: var(--label-secondary);
+}
+#container .article-content .title .heading .meta .cat {
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-tint);
+  color: var(--accent-text);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+#container .article-content .title .heading .meta .date {
+  margin: 0;
+}
+#container .article-content .title .heading .meta {
+  /* Filled in by the script, empty when JavaScript is off. */
+}
+#container .article-content .title .heading .meta .read-time:not(:empty)::before {
+  content: "·";
+  margin-right: var(--space-2);
 }
 #container .article-content .con {
   padding-top: 0;
+}
+#container .article-content {
+  /* The way back to the list. */
+}
+#container .article-content .article-footer {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--separator);
+}
+#container .article-content .article-footer .back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  color: var(--accent-text);
+  font-size: var(--text-footnote);
+  font-weight: 500;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .article-content .article-footer .back::before {
+  content: "‹";
+  font-size: 1.2em;
+  line-height: 1;
+}
+#container .article-content .article-footer .back:hover {
+  background: var(--accent-tint);
+}
+#container .article-content .article-footer .back:active {
+  transform: scale(0.97);
 }
 
 @media (width <= 760px) {
   #container .article-content .title {
     gap: var(--space-4);
-    padding: var(--space-4) 0;
+    padding: var(--space-5) 0 var(--space-4);
     margin-bottom: var(--space-5);
   }
   #container .article-content .title .diamond {
-    width: 48px;
+    width: 52px;
+    height: 52px;
   }
   #container .article-content .title .diamond .box {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
   }
-  #container .article-content .title h1 {
-    font-size: var(--text-title-2);
+  #container .article-content .title .heading h1 {
+    font-size: var(--text-title-1);
   }
 }
 /**
@@ -1152,7 +1330,7 @@ a:active {
   transition: color var(--duration-fast) var(--ease-standard);
 }
 #container aside ul li span a:hover {
-  color: var(--accent);
+  color: var(--accent-text-hover);
 }
 #container aside ul li::after {
   flex: none;
@@ -1211,6 +1389,122 @@ a:active {
     background: radial-gradient(closest-side, rgba(78, 212, 255, 0.2), transparent 72%);
   }
 }
+/**
+ * The surfaces that the script drives: the reading progress, the copy
+ * buttons on the code blocks and the back to top button.
+ */
+/* The thin progress line under the top bar. */
+.reading-progress {
+  position: fixed;
+  z-index: 30;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+  transition: transform 0.1s linear;
+}
+
+/* A code block gets a small bar of its own, the way a native code view
+   does, with the language and the copy action in the corner. */
+.code-block {
+  position: relative;
+  margin: 0 0 var(--space-5);
+}
+.code-block pre {
+  margin-bottom: 0;
+}
+.code-block .copy-code {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--material-thick);
+  box-shadow: var(--shadow-sm);
+  color: var(--label-secondary);
+  font-family: var(--font-text);
+  font-size: var(--text-caption);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+.code-block .copy-code .copy-label {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.code-block .copy-code .copy-action {
+  color: var(--accent-text);
+  font-weight: 500;
+}
+.code-block .copy-code:hover {
+  color: var(--label);
+}
+.code-block .copy-code:active {
+  transform: scale(0.96);
+}
+.code-block:hover .copy-code,
+.code-block .copy-code:focus-visible {
+  opacity: 1;
+}
+.code-block .copy-code.is-copied .copy-action {
+  color: var(--green);
+}
+
+/* Without a pointer there is no hover, so the action stays visible. */
+@media (hover: none) {
+  .code-block .copy-code {
+    opacity: 1;
+  }
+}
+/* The button that takes the reader back to the top of the article. */
+.back-to-top {
+  position: fixed;
+  z-index: 25;
+  right: max(var(--space-5), env(safe-area-inset-right));
+  bottom: max(var(--space-5), env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--material-thick);
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  box-shadow: var(--shadow-md);
+  color: var(--accent-text);
+  font-size: var(--text-headline);
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+  transition: opacity var(--duration) var(--ease-standard), transform var(--duration) var(--ease-spring);
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+.back-to-top:active {
+  transform: scale(0.92);
+}
+
 #wrapper #container {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--sidebar-width);

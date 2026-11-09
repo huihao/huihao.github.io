@@ -70,12 +70,21 @@
   --container: 1040px;
   --gutter: 40px;
   --sidebar-width: 280px;
+  /* The measure of a reading column, the way Apple Books and Safari
+     keep the line length comfortable. */
+  --measure: 720px;
+  /* The artwork of a post, in the proportions the site has always used. */
+  --media-ratio: 570 / 144;
 
   /* Accent — the cyan the site has always used, tuned for both appearances. */
   --accent: #20c6f2;
   --accent-strong: #0aa9d8;
   --accent-tint: rgb(32 198 242 / 12%);
   --accent-tint-hover: rgb(32 198 242 / 20%);
+  /* The same cyan as a text colour. The bright cyan is a fill, not a
+     label, so the text variant is deepened until it clears WCAG AA. */
+  --accent-text: #0071a8;
+  --accent-text-hover: #005a86;
 
   /* Light appearance */
   --blue: #007aff;
@@ -117,10 +126,16 @@
   /* The translucent layer iOS uses for bars and sheets. */
   --material: rgb(255 255 255 / 72%);
   --material-thick: rgb(255 255 255 / 88%);
+  /* The refraction recipe of a glass surface: saturate the colours behind
+     it, then blur them. */
+  --glass-filter: saturate(180%) blur(20px);
+  --glass-border: rgb(255 255 255 / 60%);
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 8px rgb(0 0 0 / 4%);
   --shadow-md: 0 2px 6px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 7%);
   --shadow-lg: 0 8px 32px rgb(0 0 0 / 12%);
+  /* The card surface: a hairline plus a wide, very soft shadow. */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px rgb(0 0 0 / 6%);
 
   --selection: rgb(32 198 242 / 24%);
 }
@@ -161,15 +176,19 @@
 
     --material: rgb(28 28 30 / 72%);
     --material-thick: rgb(28 28 30 / 88%);
+    --glass-border: rgb(255 255 255 / 12%);
 
     --accent: #4ed4ff;
     --accent-strong: #7ce0ff;
     --accent-tint: rgb(78 212 255 / 16%);
     --accent-tint-hover: rgb(78 212 255 / 26%);
+    --accent-text: #4ed4ff;
+    --accent-text-hover: #7ce0ff;
 
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 8px rgb(0 0 0 / 24%);
     --shadow-md: 0 2px 6px rgb(0 0 0 / 36%), 0 8px 24px rgb(0 0 0 / 40%);
     --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
 
     --selection: rgb(78 212 255 / 30%);
   }

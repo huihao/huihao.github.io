@@ -17,6 +17,12 @@ body {
     color var(--duration) var(--ease-standard);
 }
 
+/* The list is a grouped page, the cards float on top of it. The reader
+   is a plain page, the way a book is. */
+body.layout-list {
+  background-color: var(--background-grouped);
+}
+
 #wrapper {
   position: relative;
   display: flex;

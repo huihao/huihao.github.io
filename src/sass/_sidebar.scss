@@ -96,7 +96,7 @@
             transition: color var(--duration-fast) var(--ease-standard);
 
             &:hover {
-              color: var(--accent);
+              color: var(--accent-text-hover);
             }
           }
         }

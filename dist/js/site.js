@@ -1,0 +1,201 @@
+/**
+ * The small behaviours of the site.
+ *
+ * Everything degrades gracefully: without JavaScript the page still reads
+ * and navigates, it just does not show the progress, the copy buttons or
+ * the reading time.
+ */
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ */
+  /* Reading progress of a post                                         */
+  /* ------------------------------------------------------------------ */
+  var progress = document.querySelector('.reading-progress');
+  var article = document.querySelector('.markdown-body');
+
+  function updateProgress() {
+    if (!progress || !article) {
+      return;
+    }
+
+    var rect = article.getBoundingClientRect();
+    var viewport = window.innerHeight;
+    var scrollable = rect.height - viewport;
+    var ratio;
+
+    if (scrollable <= 0) {
+      ratio = rect.top <= viewport / 2 ? 1 : 0;
+    } else {
+      ratio = -rect.top / scrollable;
+    }
+
+    ratio = Math.max(0, Math.min(1, ratio));
+    progress.style.setProperty('--progress', ratio.toFixed(4));
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Copy buttons on the code blocks                                    */
+  /* ------------------------------------------------------------------ */
+  function addCopyButtons() {
+    var blocks = document.querySelectorAll('.markdown-body pre');
+
+    Array.prototype.forEach.call(blocks, function (pre) {
+      var wrapper = document.createElement('div');
+      var button = document.createElement('button');
+      var code = pre.querySelector('code');
+      var language = '';
+
+      if (code) {
+        var match = code.className.match(/language-([\w-]+)/);
+        if (match) {
+          language = match[1];
+        }
+      }
+
+      wrapper.className = 'code-block';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      button.type = 'button';
+      button.className = 'copy-code';
+      button.innerHTML =
+        '<span class="copy-label">' + (language || '代码') + '</span>' +
+        '<span class="copy-action">复制</span>';
+
+      button.addEventListener('click', function () {
+        var text = code ? code.innerText : pre.innerText;
+        var action = button.querySelector('.copy-action');
+
+        if (!navigator.clipboard) {
+          return;
+        }
+
+        navigator.clipboard.writeText(text).then(function () {
+          button.classList.add('is-copied');
+
+          if (action) {
+            action.textContent = '已复制';
+          }
+
+          window.setTimeout(function () {
+            button.classList.remove('is-copied');
+
+            if (action) {
+              action.textContent = '复制';
+            }
+          }, 1600);
+        });
+      });
+
+      wrapper.appendChild(button);
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Reading time                                                       */
+  /* ------------------------------------------------------------------ */
+  function addReadingTime() {
+    var target = document.querySelector('[data-read-time]');
+
+    if (!target || !article) {
+      return;
+    }
+
+    var text = article.innerText || '';
+    var cjk = text.match(/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g) || [];
+    var latin = text.replace(/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g, ' ').match(/[A-Za-z0-9]+/g) || [];
+    var minutes = Math.max(1, Math.round(cjk.length / 400 + latin.length / 220));
+
+    target.textContent = '约 ' + minutes + ' 分钟';
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Back to top                                                        */
+  /* ------------------------------------------------------------------ */
+  function addBackToTop() {
+    if (!article) {
+      return;
+    }
+
+    var button = document.createElement('button');
+
+    button.type = 'button';
+    button.className = 'back-to-top';
+    button.setAttribute('aria-label', '回到顶部');
+    button.textContent = '↑';
+
+    button.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.body.appendChild(button);
+
+    function update() {
+      button.classList.toggle('is-visible', window.scrollY > 600);
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* A missing cover image should not leave a hole in the card          */
+  /* ------------------------------------------------------------------ */
+  function hideBrokenImages() {
+    var images = document.querySelectorAll('.img img, .markdown-body img');
+
+    Array.prototype.forEach.call(images, function (image) {
+      image.addEventListener('error', function () {
+        var cover = image.closest('.cover');
+
+        if (cover) {
+          cover.remove();
+        } else {
+          image.remove();
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* The bar grows a hairline shadow once the page is scrolled           */
+  /* ------------------------------------------------------------------ */
+  function updateBar() {
+    var bar = document.querySelector('.top-line');
+
+    if (!bar) {
+      return;
+    }
+
+    bar.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Boot                                                               */
+  /* ------------------------------------------------------------------ */
+  var ticking = false;
+
+  function onScroll() {
+    if (ticking) {
+      return;
+    }
+
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      updateProgress();
+      updateBar();
+      ticking = false;
+    });
+  }
+
+  addCopyButtons();
+  addReadingTime();
+  addBackToTop();
+  hideBrokenImages();
+  updateProgress();
+  updateBar();
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+})();

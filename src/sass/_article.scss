@@ -1,5 +1,9 @@
 /**
  * The article list: cards, the tag badge and the pagination.
+ *
+ * The card follows the shape of a native app: a media band on top, a
+ * category kicker, a headline, a short excerpt and a footer row with the
+ * read more action and the date.
  */
 
 #main {
@@ -30,7 +34,7 @@
 
       &:hover {
         background: var(--accent-tint);
-        color: var(--accent);
+        color: var(--accent-text-hover);
       }
     }
   }
@@ -42,69 +46,119 @@
       color: var(--label);
     }
 
+    /* The category index is a compact list, not a media card. */
     article.article {
       margin-bottom: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+
+      &:hover {
+        transform: translateY(-1px);
+      }
 
       .con h1 {
+        margin: 0;
         font-size: var(--text-headline);
+        font-weight: 600;
+      }
+
+      .date {
+        margin-top: var(--space-1);
+        font-size: var(--text-caption);
       }
     }
   }
 
   article.article {
-    display: flex;
-    gap: var(--space-5);
+    display: block;
     width: 100%;
     height: auto;
     margin-bottom: var(--space-5);
-    padding: var(--space-5);
+    overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: var(--radius-xlarge);
+    border-radius: var(--radius-continuous);
     background: var(--background-card);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-card);
     transition:
       transform var(--duration) var(--ease-spring),
       box-shadow var(--duration) var(--ease-standard),
       border-color var(--duration) var(--ease-standard);
 
     &:hover {
-      transform: translateY(-3px);
-      border-color: rgb(32 198 242 / 35%);
-      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: rgb(32 198 242 / 32%);
+      box-shadow: var(--shadow-lg);
     }
 
-    /* The rotated badge that carries the category artwork. */
-    .diamond {
-      flex: none;
-      width: 88px;
-      margin-top: var(--space-1);
+    /* The media band. It sits on top of the card and keeps the radius of
+       the card's top corners. */
+    .cover {
+      display: block;
+      overflow: hidden;
+      background: var(--fill-tertiary);
 
-      .box {
-        width: 76px;
-        height: 76px;
-        border: 0;
-        border-radius: 20px;
-        background-color: var(--badge-surface);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        transform: rotate(45deg);
-        box-shadow:
-          0 0 0 1px rgb(0 0 0 / 6%),
-          var(--shadow-md);
+      .img {
+        aspect-ratio: var(--media-ratio);
+        overflow: hidden;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform var(--duration-slow) var(--ease-spring);
+        }
       }
     }
 
+    &:hover .cover .img img {
+      transform: scale(1.04);
+    }
+
     .con {
-      flex: 1 1 auto;
-      min-width: 0;
-      overflow: hidden;
+      padding: var(--space-5);
+
+      /* The kicker: the category artwork next to the category name. */
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: var(--space-3);
+
+        .diamond {
+          flex: none;
+          width: 26px;
+          height: 26px;
+          margin: 0;
+
+          .box {
+            width: 26px;
+            height: 26px;
+            border: 0;
+            border-radius: 8px;
+            background-color: var(--badge-surface);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            box-shadow:
+              0 0 0 1px rgb(0 0 0 / 6%),
+              var(--shadow-sm);
+          }
+        }
+
+        .cat {
+          font-size: var(--text-footnote);
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          color: var(--accent-text);
+        }
+      }
 
       h1 {
         margin: 0 0 var(--space-2);
         font-family: var(--font-display);
         font-size: var(--text-title-2);
-        font-weight: 600;
+        font-weight: 700;
+        line-height: 1.3;
         letter-spacing: var(--tracking-tight);
         color: var(--label);
 
@@ -114,52 +168,43 @@
           transition: color var(--duration-fast) var(--ease-standard);
 
           &:hover {
-            color: var(--accent);
+            color: var(--accent-text-hover);
           }
         }
       }
 
-      .date {
-        margin: 0;
-        font-size: var(--text-footnote);
-        line-height: 1.4;
-        color: var(--label-tertiary);
-      }
-
       .tip {
-        margin: var(--space-3) 0 0;
-        font-size: var(--text-callout);
+        display: -webkit-box;
+        margin: 0;
+        overflow: hidden;
+        font-size: var(--text-subhead);
         line-height: 1.65;
         color: var(--label-secondary);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
       }
 
-      .img {
-        width: 100%;
-        margin-top: var(--space-4);
-
-        img {
-          width: 100%;
-          border: 1px solid var(--border);
-          border-radius: var(--radius-medium);
-          box-shadow: var(--shadow-sm);
-        }
-      }
-
+      /* The footer of the card: the action on the left, the date on the
+         right, the way a native list row is laid out. */
       .addition {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
         margin-top: var(--space-4);
+        padding-top: var(--space-3);
+        border-top: 1px solid var(--separator);
 
         .more {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-2);
+          gap: var(--space-1);
           height: auto;
-          padding: 7px 16px 7px 12px;
+          padding: 5px 10px 5px 12px;
           border: 0;
           border-radius: var(--radius-pill);
-          background: var(--accent-tint) url("../img/ion-eye.png") no-repeat 12px center;
-          background-size: 15px;
-          color: var(--accent);
+          background: var(--accent-tint);
+          color: var(--accent-text);
           font-size: var(--text-footnote);
           font-weight: 500;
           line-height: 1.3;
@@ -167,39 +212,66 @@
             background-color var(--duration-fast) var(--ease-standard),
             transform var(--duration-fast) var(--ease-spring);
 
+          /* The disclosure chevron. */
+          &::after {
+            content: "\203A";
+            font-size: 1.1em;
+            line-height: 1;
+            transform: translateY(-1px);
+          }
+
           &:hover {
             background-color: var(--accent-tint-hover);
-            color: var(--accent);
+            color: var(--accent-text-hover);
           }
 
           &:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
           }
+        }
+
+        .date {
+          margin: 0;
+          font-size: var(--text-footnote);
+          line-height: 1.4;
+          color: var(--label-tertiary);
         }
       }
     }
   }
 
-  /* Pagination, as a segmented pair of controls. */
+  /* Pagination, as a pair of capsule buttons around the page counter. */
   .page {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    gap: var(--space-3);
     width: 100%;
     font-size: var(--text-footnote);
+
+    .pager {
+      flex: 1 1 auto;
+      color: var(--label-secondary);
+      text-align: center;
+    }
 
     .next,
     .prev {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex: none;
       min-width: 88px;
       height: 36px;
       padding: 0 var(--space-4);
       border: 1px solid var(--border);
-      border-radius: var(--radius-medium);
+      border-radius: var(--radius-pill);
       background: var(--background-card);
-      color: var(--accent);
+      color: var(--accent-text);
+      font-size: var(--text-footnote);
+      font-weight: 500;
       text-align: center;
+      box-shadow: var(--shadow-sm);
       transition:
         background-color var(--duration-fast) var(--ease-standard),
         transform var(--duration-fast) var(--ease-spring);
@@ -209,7 +281,7 @@
       }
 
       &:active {
-        transform: scale(0.97);
+        transform: scale(0.96);
       }
     }
 
@@ -226,22 +298,11 @@
 @media (width <= 760px) {
   #main {
     article.article {
-      gap: var(--space-4);
-      padding: var(--space-4);
       border-radius: var(--radius-large);
 
-      .diamond {
-        width: 52px;
-        margin-top: 0;
-
-        .box {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-        }
-      }
-
       .con {
+        padding: var(--space-4);
+
         h1 {
           font-size: var(--text-title-3);
         }
@@ -249,6 +310,14 @@
         .tip {
           font-size: var(--text-subhead);
         }
+      }
+    }
+
+    .page {
+      .next,
+      .prev {
+        min-width: 72px;
+        padding: 0 var(--space-3);
       }
     }
   }
