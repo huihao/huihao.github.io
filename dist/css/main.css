@@ -1382,6 +1382,61 @@ a:active {
   padding-top: 0;
 }
 #container .article-content {
+  /* The table of contents, built from the headings of the body. */
+}
+#container .article-content .toc {
+  margin-bottom: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-large);
+  background: var(--fill-tertiary);
+}
+#container .article-content .toc .toc-title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-footnote);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  color: var(--label-tertiary);
+  text-transform: uppercase;
+}
+#container .article-content .toc .toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#container .article-content .toc .toc-item {
+  line-height: 1.6;
+}
+#container .article-content .toc .toc-item a {
+  display: block;
+  padding: 3px 0 3px var(--space-3);
+  border-left: 2px solid var(--separator);
+  color: var(--label-secondary);
+  font-size: var(--text-subhead);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+#container .article-content .toc .toc-item a:hover {
+  color: var(--accent-text-hover);
+  border-left-color: var(--accent);
+}
+#container .article-content .toc .toc-item {
+  /* A heading one level deeper is indented. */
+}
+#container .article-content .toc .toc-item.toc-level-3 a {
+  padding-left: var(--space-5);
+  font-size: var(--text-footnote);
+  color: var(--label-tertiary);
+}
+#container .article-content .toc .toc-item {
+  /* The heading the reader is looking at. */
+}
+#container .article-content .toc .toc-item.is-active > a {
+  color: var(--accent-text);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+#container .article-content {
   /* The tags of the post, as a row of chips under the body. */
 }
 #container .article-content .article-tags {
@@ -1453,8 +1508,128 @@ a:active {
 #container .article-content .article-footer .back:active {
   transform: scale(0.97);
 }
+#container .article-content {
+  /* The post before and the post after. */
+}
+#container .article-content .post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+#container .article-content .post-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-large);
+  background: var(--fill-tertiary);
+  color: var(--label);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .article-content .post-nav-item:hover {
+  background: var(--accent-tint);
+}
+#container .article-content .post-nav-item:active {
+  transform: scale(0.985);
+}
+#container .article-content .post-nav-item .post-nav-label {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-wide);
+  color: var(--label-tertiary);
+  text-transform: uppercase;
+}
+#container .article-content .post-nav-item .post-nav-title {
+  overflow: hidden;
+  font-size: var(--text-subhead);
+  font-weight: 600;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+#container .article-content .post-nav-next {
+  align-items: flex-end;
+  text-align: right;
+}
+#container .article-content {
+  /* The posts that share a tag or a category with this one. */
+}
+#container .article-content .related {
+  margin-top: var(--space-7);
+}
+#container .article-content .related .related-title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-title-3);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+#container .article-content .related .related-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#container .article-content .related .related-item a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-4);
+  border-radius: var(--radius-large);
+  background: var(--fill-tertiary);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .article-content .related .related-item a:hover {
+  background: var(--accent-tint);
+}
+#container .article-content .related .related-item a:active {
+  transform: scale(0.985);
+}
+#container .article-content .related .related-item-title {
+  font-size: var(--text-subhead);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--label);
+}
+#container .article-content .related .related-item-desc {
+  font-size: var(--text-footnote);
+  line-height: 1.55;
+  color: var(--label-tertiary);
+}
+#container .article-content {
+  /* The comments, rendered by giscus. */
+}
+#container .article-content .comments {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--separator);
+}
+#container .article-content .comments .comments-title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-title-3);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+#container .article-content .comments iframe {
+  width: 100%;
+}
 
 @media (width <= 760px) {
+  #container .article-content .post-nav {
+    grid-template-columns: 1fr;
+  }
+  #container .article-content .related .related-list {
+    grid-template-columns: 1fr;
+  }
   #container .article-content .title {
     gap: var(--space-4);
     padding: var(--space-5) 0 var(--space-4);
@@ -2021,6 +2196,139 @@ a:active {
 }
 .highlight .w {
   color: inherit;
+}
+
+/**
+ * The search page: one field, a list of results.
+ *
+ * The index is built by Pagefind at build time, the page only asks it for
+ * the matches and paints them with the design system.
+ */
+#container .search-page {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-bottom: var(--space-8);
+}
+#container .search-page .search-title {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--text-large-title);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tightest);
+  color: var(--label);
+}
+#container .search-page .search-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-large);
+  background: var(--fill-tertiary);
+  transition: background-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+#container .search-page .search-field:focus-within {
+  background: var(--background);
+  box-shadow: 0 0 0 3px var(--accent-tint-hover);
+}
+#container .search-page .search-field svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--label-tertiary);
+}
+#container .search-page .search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label);
+  font-family: var(--font-text);
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+#container .search-page .search-input:focus {
+  outline: none;
+}
+#container .search-page .search-input::-moz-placeholder {
+  color: var(--label-tertiary);
+}
+#container .search-page .search-input::placeholder {
+  color: var(--label-tertiary);
+}
+#container .search-page .search-input {
+  /* The native clear button of the search field is enough. */
+}
+#container .search-page .search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+#container .search-page .search-clear {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--fill);
+  color: var(--label-secondary);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .search-page .search-clear:hover {
+  background: var(--fill-secondary);
+}
+#container .search-page .search-clear:active {
+  transform: scale(0.9);
+}
+#container .search-page .search-status {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-footnote);
+  color: var(--label-tertiary);
+}
+#container .search-page .search-results {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+#container .search-page .search-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--separator);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .search-page .search-result:hover .search-result-title {
+  color: var(--accent-text-hover);
+}
+#container .search-page .search-result:active {
+  transform: scale(0.99);
+}
+#container .search-page .search-result-title {
+  font-size: var(--text-headline);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--label);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+#container .search-page .search-result-excerpt {
+  font-size: var(--text-subhead);
+  line-height: 1.6;
+  color: var(--label-secondary);
+  /* Pagefind marks the words it matched. */
+}
+#container .search-page .search-result-excerpt mark {
+  padding: 0 2px;
+  border-radius: 4px;
+  background: var(--accent-tint);
+  color: inherit;
+  font-weight: 600;
 }
 
 #wrapper #container {

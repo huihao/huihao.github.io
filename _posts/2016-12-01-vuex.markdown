@@ -43,7 +43,7 @@ new Vue({
 
 这是非常简单的一个例子体现了"one-way data flow"的概念
 
-![Alt text](http://vuex.vuejs.org/en/images/flow.png)
+> 原图来自 Vuex 官方文档（one-way data flow 示意图），官方已调整站点结构，图片地址失效，可前往 [Vuex 核心概念](https://vuex.vuejs.org/zh/guide/core-concepts.html) 查看最新示意图。
 
 
 当我们拥有多个共享同一state的组件之后，这种关系很快就被打破了。
@@ -59,7 +59,7 @@ new Vue({
 
 这是Vuex背后的基本概念，灵感来自于Flux, Redux 和 The Elm Architecture，与其他的模式不同，Vuex也是一个为Vue量身定做的类库，利用其颗粒反应系统进行有效的更新。
 
-![Alt text](http://vuex.vuejs.org/en/images/vuex.png)
+> 原图为 Vuex 官方文档配图，官方已调整站点结构，图片地址失效，可前往 [Vuex 文档首页](https://vuex.vuejs.org/zh/) 查看。
 
 
 

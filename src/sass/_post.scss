@@ -93,6 +93,64 @@
       padding-top: 0;
     }
 
+    /* The table of contents, built from the headings of the body. */
+    .toc {
+      margin-bottom: var(--space-6);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-large);
+      background: var(--fill-tertiary);
+
+      .toc-title {
+        margin: 0 0 var(--space-3);
+        font-size: var(--text-footnote);
+        font-weight: 600;
+        letter-spacing: var(--tracking-wide);
+        color: var(--label-tertiary);
+        text-transform: uppercase;
+      }
+
+      .toc-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .toc-item {
+        line-height: 1.6;
+
+        a {
+          display: block;
+          padding: 3px 0 3px var(--space-3);
+          border-left: 2px solid var(--separator);
+          color: var(--label-secondary);
+          font-size: var(--text-subhead);
+          text-decoration: none;
+          transition:
+            color var(--duration-fast) var(--ease-standard),
+            border-color var(--duration-fast) var(--ease-standard);
+
+          &:hover {
+            color: var(--accent-text-hover);
+            border-left-color: var(--accent);
+          }
+        }
+
+        /* A heading one level deeper is indented. */
+        &.toc-level-3 a {
+          padding-left: var(--space-5);
+          font-size: var(--text-footnote);
+          color: var(--label-tertiary);
+        }
+
+        /* The heading the reader is looking at. */
+        &.is-active > a {
+          color: var(--accent-text);
+          border-left-color: var(--accent);
+          font-weight: 600;
+        }
+      }
+    }
+
     /* The tags of the post, as a row of chips under the body. */
     .article-tags {
       display: flex;
@@ -175,12 +233,148 @@
         }
       }
     }
+
+    /* The post before and the post after. */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+
+    .post-nav-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      min-width: 0;
+      padding: var(--space-4);
+      border-radius: var(--radius-large);
+      background: var(--fill-tertiary);
+      color: var(--label);
+      text-decoration: none;
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        transform var(--duration-fast) var(--ease-spring);
+
+      &:hover {
+        background: var(--accent-tint);
+      }
+
+      &:active {
+        transform: scale(0.985);
+      }
+
+      .post-nav-label {
+        font-size: var(--text-caption);
+        letter-spacing: var(--tracking-wide);
+        color: var(--label-tertiary);
+        text-transform: uppercase;
+      }
+
+      .post-nav-title {
+        overflow: hidden;
+        font-size: var(--text-subhead);
+        font-weight: 600;
+        line-height: 1.4;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    .post-nav-next {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    /* The posts that share a tag or a category with this one. */
+    .related {
+      margin-top: var(--space-7);
+
+      .related-title {
+        margin: 0 0 var(--space-4);
+        font-size: var(--text-title-3);
+        font-weight: 700;
+        letter-spacing: var(--tracking-tight);
+      }
+
+      .related-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-3);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .related-item a {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        height: 100%;
+        padding: var(--space-4);
+        border-radius: var(--radius-large);
+        background: var(--fill-tertiary);
+        text-decoration: none;
+        transition:
+          background-color var(--duration-fast) var(--ease-standard),
+          transform var(--duration-fast) var(--ease-spring);
+
+        &:hover {
+          background: var(--accent-tint);
+        }
+
+        &:active {
+          transform: scale(0.985);
+        }
+      }
+
+      .related-item-title {
+        font-size: var(--text-subhead);
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--label);
+      }
+
+      .related-item-desc {
+        font-size: var(--text-footnote);
+        line-height: 1.55;
+        color: var(--label-tertiary);
+      }
+    }
+
+    /* The comments, rendered by giscus. */
+    .comments {
+      margin-top: var(--space-7);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--separator);
+
+      .comments-title {
+        margin: 0 0 var(--space-4);
+        font-size: var(--text-title-3);
+        font-weight: 700;
+        letter-spacing: var(--tracking-tight);
+      }
+
+      iframe {
+        width: 100%;
+      }
+    }
   }
 }
 
 @media (width <= 760px) {
   #container {
     .article-content {
+      .post-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .related .related-list {
+        grid-template-columns: 1fr;
+      }
+
       .title {
         gap: var(--space-4);
         padding: var(--space-5) 0 var(--space-4);

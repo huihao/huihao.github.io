@@ -39,6 +39,16 @@ feed:
   path: /atom.xml
   posts_limit: 20
 
+# 评论（giscus，基于 GitHub Discussions）。
+# 在 https://giscus.app 填写仓库与 Discussion 分类后，把生成的四个值填到这里，
+# 评论区就会出现在文章底部；留空则不显示。
+giscus:
+  repo: huihao/huihao.github.io
+  repo_id: ""
+  category: "Comments"
+  category_id: ""
+  client_id: ""
+
 # 不发布这些文件（CNAME、node_modules 等是 GitHub Pages 的默认值，保留）
 exclude:
   - CNAME

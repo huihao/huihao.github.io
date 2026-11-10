@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Kimi · huihao 的个人博客">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="0.55" stop-color="#10293a"/>
+      <stop offset="1" stop-color="#0a3a4d"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#63dcff"/>
+      <stop offset="0.55" stop-color="#20c6f2"/>
+      <stop offset="1" stop-color="#0b93c9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.6">
+      <stop offset="0" stop-color="#20c6f2" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#20c6f2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(96 150)">
+    <rect width="180" height="180" rx="40" fill="url(#mark)"/>
+    <g fill="none" stroke="#ffffff" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M67 41 V139"/>
+      <path d="M72 90 L113 46"/>
+      <path d="M72 90 L113 134"/>
+    </g>
+  </g>
+  <text x="96" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="82" font-weight="700" fill="#ffffff" letter-spacing="-1">Kimi</text>
+  <text x="96" y="472" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="34" font-weight="400" fill="#9fb6c4">记录 JavaScript、HTML 与 CSS 的实践笔记</text>
+  <text x="96" y="546" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="26" font-weight="500" fill="#4ed4ff" letter-spacing="1">bio.wuhh.cc</text>
+</svg>

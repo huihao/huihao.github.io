@@ -40,6 +40,26 @@
   border-bottom: 1px solid var(--separator);
   font-size: var(--text-title-2);
 }
+.markdown-body {
+  /* The link to a heading, shown when the reader reaches it. */
+}
+.markdown-body .heading-anchor {
+  margin-left: var(--space-2);
+  color: var(--label-tertiary);
+  font-weight: 400;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+.markdown-body .heading-anchor:hover, .markdown-body .heading-anchor:focus-visible {
+  color: var(--accent-text);
+}
+.markdown-body h2:hover .heading-anchor,
+.markdown-body h3:hover .heading-anchor,
+.markdown-body .heading-anchor:focus-visible {
+  opacity: 1;
+}
 .markdown-body h3 {
   font-size: var(--text-title-3);
 }

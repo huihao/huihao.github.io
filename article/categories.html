@@ -4,7 +4,7 @@ permalink: /article/categories.html
 title: 分类
 ---
 
-<div id="main">
+<div id="main" data-pagefind-ignore>
     <div class="categories-list">
         {% for category in site.categories %}
         <a href="#{{ category.first | slugify }}" class="categories-list-item">

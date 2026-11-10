@@ -267,6 +267,61 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* A link to every heading of the body                                 */
+  /* ------------------------------------------------------------------ */
+  function addHeadingAnchors() {
+    var headings = document.querySelectorAll('.markdown-body h2, .markdown-body h3');
+
+    Array.prototype.forEach.call(headings, function (heading) {
+      if (!heading.id) {
+        return;
+      }
+
+      var anchor = document.createElement('a');
+
+      anchor.className = 'heading-anchor';
+      anchor.href = '#' + heading.id;
+      anchor.setAttribute('aria-label', '链接到 ' + heading.textContent);
+      anchor.textContent = '#';
+
+      heading.appendChild(anchor);
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* The table of contents follows the reader                             */
+  /* ------------------------------------------------------------------ */
+  function updateToc() {
+    var toc = document.querySelector('.toc');
+
+    if (!toc) {
+      return;
+    }
+
+    var items = toc.querySelectorAll('.toc-item');
+
+    if (!items.length) {
+      return;
+    }
+
+    var offset = 120;
+    var current = null;
+
+    Array.prototype.forEach.call(items, function (item) {
+      var link = item.querySelector('a');
+      var heading = link ? document.getElementById(link.getAttribute('href').slice(1)) : null;
+
+      if (heading && heading.getBoundingClientRect().top - offset <= 0) {
+        current = item;
+      }
+    });
+
+    Array.prototype.forEach.call(items, function (item) {
+      item.classList.toggle('is-active', item === current);
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Boot                                                               */
   /* ------------------------------------------------------------------ */
   var ticking = false;
@@ -280,6 +335,7 @@
     window.requestAnimationFrame(function () {
       updateProgress();
       updateBar();
+      updateToc();
       ticking = false;
     });
   }
@@ -288,9 +344,11 @@
   addCopyButtons();
   addReadingTime();
   addBackToTop();
+  addHeadingAnchors();
   hideBrokenImages();
   updateProgress();
   updateBar();
+  updateToc();
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });

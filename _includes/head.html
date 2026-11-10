@@ -37,7 +37,85 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}" />
     {% feed_meta %}
-    <link rel="icon" href="{{ "/favicon.ico" | absolute_url }}">
+    {% comment %} 社交卡片：文章用第一张配图，其余页面用站点默认图 {% endcomment %}
+    {% assign og_image = page.image | default: page.cover %}
+    {% if og_image == nil and page.layout == 'post' %}
+        {% assign image_parts = page.content | split: '<img src="' %}
+        {% if image_parts.size > 1 %}
+            {% assign og_image = image_parts | slice: 1 | first | split: '"' | first %}
+        {% endif %}
+    {% endif %}
+    {% if og_image %}
+        {% comment %} 协议相对的图片地址（//host/path）补上 https: {% endcomment %}
+        {% assign og_scheme = og_image | slice: 0, 2 %}
+        {% if og_scheme == '//' %}
+            {% assign og_image = 'https:' | append: og_image %}
+        {% endif %}
+    {% else %}
+        {% assign og_image = '/dist/img/og-default.png' %}
+    {% endif %}
+    {% assign og_image = og_image | absolute_url %}
+    {% assign og_title = page.title | default: site.title %}
+    {% assign og_description = page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 %}
+    {% if og_description == '' %}{% assign og_description = site.description %}{% endif %}
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ og_title | strip_html | escape }}">
+    <meta property="og:description" content="{{ og_description | escape }}">
+    <meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <meta property="og:site_name" content="{{ site.title | escape }}">
+    <meta property="og:locale" content="{{ site.lang | default: 'zh-CN' }}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ og_title | strip_html | escape }}">
+    {% if page.layout == 'post' %}
+        <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+        <meta property="article:modified_time" content="{{ page.last_modified_at | default: page.date | date_to_xmlschema }}">
+        <meta property="article:section" content="{{ page.categories[0] | default: 'note' }}">
+        <meta property="article:author" content="{{ site.author.name }}">
+        {% for tag in page.tags %}<meta property="article:tag" content="{{ tag }}">{% endfor %}
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ site.twitter_username | default: site.github_username }}">
+    <meta name="twitter:title" content="{{ og_title | strip_html | escape }}">
+    <meta name="twitter:description" content="{{ og_description | escape }}">
+    <meta name="twitter:image" content="{{ og_image }}">
+    {% comment %} 结构化数据 {% endcomment %}
+    {% capture search_template %}?q={search_term_string}{% endcapture %}
+    {% capture search_url %}{{ "/search.html" | absolute_url }}{{ search_template }}{% endcapture %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}WebSite{% endif %}",
+        "name": {{ og_title | strip_html | jsonify }},
+        "headline": {{ og_title | strip_html | jsonify }},
+        "description": {{ og_description | jsonify }},
+        "url": {{ page.url | replace:'index.html','' | absolute_url | jsonify }},
+        "image": {{ og_image | jsonify }},
+        "inLanguage": {{ site.lang | default: 'zh-CN' | jsonify }},
+        {% if page.layout == 'post' %}
+            "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+            "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+            "articleSection": {{ page.categories[0] | default: 'note' | jsonify }},
+            "keywords": {{ page.tags | join: ', ' | jsonify }},
+            "wordCount": {{ page.content | number_of_words }},
+            "mainEntityOfPage": { "@type": "WebPage", "@id": {{ page.url | replace:'index.html','' | absolute_url | jsonify }} },
+            "author": { "@type": "Person", "name": {{ site.author.name | jsonify }}, "url": {{ site.author.uri | jsonify }} },
+            "publisher": { "@type": "Person", "name": {{ site.author.name | jsonify }}, "url": {{ site.author.uri | jsonify }} }
+        {% else %}
+            "publisher": { "@type": "Person", "name": {{ site.author.name | jsonify }}, "url": {{ site.author.uri | jsonify }} },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": { "@type": "EntryPoint", "urlTemplate": {{ search_url | jsonify }} },
+                "query-input": "required name=search_term_string"
+            }
+        {% endif %}
+    }
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/dist/img/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="{{ "/dist/css/main.css" | absolute_url }}">
     <link rel="stylesheet" href="{{ "/dist/css/markdown.css" | absolute_url }}">
     <script src="{{ "/dist/js/site.js" | absolute_url }}" defer></script>

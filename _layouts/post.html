@@ -16,6 +16,7 @@ layout: article
             </div>
         </div>
     </div>
+    {% include toc.html %}
     <div class="con markdown-body" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}">
          {{ content }}
     </div>
@@ -28,6 +29,27 @@ layout: article
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
+    {% include post-nav.html %}
+    {% if site.giscus.client_id and site.giscus.client_id != '' %}
+    <section class="comments" aria-label="评论">
+        <h2 class="comments-title">评论</h2>
+        <script src="https://giscus.app/client.js"
+                data-repo="{{ site.giscus.repo }}"
+                data-repo-id="{{ site.giscus.repo_id }}"
+                data-category="{{ site.giscus.category }}"
+                data-category-id="{{ site.giscus.category_id }}"
+                data-mapping="specific"
+                data-term="{{ page.url }}"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="preferred_color_scheme"
+                data-lang="{{ site.lang | default: 'zh-CN' }}"
+                crossorigin="anonymous"
+                async></script>
+    </section>
     {% endif %}
     <div class="article-footer">
         <a class="back base-link" href="{{ site.baseurl }}/">

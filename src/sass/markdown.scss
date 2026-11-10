@@ -45,6 +45,29 @@
     font-size: var(--text-title-2);
   }
 
+  /* The link to a heading, shown when the reader reaches it. */
+  .heading-anchor {
+    margin-left: var(--space-2);
+    color: var(--label-tertiary);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 0;
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--accent-text);
+    }
+  }
+
+  h2:hover .heading-anchor,
+  h3:hover .heading-anchor,
+  .heading-anchor:focus-visible {
+    opacity: 1;
+  }
+
   h3 {
     font-size: var(--text-title-3);
   }

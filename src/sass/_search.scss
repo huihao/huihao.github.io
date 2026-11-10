@@ -1,0 +1,153 @@
+/**
+ * The search page: one field, a list of results.
+ *
+ * The index is built by Pagefind at build time, the page only asks it for
+ * the matches and paints them with the design system.
+ */
+
+#container {
+  .search-page {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-bottom: var(--space-8);
+
+    .search-title {
+      margin: 0 0 var(--space-5);
+      font-family: var(--font-display);
+      font-size: var(--text-large-title);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tightest);
+      color: var(--label);
+    }
+
+    .search-field {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-large);
+      background: var(--fill-tertiary);
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        box-shadow var(--duration-fast) var(--ease-standard);
+
+      &:focus-within {
+        background: var(--background);
+        box-shadow: 0 0 0 3px var(--accent-tint-hover);
+      }
+
+      svg {
+        flex: none;
+        width: 18px;
+        height: 18px;
+        color: var(--label-tertiary);
+      }
+    }
+
+    .search-input {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--label);
+      font-family: var(--font-text);
+      font-size: var(--text-body);
+      line-height: 1.5;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: var(--label-tertiary);
+      }
+
+      /* The native clear button of the search field is enough. */
+      &::-webkit-search-cancel-button {
+        appearance: none;
+      }
+    }
+
+    .search-clear {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--fill);
+      color: var(--label-secondary);
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        transform var(--duration-fast) var(--ease-spring);
+
+      &:hover {
+        background: var(--fill-secondary);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+
+    .search-status {
+      margin: var(--space-4) 0 0;
+      font-size: var(--text-footnote);
+      color: var(--label-tertiary);
+    }
+
+    .search-results {
+      margin: var(--space-4) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .search-result {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--separator);
+      text-decoration: none;
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        transform var(--duration-fast) var(--ease-spring);
+
+      &:hover .search-result-title {
+        color: var(--accent-text-hover);
+      }
+
+      &:active {
+        transform: scale(0.99);
+      }
+    }
+
+    .search-result-title {
+      font-size: var(--text-headline);
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--label);
+      transition: color var(--duration-fast) var(--ease-standard);
+    }
+
+    .search-result-excerpt {
+      font-size: var(--text-subhead);
+      line-height: 1.6;
+      color: var(--label-secondary);
+
+      /* Pagefind marks the words it matched. */
+      mark {
+        padding: 0 2px;
+        border-radius: 4px;
+        background: var(--accent-tint);
+        color: inherit;
+        font-weight: 600;
+      }
+    }
+  }
+}
