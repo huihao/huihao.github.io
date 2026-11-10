@@ -13,7 +13,26 @@
  * background, label, fill and separator colours, in both light and dark.
  *
  * Everything is exposed as a custom property, so the dark appearance is a
- * single media query away and the runtime can still override a token.
+ * single mixin away and the runtime can still override a token.
+ */
+/**
+ * The appearance switch.
+ *
+ * The site has two appearances: the light one and the dark one. By default
+ * the dark one follows the system preference, the way every native app
+ * behaves. A visitor can override that with the switch in the top bar, and
+ * the choice is written to `data-theme` on the root element.
+ *
+ * This file is the only place that knows how "the page is dark" is
+ * expressed, so the rest of the stylesheet never has to repeat the
+ * selectors:
+ *
+ *   - an explicit choice   → `:root[data-theme="dark"]`
+ *   - no choice, dark OS   → `:root:not([data-theme="light"])` inside the
+ *                            `prefers-color-scheme: dark` media query
+ *
+ * Both have the same specificity, and the explicit one comes last, so a
+ * visitor who picks light on a dark system keeps the light appearance.
  */
 :root {
   color-scheme: light dark;
@@ -129,8 +148,16 @@
   --selection: rgb(32 198 242 / 24%);
 }
 
+/**
+ * The dark palette.
+ *
+ * It is the light palette with the system colours of the dark appearance,
+ * the way iOS swaps them when the wallpaper goes dark.
+ */
+/* The dark appearance is used when the visitor asks for it, or when the
+   system asks for it and the visitor has not decided yet. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme=light]) {
     --blue: #0a84ff;
     --indigo: #5e5ce6;
     --green: #30d158;
@@ -173,6 +200,49 @@
     --selection: rgb(78 212 255 / 30%);
   }
 }
+:root[data-theme=dark] {
+  --blue: #0a84ff;
+  --indigo: #5e5ce6;
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --pink: #ff375f;
+  --purple: #bf5af2;
+  --red: #ff453a;
+  --teal: #64d2ff;
+  --yellow: #ffd60a;
+  --gray: #8e8e93;
+  --label: #fff;
+  --label-secondary: rgb(235 235 245 / 70%);
+  --label-tertiary: rgb(235 235 245 / 58%);
+  --label-quaternary: rgb(235 235 245 / 18%);
+  --background: #000;
+  --background-elevated: #1c1c1e;
+  --background-secondary: #1c1c1e;
+  --background-grouped: #000;
+  --background-card: #1c1c1e;
+  --fill: rgb(120 120 128 / 36%);
+  --fill-secondary: rgb(120 120 128 / 32%);
+  --fill-tertiary: rgb(118 118 128 / 24%);
+  --separator: rgb(84 84 88 / 65%);
+  --separator-opaque: #38383a;
+  --border: rgb(84 84 88 / 40%);
+  --badge-surface: rgb(255 255 255 / 88%);
+  --material: rgb(28 28 30 / 72%);
+  --material-thick: rgb(28 28 30 / 88%);
+  --glass-border: rgb(255 255 255 / 12%);
+  --accent: #4ed4ff;
+  --accent-strong: #7ce0ff;
+  --accent-tint: rgb(78 212 255 / 16%);
+  --accent-tint-hover: rgb(78 212 255 / 26%);
+  --accent-text: #4ed4ff;
+  --accent-text-hover: #7ce0ff;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 8px rgb(0 0 0 / 24%);
+  --shadow-md: 0 2px 6px rgb(0 0 0 / 36%), 0 8px 24px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
+  --selection: rgb(78 212 255 / 30%);
+}
+
 /**
  * A small modern reset.
  *
@@ -332,10 +402,14 @@ body.layout-list {
 }
 
 @media (prefers-color-scheme: dark) {
-  #wrapper::before {
+  :root:not([data-theme=light]) #wrapper::before {
     background: radial-gradient(60% 100% at 12% 0%, rgba(78, 212, 255, 0.12) 0%, transparent 70%), radial-gradient(50% 90% at 92% 4%, rgba(94, 92, 230, 0.16) 0%, transparent 72%);
   }
 }
+:root[data-theme=dark] #wrapper::before {
+  background: radial-gradient(60% 100% at 12% 0%, rgba(78, 212, 255, 0.12) 0%, transparent 70%), radial-gradient(50% 90% at 92% 4%, rgba(94, 92, 230, 0.16) 0%, transparent 72%);
+}
+
 h1,
 h2,
 h3,
@@ -358,10 +432,14 @@ h6 {
 /* The sprite is drawn in black. In the dark appearance every glyph is
    flattened to white, the way a monochrome symbol behaves in the system. */
 @media (prefers-color-scheme: dark) {
-  .icon {
+  :root:not([data-theme=light]) .icon {
     filter: brightness(0) invert(1);
   }
 }
+:root[data-theme=dark] .icon {
+  filter: brightness(0) invert(1);
+}
+
 .icon-arrow {
   width: 13px;
   height: 19px;
@@ -592,6 +670,51 @@ a:active {
   color: var(--label);
 }
 #wrapper header .top-line {
+  /* The appearance switch, the way iOS puts it in a toolbar: a small
+     circle at the far end that turns into the other symbol. */
+}
+#wrapper header .top-line .theme-toggle {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--label-secondary);
+  background: var(--fill);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+}
+#wrapper header .top-line .theme-toggle:hover {
+  color: var(--label);
+  background: var(--fill-secondary);
+}
+#wrapper header .top-line .theme-toggle:active {
+  transform: scale(0.92);
+}
+#wrapper header .top-line .theme-toggle .theme-icon {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  transition: opacity var(--duration) var(--ease-standard), transform var(--duration) var(--ease-spring);
+}
+#wrapper header .top-line .theme-toggle {
+  /* In the light appearance the switch offers the moon. */
+}
+#wrapper header .top-line .theme-toggle .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(-70deg) scale(0.4);
+}
+#wrapper header .top-line .theme-toggle .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+#wrapper header .top-line {
   /* Once the page moves, the bar lifts a little off the content. */
 }
 #wrapper header .top-line.is-scrolled {
@@ -777,6 +900,26 @@ a:active {
   background-image: url("../img/Oval3.png");
   filter: blur(40px);
   opacity: 0.3;
+}
+
+/* In the dark appearance the switch offers the sun instead. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) #wrapper header .top-line .theme-toggle .theme-icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  :root:not([data-theme=light]) #wrapper header .top-line .theme-toggle .theme-icon-moon {
+    opacity: 0;
+    transform: rotate(70deg) scale(0.4);
+  }
+}
+:root[data-theme=dark] #wrapper header .top-line .theme-toggle .theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+:root[data-theme=dark] #wrapper header .top-line .theme-toggle .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(70deg) scale(0.4);
 }
 
 @media (width <= 760px) {
@@ -1393,13 +1536,20 @@ a:active {
 }
 
 @media (prefers-color-scheme: dark) {
-  #wrapper footer {
+  :root:not([data-theme=light]) #wrapper footer {
     background: linear-gradient(180deg, rgba(78, 212, 255, 0) 0%, rgba(78, 212, 255, 0.08) 55%, rgba(78, 212, 255, 0.16) 100%);
   }
-  #wrapper footer::before {
+  :root:not([data-theme=light]) #wrapper footer::before {
     background: radial-gradient(closest-side, rgba(78, 212, 255, 0.2), transparent 72%);
   }
 }
+:root[data-theme=dark] #wrapper footer {
+  background: linear-gradient(180deg, rgba(78, 212, 255, 0) 0%, rgba(78, 212, 255, 0.08) 55%, rgba(78, 212, 255, 0.16) 100%);
+}
+:root[data-theme=dark] #wrapper footer::before {
+  background: radial-gradient(closest-side, rgba(78, 212, 255, 0.2), transparent 72%);
+}
+
 /**
  * The surfaces that the script drives: the reading progress, the copy
  * buttons on the code blocks and the back to top button.

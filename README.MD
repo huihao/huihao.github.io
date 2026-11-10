@@ -97,12 +97,32 @@ Everything visual is driven by the custom properties in
 - `--space-*`, `--radius-*`, `--duration-*`, `--ease-*` — the 4pt spacing
   grid, the iOS corner radii and the motion.
 
-The dark appearance is a single `prefers-color-scheme` media query away; no
-class is toggled in the markup. Icons are drawn from a monochrome sprite and
-inverted automatically when the page is dark.
+The dark appearance is a single mixin away; no class is toggled in the markup.
+Icons are drawn from a monochrome sprite and inverted automatically when the
+page is dark.
+
+### Appearance switch
+
+The site has two appearances, the light one and the dark one, and a switch
+between them in the top bar.
+
+- By default the dark appearance follows the system preference, the way a
+  native app behaves.
+- The switch writes `data-theme="light"` or `data-theme="dark"` on the root
+  element and remembers the choice in `localStorage`, so it survives the next
+  visit. A visitor who picks light on a dark system keeps the light
+  appearance.
+- `src/sass/_theme.scss` is the only place that knows how "the page is dark"
+  is expressed. The `dark-only` mixin emits the rules twice: once for an
+  explicit choice and once for a dark system without a choice, so the same
+  markup serves both cases and the page still follows the system when the
+  script never runs.
+- The choice is applied by a small inline script in `_includes/head.html`,
+  before the stylesheet is loaded, so the page never flashes the wrong
+  colours.
 
 `src/js/site.js` adds the small pieces a native app has and a blog does not:
 the reading progress under the top bar, the copy button on every code block,
-the reading time under the title, the back to top button, and a fallback for
-a cover image that does not load. Everything works without it; the page is
-the same, only quieter.
+the reading time under the title, the back to top button, the appearance
+switch, and a fallback for a cover image that does not load. Everything works
+without it; the page is the same, only quieter.

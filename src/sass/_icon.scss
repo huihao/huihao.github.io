@@ -1,3 +1,5 @@
+@use "theme" as *;
+
 .icon {
     background-image: url("../img/icon.png");
     background-repeat: no-repeat;
@@ -7,7 +9,7 @@
 
 /* The sprite is drawn in black. In the dark appearance every glyph is
    flattened to white, the way a monochrome symbol behaves in the system. */
-@media (prefers-color-scheme: dark) {
+@include dark-only {
     .icon {
         filter: brightness(0) invert(1);
     }

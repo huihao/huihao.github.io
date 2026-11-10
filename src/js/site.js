@@ -172,6 +172,87 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* The appearance switch                                               */
+  /* ------------------------------------------------------------------ */
+  var THEME_KEY = 'theme';
+
+  function storedTheme() {
+    try {
+      return window.localStorage.getItem(THEME_KEY);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function systemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function currentTheme() {
+    var stored = storedTheme();
+
+    return stored === 'light' || stored === 'dark' ? stored : systemTheme();
+  }
+
+  function applyTheme(theme) {
+    var root = document.documentElement;
+    var button = document.querySelector('.theme-toggle');
+    var meta = document.querySelector('meta[name="theme-color"]');
+    var dark = theme === 'dark';
+
+    root.setAttribute('data-theme', theme);
+    root.style.colorScheme = theme;
+
+    if (meta) {
+      meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+    }
+
+    if (button) {
+      button.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      button.setAttribute('aria-label', dark ? '切换到明亮模式' : '切换到暗黑模式');
+      button.setAttribute('title', dark ? '切换到明亮模式' : '切换到暗黑模式');
+    }
+  }
+
+  function initTheme() {
+    applyTheme(currentTheme());
+
+    var button = document.querySelector('.theme-toggle');
+
+    if (!button) {
+      return;
+    }
+
+    button.addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+
+      try {
+        window.localStorage.setItem(THEME_KEY, next);
+      } catch (error) {
+        /* A private window refuses to keep the choice. The page still
+           switches, it just starts over on the next visit. */
+      }
+
+      applyTheme(next);
+    });
+
+    /* The system keeps its say as long as the visitor has not chosen. */
+    var query = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function onChange(event) {
+      if (!storedTheme()) {
+        applyTheme(event.matches ? 'dark' : 'light');
+      }
+    }
+
+    if (query.addEventListener) {
+      query.addEventListener('change', onChange);
+    } else if (query.addListener) {
+      query.addListener(onChange);
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Boot                                                               */
   /* ------------------------------------------------------------------ */
   var ticking = false;
@@ -189,6 +270,7 @@
     });
   }
 
+  initTheme();
   addCopyButtons();
   addReadingTime();
   addBackToTop();

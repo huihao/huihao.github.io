@@ -1,0 +1,31 @@
+/**
+ * The appearance switch.
+ *
+ * The site has two appearances: the light one and the dark one. By default
+ * the dark one follows the system preference, the way every native app
+ * behaves. A visitor can override that with the switch in the top bar, and
+ * the choice is written to `data-theme` on the root element.
+ *
+ * This file is the only place that knows how "the page is dark" is
+ * expressed, so the rest of the stylesheet never has to repeat the
+ * selectors:
+ *
+ *   - an explicit choice   → `:root[data-theme="dark"]`
+ *   - no choice, dark OS   → `:root:not([data-theme="light"])` inside the
+ *                            `prefers-color-scheme: dark` media query
+ *
+ * Both have the same specificity, and the explicit one comes last, so a
+ * visitor who picks light on a dark system keeps the light appearance.
+ */
+
+@mixin dark-only {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      @content;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    @content;
+  }
+}

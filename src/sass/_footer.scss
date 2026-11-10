@@ -2,6 +2,8 @@
  * The footer: a soft colour wash that closes the page.
  */
 
+@use "theme" as *;
+
 #wrapper {
   footer {
     position: relative;
@@ -63,7 +65,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@include dark-only {
   #wrapper {
     footer {
       background: linear-gradient(

@@ -2,8 +2,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff">
+    <script>
+    /* The appearance is settled before the first paint, so the page never
+       flashes the wrong colours. A choice the visitor made earlier wins
+       over the system preference. */
+    (function () {
+        var theme;
+
+        try {
+            theme = localStorage.getItem('theme');
+        } catch (error) {
+            theme = null;
+        }
+
+        if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        var root = document.documentElement;
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        root.setAttribute('data-theme', theme);
+        root.style.colorScheme = theme;
+
+        if (meta) {
+            meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+        }
+    })();
+    </script>
     <meta name="baidu-site-verification" content="jZBFJtnZR3" />
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">

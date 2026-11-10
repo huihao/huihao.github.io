@@ -2,6 +2,8 @@
  * The header: a translucent bar on top and the profile card underneath.
  */
 
+@use "theme" as *;
+
 #wrapper {
   header {
     position: relative;
@@ -40,6 +42,58 @@
         font-weight: 600;
         letter-spacing: var(--tracking-tight);
         color: var(--label);
+      }
+
+      /* The appearance switch, the way iOS puts it in a toolbar: a small
+         circle at the far end that turns into the other symbol. */
+      .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin-left: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        color: var(--label-secondary);
+        background: var(--fill);
+        cursor: pointer;
+        transition:
+          color var(--duration-fast) var(--ease-standard),
+          background-color var(--duration-fast) var(--ease-standard),
+          transform var(--duration-fast) var(--ease-standard);
+
+        &:hover {
+          color: var(--label);
+          background: var(--fill-secondary);
+        }
+
+        &:active {
+          transform: scale(0.92);
+        }
+
+        .theme-icon {
+          position: absolute;
+          width: 17px;
+          height: 17px;
+          transition:
+            opacity var(--duration) var(--ease-standard),
+            transform var(--duration) var(--ease-spring);
+        }
+
+        /* In the light appearance the switch offers the moon. */
+        .theme-icon-sun {
+          opacity: 0;
+          transform: rotate(-70deg) scale(0.4);
+        }
+
+        .theme-icon-moon {
+          opacity: 1;
+          transform: rotate(0deg) scale(1);
+        }
       }
 
       /* Once the page moves, the bar lifts a little off the content. */
@@ -252,6 +306,27 @@
       background-image: url("../img/Oval3.png");
       filter: blur(40px);
       opacity: 0.3;
+    }
+  }
+}
+
+/* In the dark appearance the switch offers the sun instead. */
+@include dark-only {
+  #wrapper {
+    header {
+      .top-line {
+        .theme-toggle {
+          .theme-icon-sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+          }
+
+          .theme-icon-moon {
+            opacity: 0;
+            transform: rotate(70deg) scale(0.4);
+          }
+        }
+      }
     }
   }
 }
