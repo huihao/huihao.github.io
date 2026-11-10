@@ -22,7 +22,7 @@ layout: default
                 </div>
                 <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
                 <div class="tip">
-                    {{ post.excerpt | strip_html | truncate: 160 }}
+                    {{ post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 160 }}
                 </div>
                 <div class="addition">
                     <a class="more base-link" href="{{ site.baseurl }}{{ post.url }}">

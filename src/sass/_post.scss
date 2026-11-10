@@ -93,6 +93,53 @@
       padding-top: 0;
     }
 
+    /* The tags of the post, as a row of chips under the body. */
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-6);
+      font-size: var(--text-footnote);
+
+      .article-tags-label {
+        color: var(--label-tertiary);
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .tag-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 12px;
+        border-radius: var(--radius-pill);
+        background: var(--fill-tertiary);
+        color: var(--label-secondary);
+        font-size: var(--text-footnote);
+        text-decoration: none;
+        transition:
+          background-color var(--duration-fast) var(--ease-standard),
+          color var(--duration-fast) var(--ease-standard),
+          transform var(--duration-fast) var(--ease-spring);
+
+        &:hover {
+          background: var(--accent-tint);
+          color: var(--accent-text-hover);
+        }
+
+        &:active {
+          transform: scale(0.96);
+        }
+      }
+    }
+
     /* The way back to the list. */
     .article-footer {
       margin-top: var(--space-7);

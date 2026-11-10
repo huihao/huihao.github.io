@@ -117,7 +117,7 @@
   /* Kept opaque enough to clear WCAG AA (4.5:1) against white and
      against the grouped background. */
   --label-secondary: rgb(60 60 67 / 80%);
-  --label-tertiary: rgb(60 60 67 / 72%);
+  --label-tertiary: rgb(60 60 67 / 76%);
   --label-quaternary: rgb(60 60 67 / 18%);
   --background: #fff;
   --background-elevated: #fff;
@@ -146,6 +146,23 @@
   /* The card surface: a hairline plus a wide, very soft shadow. */
   --shadow-card: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px rgb(0 0 0 / 6%);
   --selection: rgb(32 198 242 / 24%);
+  /* Syntax highlighting — a restrained palette that matches the rest of
+     the site. Every colour clears WCAG AA on the code surface. */
+  --syntax-bg: #f6f8fa;
+  --syntax-keyword: #cf222e;
+  --syntax-string: #0a3069;
+  --syntax-number: #0550ae;
+  --syntax-comment: #57606a;
+  --syntax-function: #8250df;
+  --syntax-type: #953800;
+  --syntax-variable: #953800;
+  --syntax-operator: #0550ae;
+  --syntax-punctuation: #57606a;
+  --syntax-tag: #116329;
+  --syntax-attribute: #0550ae;
+  --syntax-error: #82071e;
+  --syntax-deleted: #82071e;
+  --syntax-inserted: #116329;
 }
 
 /**
@@ -198,6 +215,21 @@
     --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
     --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
     --selection: rgb(78 212 255 / 30%);
+    --syntax-bg: #16161a;
+    --syntax-keyword: #ff7b72;
+    --syntax-string: #a5d6ff;
+    --syntax-number: #79c0ff;
+    --syntax-comment: #8b949e;
+    --syntax-function: #d2a8ff;
+    --syntax-type: #ffa657;
+    --syntax-variable: #ffa657;
+    --syntax-operator: #79c0ff;
+    --syntax-punctuation: #8b949e;
+    --syntax-tag: #7ee787;
+    --syntax-attribute: #79c0ff;
+    --syntax-error: #ffa198;
+    --syntax-deleted: #ffa198;
+    --syntax-inserted: #7ee787;
   }
 }
 :root[data-theme=dark] {
@@ -241,6 +273,21 @@
   --shadow-lg: 0 8px 32px rgb(0 0 0 / 56%);
   --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
   --selection: rgb(78 212 255 / 30%);
+  --syntax-bg: #16161a;
+  --syntax-keyword: #ff7b72;
+  --syntax-string: #a5d6ff;
+  --syntax-number: #79c0ff;
+  --syntax-comment: #8b949e;
+  --syntax-function: #d2a8ff;
+  --syntax-type: #ffa657;
+  --syntax-variable: #ffa657;
+  --syntax-operator: #79c0ff;
+  --syntax-punctuation: #8b949e;
+  --syntax-tag: #7ee787;
+  --syntax-attribute: #79c0ff;
+  --syntax-error: #ffa198;
+  --syntax-deleted: #ffa198;
+  --syntax-inserted: #7ee787;
 }
 
 /**
@@ -1335,6 +1382,47 @@ a:active {
   padding-top: 0;
 }
 #container .article-content {
+  /* The tags of the post, as a row of chips under the body. */
+}
+#container .article-content .article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  font-size: var(--text-footnote);
+}
+#container .article-content .article-tags .article-tags-label {
+  color: var(--label-tertiary);
+}
+#container .article-content .article-tags ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#container .article-content .article-tags .tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--fill-tertiary);
+  color: var(--label-secondary);
+  font-size: var(--text-footnote);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-spring);
+}
+#container .article-content .article-tags .tag-chip:hover {
+  background: var(--accent-tint);
+  color: var(--accent-text-hover);
+}
+#container .article-content .article-tags .tag-chip:active {
+  transform: scale(0.96);
+}
+#container .article-content {
   /* The way back to the list. */
 }
 #container .article-content .article-footer {
@@ -1664,6 +1752,275 @@ a:active {
 }
 .back-to-top:active {
   transform: scale(0.92);
+}
+
+/**
+ * The taxonomy pages (categories, tags, archive) and the 404 page.
+ *
+ * They share the list page: a row of chips that jumps to a group, then
+ * the groups themselves, each one a list of compact rows.
+ */
+.taxonomy {
+  margin-top: var(--space-6);
+}
+.taxonomy .taxonomy-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--separator);
+  font-family: var(--font-display);
+  font-size: var(--text-title-3);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--label);
+}
+.taxonomy .taxonomy-title .taxonomy-count {
+  font-family: var(--font-text);
+  font-size: var(--text-footnote);
+  font-weight: 500;
+  color: var(--label-tertiary);
+}
+
+/* The chip that counts the entries of a group. */
+.categories-list-item .count {
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--fill-tertiary);
+  font-size: var(--text-caption);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  color: var(--label-tertiary);
+}
+
+/* The rows of a taxonomy group: a headline and a summary on the left, the
+   date on the right, the way a native list row is laid out. */
+#main .category article.article .con {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  -moz-column-gap: var(--space-4);
+       column-gap: var(--space-4);
+}
+#main .category article.article .con h1 {
+  grid-column: 1;
+}
+#main .category article.article .con .tip {
+  grid-column: 1;
+  margin-top: var(--space-1);
+  font-size: var(--text-footnote);
+  -webkit-line-clamp: 2;
+}
+#main .category article.article .con .date {
+  grid-column: 2;
+  grid-row: 1/span 2;
+  align-self: center;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+/* The 404 page. */
+.not-found {
+  padding: var(--space-8) 0 var(--space-7);
+  text-align: center;
+}
+.not-found .not-found-code {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-tightest);
+  color: var(--accent-text);
+}
+.not-found h1 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-title-1);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--label);
+}
+.not-found p {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-subhead);
+  color: var(--label-secondary);
+}
+.not-found .not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+@media (width <= 760px) {
+  .not-found {
+    padding: var(--space-7) 0 var(--space-6);
+  }
+  .not-found .not-found-code {
+    font-size: 3.5rem;
+  }
+  .not-found h1 {
+    font-size: var(--text-title-2);
+  }
+  #main .category article.article .con {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #main .category article.article .con .date {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: var(--space-2);
+  }
+}
+/**
+ * Syntax highlighting.
+ *
+ * Rouge (Jekyll's default highlighter) wraps every code block in
+ * `div.highlight` and marks the tokens with short class names. The colours
+ * come from the design tokens, so a code block follows the appearance of
+ * the page: the light palette in the light appearance, the dark one in the
+ * dark appearance.
+ */
+.highlight {
+  /* Comments */
+}
+.highlight .c,
+.highlight .ch,
+.highlight .cd,
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+.highlight {
+  /* Errors */
+}
+.highlight .err {
+  color: var(--syntax-error);
+}
+.highlight {
+  /* Keywords */
+}
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt {
+  color: var(--syntax-keyword);
+}
+.highlight {
+  /* Operators and punctuation */
+}
+.highlight .o,
+.highlight .ow {
+  color: var(--syntax-operator);
+}
+.highlight .p,
+.highlight .pi {
+  color: var(--syntax-punctuation);
+}
+.highlight {
+  /* Diff */
+}
+.highlight .gd {
+  color: var(--syntax-deleted);
+}
+.highlight .gi {
+  color: var(--syntax-inserted);
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: 700;
+}
+.highlight .gh,
+.highlight .gu {
+  color: var(--syntax-number);
+  font-weight: 700;
+}
+.highlight {
+  /* Numbers */
+}
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo {
+  color: var(--syntax-number);
+}
+.highlight {
+  /* Strings */
+}
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .dl,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss {
+  color: var(--syntax-string);
+}
+.highlight {
+  /* Attributes */
+}
+.highlight .na {
+  color: var(--syntax-attribute);
+}
+.highlight {
+  /* Builtins and types */
+}
+.highlight .nb,
+.highlight .bp {
+  color: var(--syntax-type);
+}
+.highlight .nc,
+.highlight .nn {
+  color: var(--syntax-type);
+}
+.highlight {
+  /* Variables */
+}
+.highlight .no,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .nd,
+.highlight .nl {
+  color: var(--syntax-variable);
+}
+.highlight {
+  /* Functions */
+}
+.highlight .ne,
+.highlight .nf,
+.highlight .fm {
+  color: var(--syntax-function);
+}
+.highlight {
+  /* Tags */
+}
+.highlight .nt {
+  color: var(--syntax-tag);
+}
+.highlight .w {
+  color: inherit;
 }
 
 #wrapper #container {

@@ -1,27 +1,35 @@
 ---
 layout: default
-title: Categories
+permalink: /article/categories.html
+title: 分类
 ---
 
 <div id="main">
- <div class="categories-list">
-    {% for tag in site.categories %}
-    <a href="#{{ tag[0] | slugify }}" class="categories-list-item"><i class="icon icon-tag"></i>{{ tag[0] }}</a>
-    {% endfor %}
-  </div>
-{% for tag in site.categories %}
-<div class="category">
-        <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
-        {% for post in tag[1] %}
-        <article class="article">
-            <div class="con">
-                <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
-                <p class="date"><span>{{ post.date | date: "（%Y年%m月%d日）" }}</span></p>
-            </div>
-        </article>
+    <div class="categories-list">
+        {% for category in site.categories %}
+        <a href="#{{ category.first | slugify }}" class="categories-list-item">
+            <i class="icon icon-tag"></i>{{ category.first }}<span class="count">{{ category.last.size }}</span>
+        </a>
         {% endfor %}
-      </div>
+    </div>
+
+    {% for category in site.categories %}
+    <section class="taxonomy" id="{{ category.first | slugify }}">
+        <h2 class="taxonomy-title">
+            <span>{{ category.first }}</span>
+            <span class="taxonomy-count">{{ category.last.size }} 篇</span>
+        </h2>
+        <div class="category">
+            {% for post in category.last %}
+            <article class="article">
+                <div class="con">
+                    <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+                    <div class="tip">{{ post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 160 }}</div>
+                    <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
     {% endfor %}
 </div>
-
-       

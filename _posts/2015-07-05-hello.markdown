@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "在Github上使用Jekyll建立博客站点"
+description: 记录用 Jekyll + GitHub Pages 搭建个人博客的全过程：域名申请、仓库配置与主题定制。
 date:   2015-07-05 20:48:10
 categories: skill
 tags: [web, jekyll]

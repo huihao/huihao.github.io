@@ -1,7 +1,11 @@
 ---
 layout: post
 title:  "JavaScript-作用域相关"
+description: 系统梳理执行环境、变量对象与作用域链，理解一个变量到底能被谁访问。
 
+date: 2017-01-02 12:44:10
+categories: javascript
+tags: [作用域, javascript]
 ---
 
 
@@ -57,7 +61,7 @@ JavaScript采用的是词法作用域，即作用域在词法分析阶段就已�
 
 ###Example
 
-```
+```js
 
 var v1 = 1;
 
@@ -85,7 +89,7 @@ scope1();
 
 在上面的例子中，可以看到有2个局部作用域，分别由scope1函数和foo函数创建，foo函数创建的作用域被scope1函数创建的作用域包围，scope1函数创建的作用域被全局作用域包围。
 
-```
+```js
 
 var x = 10;
 

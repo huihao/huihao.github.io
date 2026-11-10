@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "介绍JavaScript中的Promise"
+description: Promise 的三种状态、then 的回调时机，以及错误传播与链式调用。
 date:   2017-10-07 17:23:10
 categories: javascript
 tags: [promise,asyn,wait]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Learn from jQuery"
+description: 从 jQuery 的设计出发，反推原生 JavaScript 的能力边界：模块、选择器、事件与动画。
 date:   2016-08-11 15:44:10
 categories: javascript
 tags: [jquery, javascript]

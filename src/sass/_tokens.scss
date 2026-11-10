@@ -104,7 +104,7 @@
   /* Kept opaque enough to clear WCAG AA (4.5:1) against white and
      against the grouped background. */
   --label-secondary: rgb(60 60 67 / 80%);
-  --label-tertiary: rgb(60 60 67 / 72%);
+  --label-tertiary: rgb(60 60 67 / 76%);
   --label-quaternary: rgb(60 60 67 / 18%);
 
   --background: #fff;
@@ -140,6 +140,24 @@
   --shadow-card: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px rgb(0 0 0 / 6%);
 
   --selection: rgb(32 198 242 / 24%);
+
+  /* Syntax highlighting — a restrained palette that matches the rest of
+     the site. Every colour clears WCAG AA on the code surface. */
+  --syntax-bg: #f6f8fa;
+  --syntax-keyword: #cf222e;
+  --syntax-string: #0a3069;
+  --syntax-number: #0550ae;
+  --syntax-comment: #57606a;
+  --syntax-function: #8250df;
+  --syntax-type: #953800;
+  --syntax-variable: #953800;
+  --syntax-operator: #0550ae;
+  --syntax-punctuation: #57606a;
+  --syntax-tag: #116329;
+  --syntax-attribute: #0550ae;
+  --syntax-error: #82071e;
+  --syntax-deleted: #82071e;
+  --syntax-inserted: #116329;
 }
 
 /**
@@ -198,6 +216,22 @@
   --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 44%);
 
   --selection: rgb(78 212 255 / 30%);
+
+  --syntax-bg: #16161a;
+  --syntax-keyword: #ff7b72;
+  --syntax-string: #a5d6ff;
+  --syntax-number: #79c0ff;
+  --syntax-comment: #8b949e;
+  --syntax-function: #d2a8ff;
+  --syntax-type: #ffa657;
+  --syntax-variable: #ffa657;
+  --syntax-operator: #79c0ff;
+  --syntax-punctuation: #8b949e;
+  --syntax-tag: #7ee787;
+  --syntax-attribute: #79c0ff;
+  --syntax-error: #ffa198;
+  --syntax-deleted: #ffa198;
+  --syntax-inserted: #7ee787;
 }
 
 /* The dark appearance is used when the visitor asks for it, or when the

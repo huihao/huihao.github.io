@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "vue项目如何进行单元测试"
+description: 用 Vue Test Utils + Jest 为 Vue 组件写单元测试：挂载、断言与异步处理。
 date:   2018-10-23 11:00:10
 categories: javascript
 tags: [vue, test]
@@ -41,7 +42,7 @@ tags: [vue, test]
 
 在这里 我们使用vue cli创建一个项目用于介绍。
 
-```
+```bash
 
 npm install -g @vue/cli
 vue create vue-test-unit
@@ -61,7 +62,7 @@ Vue Test Utils 的基础操作是通过mount()函数和或shallowMount()函数�
 
 mount() 和 shallowMount() 之间的区别在于被存根的子组件。shallowMount() 不会渲染子组件，而是用一个空的div块代替组件的渲染，因为没有渲染，所有子组件声明周期中的函数也不会被执行。Vue Test Utils 提供了stubs配置选项，通过这一选项替换默认的存根，方便我们在测试中测试子组件的渲染情况但又不会被子组件干扰。
 
-```
+```js
 describe('HelloWorld.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
@@ -95,7 +96,7 @@ Vue Test Utils 中另一个重要的概念就是包裹器，通过包裹器我�
 
 但是在执行这些方法的过程中，经常会碰到异步渲染的问题，在这里我推荐使用flush-promises 配合 aync/await 去编写测试用例。flush-promises 会清除所有等待完成的 Promise 具柄。
 
-```
+```js
 
 import { shallowMount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
@@ -119,7 +120,7 @@ test('Foo', () => {
 通常项目中编写的组件是业务相关的，会包含异步请求在其中，为了验证组件的正确渲染，需要对这些请求行为进行模拟。如果你在项目中使用了axios，那么就可以通过axios-mock-adapter去实现这一需求。
 
 
-```
+```js
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 ....

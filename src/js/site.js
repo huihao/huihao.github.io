@@ -46,8 +46,22 @@
       var code = pre.querySelector('code');
       var language = '';
 
-      if (code) {
+      /* Rouge puts the language on the wrapper of the block
+         (`div.language-js.highlighter-rouge`), a plain markdown block keeps
+         it on the code element (`code.language-js`). */
+      var highlighter = pre.closest ? pre.closest('.highlighter-rouge') : null;
+
+      if (highlighter) {
+        Array.prototype.forEach.call(highlighter.classList, function (name) {
+          if (name.indexOf('language-') === 0 && !language) {
+            language = name.slice('language-'.length);
+          }
+        });
+      }
+
+      if (!language && code) {
         var match = code.className.match(/language-([\w-]+)/);
+
         if (match) {
           language = match[1];
         }

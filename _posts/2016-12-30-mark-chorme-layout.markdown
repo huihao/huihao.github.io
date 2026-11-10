@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "记一次性能优化（埋坑与填坑的过程）"
+description: 列表拖拽排序卡顿的排查过程：只更新可视区域行的宽度，拖动结束后再统一同步。
 date:   2016-09-09 12:44:10
 categories: javascript
 tags: [chrome, javascript]
@@ -16,7 +17,7 @@ tags: [chrome, javascript]
 
 为了解决这个问题，我决定用setTimeout实现只在列表停止上下滚动的时候执行遍历操作，从而减少卡顿的情况。
 
-```
+```js
 var $body = this.$el.parent()
     it = 0,
     self = this;

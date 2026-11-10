@@ -19,6 +19,16 @@ layout: article
     <div class="con markdown-body" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ page.url }}">
          {{ content }}
     </div>
+    {% if page.tags and page.tags.size > 0 %}
+    <div class="article-tags">
+        <span class="article-tags-label">标签</span>
+        <ul>
+            {% for tag in page.tags %}
+            <li><a class="tag-chip" href="{{ site.baseurl }}/article/tags.html#{{ tag | slugify }}">{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <div class="article-footer">
         <a class="back base-link" href="{{ site.baseurl }}/">
             <span>返回文章列表</span>

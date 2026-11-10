@@ -25,6 +25,9 @@ permalink: /:year/:month/:day/:title.html
 paginate: 5
 paginate_path: "article/:num"
 
+# 代码高亮：Rouge（Jekyll 的默认高亮器，也随 GitHub Pages 一起提供）
+highlighter: rouge
+
 # 第三方插件（均为 GitHub Pages 官方白名单插件）
 #   jekyll-feed     生成 Atom feed（/atom.xml）
 #   jekyll-paginate 分页
@@ -51,17 +54,3 @@ exclude:
   - Rakefile
   - .stylelintrc.json
   - .gitignore
-
-# Navigation (2nd level links supported)
-nav:
-  Home:           
-    - '/'
-  Blog:
-    - '/article'   
-    - { Categories: '/article/categories/' }
-    - { Tags: '/article/tags/' }
-  About:          
-    - '/about/'
-
-tag_page: '/tags/'
-category_page: '/categories/'

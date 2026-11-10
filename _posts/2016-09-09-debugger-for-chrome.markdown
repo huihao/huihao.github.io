@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "使用VS Code调试JavaScript代码"
+description: 用 VS Code 的 Debugger for Chrome 插件在编辑器里直接调试 JavaScript，并配合 Tatami 单页框架。
 date:   2016-09-09 12:44:10
 categories: ide
 tags: [microsoft, javascript]
@@ -18,7 +19,7 @@ tags: [microsoft, javascript]
 
 插件存在两种运行模式，一是启动Chrome浏览器并跳转到你的应用页面，二是连接一个运行的Chrome实例。两种模式都可以通过.vscode/launch.json文件配置，VS Code可以为你自动生成一个配置文件，当然你也可以自己手动编写。
 
-```
+```json
 {
     "version": "0.2.0",
     "configurations": [

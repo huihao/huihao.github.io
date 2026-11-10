@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "什么是Vuex[翻译]"
+description: Vuex 官方文档的中文整理：State、Getter、Mutation、Action 与模块化拆分。
 date:   2016-12-01 12:44:10
 categories: javascript
 tags: [vue,vuex]
@@ -13,7 +14,7 @@ Vuex是一个Vue.js程序的状态管理模式+类库。它作为一个中央仓
 
 让我从一个简单的vue程序开始
 
-```
+```js
 new Vue({
   // state
   data () {
@@ -73,7 +74,7 @@ new Vue({
 
 安装完Vuex之后，创建一个非常简单的store，只提供一个初始的状态对象和一些简单的mutation。
 
-```
+```js
 //如果使用module系统要先确保调用了Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -90,7 +91,7 @@ const store = new Vuex.Store({
 
 先在我们可以访问定义为store.state的状态对象了，还可以通过调用store.commit方法触发状态的改变。
 
-```
+```js
 store.commit('increment')
 
 console.log(store.state.count) // -> 1
@@ -112,7 +113,7 @@ Vuex使用一个单例状态树，这个单独的对象包含了所有应用级�
 
 所以我们如何在vue的组件中展示Store中的state呢？因为Vuex store是具有反应性的，要从检索它里面检索state，最简单的方法就是在一个computed property返回一些store state。
 
-```
+```js
 // let's create a Counter component
 const Counter = {
   template: `<div>{{ count }}</div>`,
@@ -130,7 +131,7 @@ const Counter = {
 
 Vuex提供一个机制使得跟组件能将store注入到每个子组件中，通过一个store选项配置（通过Vue.use(Vuex)启用）。
 
-```
+```js
 const app = new Vue({
   el: '#app',
   // provide the store using the "store" option.
@@ -147,7 +148,7 @@ const app = new Vue({
 
 通过在根实例中配置store选项，store将会被注入到每一个子组件中，子组件就可以通过this.$store去使用，让我们更新我们的Counter去实现。
 
-```
+```js
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -162,7 +163,7 @@ const Counter = {
 
 当一个组件需要利用多个store state 属性或getter时，在每个computed properties中声明它们将会是繁琐和重复的，我们可以使用mapState helper去应对这种情况，它生成了computed getter方法给我们，帮助我们保存一些按键信息。
 
-```
+```js
 // in standalone builds helpers are exposed as Vuex.mapState
 import { mapState } from 'vuex'
 
@@ -184,7 +185,7 @@ export default {
 
 当映射的计算属性名称跟store状态树节点的名称相同时，我们可以只传递一个字符串的数组。
 
-```
+```js
 computed: mapState([
   // map this.count to store.state.count
   'count'
@@ -194,7 +195,7 @@ computed: mapState([
 
 mapState 返回的是一个整个Object，我们要如何与其他local计算属性配合使用。通常我们会使用utility去合并多个对象到一个对象，然后传给computed。然而通过object spread operator，我们可以大大的简化语法。
 
-```
+```js
 computed: {
   localComputed () { /* ... */ },
   // mix this into the outer object with the object spread operator
@@ -212,7 +213,7 @@ computed: {
 
 有时候我们需要基于store state计算得出派生状态值，例如过滤一整个列表并计算它们：
 
-```
+```js
 computed: {
   doneTodosCount () {
     return this.$store.state.todos.filter(todo => todo.done).length
@@ -224,7 +225,7 @@ computed: {
 
 Vuex允许我们在Stroe中定义 "getters" 。getters将会接收state作为第一个参数。
 
-```
+```js
 
 const store = new Vuex.Store({
   state: {
@@ -244,13 +245,13 @@ const store = new Vuex.Store({
 
 定义好的getters将会暴露在store.getters中:
 
-```
+```js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
 Getters将其他定义好的getters最为第二个参数传入
 
-```
+```js
 getters: {
   // ...
   doneTodosCount: (state, getters) => {
@@ -262,7 +263,7 @@ store.getters.doneTodosCount // -> 1
 
 我们可以轻松的在组件内部适应
 
-```
+```js
 computed: {
   doneTodosCount () {
     return this.$store.getters.doneTodosCount
@@ -274,7 +275,7 @@ computed: {
 
 mapGetters简单的映射store getters到local 计算属性：
 
-```
+```js
 import { mapGetters } from 'vuex'
 
 export default {
@@ -294,7 +295,7 @@ export default {
 
 如果你想用一个不一样的名字去映射getter，可以使用一个对象：
 
-```
+```js
 
 ...mapGetters({
   // map this.doneCount to store.getters.doneTodosCount
@@ -305,7 +306,7 @@ export default {
 
  提交一个mutation是改变一个Vuex store中状态的唯一方法，Vuex mutations与events十分相似，每一个mutation都有一个字符串名称和一个函数句柄。在句柄函数中我们执行状态的修改，并将状态作为第一个参数接收：
  
-```
+```js
  const store = new Vuex.Store({
   state: {
     count: 1
@@ -327,7 +328,7 @@ export default {
 
 调用store.commit的时候我们可以传入一个额外的参数，我们称之为mutation的payload。
 
-```
+```js
 // ...
 mutations: {
   increment (state, n) {
@@ -340,7 +341,7 @@ store.commit('increment', 10)
  
  在大多数情况下，传入的payload将会是一个对象，这将能包含更多的字段，并使得突变的记录变得更具可读性。
  
-```
+```js
  // ...
 mutations: {
   increment (state, payload) {
@@ -357,7 +358,7 @@ store.commit('increment', {
 
 一个替代的方法去提交突变是传入一个带有type属性的对象
 
-```
+```js
 store.commit({
   type: 'increment',
   amount: 10
@@ -366,7 +367,7 @@ store.commit({
  
  我们使用对象风格的提交，整个对象将会被当做payload传递给突变的句柄，随意句柄依旧是一样的。
  
-```
+```js
   mutations: {
   increment (state, payload) {
     state.count += payload.amount
@@ -385,7 +386,7 @@ store.commit({
  	
    .使用Vue.set(obj, 'newProp', 123),
    或者使用一个新的对象替换
-```
+```js
    state.obj = { ...state.obj, newProp: 123 }
 ```
  
@@ -393,7 +394,7 @@ store.commit({
  
  使用固定不变的Mutation Types 在各种Flux的实现中是十分常见的。这样做可以从像linters这样的工具中获取优势，并且把所有的常量放到一个文件中，能让你的合作同事更好地了解到有哪些mutations可以在整个应用中使用。
  
-```
+```js
  // mutation-types.js
 export const SOME_MUTATION = 'SOME_MUTATION'
 // store.js
@@ -419,7 +420,7 @@ const store = new Vuex.Store({
  
  你需要记住一个非常重要的规则，mutation句柄函数必须是同步的。我们可以考虑如下的例子：
  
-```
+```js
   mutations: {
   someMutation (state) {
     api.callAsyncMethod(() => {
@@ -437,7 +438,7 @@ const store = new Vuex.Store({
 你可以使用this.$store.commit('xxx')在组件中提交mutation,或者我们可以使用mapMutations Helper ，他将映射组件方法到store.commit调用
 
 
-```
+```js
 import { mapMutations } from 'vuex'
 
 export default {
@@ -457,7 +458,7 @@ export default {
 
 在状态mutation中结合异步操作，将会使你的程序变得难以推论。举个例子，当你在改变状态的方法中同时调用两个异步的方法，你不知道回调什么时候被调用，也不知道哪个回调会被先调用。这就是为什么我们会分开为两个概念，在Vuex中，mutations are synchronous transactions。
 
-```
+```js
 store.commit('increment')
 // any state change that the "increment" mutation may cause
 // should be done at this moment.
@@ -470,7 +471,7 @@ Actions跟mutations 相似，有如下的两点不同：
  
 让我们注册一个简单的action
 
-```
+```js
 const store = new Vuex.Store({
   state: {
     count: 0
@@ -492,7 +493,7 @@ Action 的句柄接收一个上下文对象作为参数，这个对象暴露了�
 
 在实际编写时，我们会通过使用ES2015的解构语法简化我们的代码。
 
-```
+```js
 actions: {
   increment ({ commit }) {
     commit('increment')
@@ -506,7 +507,7 @@ Action 被 store.dispatch方法触发
 
 我们可以在Action实现异步操作：
 
-```
+```js
 actions: {
   incrementAsync ({ commit }) {
     setTimeout(() => {
@@ -518,7 +519,7 @@ actions: {
 
 Actions同样支持payload模式和对象风格的dispatch
 
-```
+```js
 // dispatch with a payload
 store.dispatch('incrementAsync', {
   amount: 10
@@ -533,7 +534,7 @@ store.dispatch({
 
 一个更现实的例子是查看购物车，结合了调用异步API和committing multiple mutations：
 
-```
+```js
 actions: {
   checkout ({ commit, state }, products) {
     // save the items currently in the cart
@@ -559,7 +560,7 @@ actions: {
 
 你可以通过调用this.$store.dispatch('xxx')分发Action在组件中，或者使用mapActions helper映射组件的方法到store.dispatch。
 
-```
+```js
 import { mapActions } from 'vuex'
 
 export default {
@@ -579,7 +580,7 @@ Action通常是异步的，所以我们要怎么才能知道一个Action已经�
 
 你需要知道store.dispatch能处理由一个被触发的action返回的promise，而且它自身也能返回一个promise
 
-```
+```js
 actions: {
   actionA ({ commit }) {
     return new Promise((resolve, reject) => {
@@ -595,7 +596,7 @@ actions: {
 
 所以你可以这么做：
 
-```
+```js
 store.dispatch('actionA').then(() => {
   // ...
 })
@@ -603,7 +604,7 @@ store.dispatch('actionA').then(() => {
 
 其他的action也一样
 
-```
+```js
 actions: {
   // ...
   actionB ({ dispatch, commit }) {
@@ -617,7 +618,7 @@ actions: {
 
 如果使用 async / await，我们还可以如此组合actions
 
-```
+```js
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
@@ -640,7 +641,7 @@ store.dispatch可能会触发多个action不同的moudle中，再这样的情况
 
 为了解决这个问题，Vuex允许我们将store分解到多个Moudle中。每一个Moudle拥有它的state, mutations, actions, getters, 和 nested modules。
 
-```
+```js
 const moduleA = {
   state: { ... },
   mutations: { ... },
@@ -671,7 +672,7 @@ store.state.b // -> moduleB's state
 
 在模块内的mutations 和 getters，接收到的参数将是模块自身的局部state
 
-```
+```js
 const moduleA = {
   state: { count: 0 },
   mutations: {
@@ -691,7 +692,7 @@ const moduleA = {
 
 相似的，在模块内部的actions，context.state将会暴露局部state，根状态将通过context.rootState暴露。
 
-```
+```js
 const moduleA = {
   // ...
   actions: {
@@ -706,7 +707,7 @@ const moduleA = {
 
 在模块内的getters中，根状态将作为第三个参数传入。
 
-```
+```js
 const moduleA = {
   // ...
   getters: {

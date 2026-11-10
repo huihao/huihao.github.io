@@ -12,11 +12,44 @@ materials, generous corner radii and the spring easing that native apps use.
 | --- | --- |
 | `_posts/` | the blog posts |
 | `_layouts/`, `_includes/` | Jekyll templates |
-| `index.html`, `article/`, `about.md` | the pages |
+| `index.html`, `article/`, `about.md` | the pages: the list, the categories, the tags, the archive and the about page |
+| `404.html` | the page GitHub Pages serves for a missing address |
 | `feed.xml` | the RSS 2.0 feed, `/feed.xml` |
 | `src/sass/` | Sass sources — `_tokens.scss` holds the design tokens |
 | `src/img/` | the images the site uses |
 | `dist/css/`, `dist/img/` | build output, committed because GitHub Pages serves the site as plain static files |
+
+## Writing
+
+Every post carries a `description` in its front matter. It is the summary the
+list card shows and the description the search engines and the social cards
+read, so a post should have one:
+
+```yaml
+---
+layout: post
+title: "vue项目如何进行单元测试"
+description: 用 Vue Test Utils + Jest 为 Vue 组件写单元测试：挂载、断言与异步处理。
+date: 2018-10-23 11:00:10
+categories: javascript
+tags: [vue, test]
+---
+```
+
+Code blocks name their language, so Rouge can highlight them:
+
+````markdown
+```js
+const store = new Vuex.Store({ state: { count: 0 } })
+```
+````
+
+The tokens of a code block are coloured by the design tokens as well, so a
+code block follows the appearance of the page.
+
+The categories, the tags and the archive are built from the front matter: a
+post belongs to a category and to any number of tags, and the pages under
+`article/` list them.
 
 ## Feeds
 
@@ -94,6 +127,7 @@ Everything visual is driven by the custom properties in
   appearance, so it clears WCAG AA) with `--accent-text-hover` beside it.
 - `--measure` — the width of the reading column, 720px.
 - `--media-ratio` — the proportions of the artwork of a post.
+- `--syntax-*` — the colours of the code blocks, one set per appearance.
 - `--space-*`, `--radius-*`, `--duration-*`, `--ease-*` — the 4pt spacing
   grid, the iOS corner radii and the motion.
 

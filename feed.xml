@@ -25,7 +25,7 @@ sitemap: false
       <link>{{ post.url | absolute_url }}</link>
       <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
       <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-      <description>{{ post.excerpt | strip_html | normalize_whitespace | truncate: 200 | xml_escape }}</description>
+      <description>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 200 | xml_escape }}</description>
       <content:encoded><![CDATA[{{ post.content | strip | replace: "]]>", "]]]]><![CDATA[>" }}]]></content:encoded>
       {% for category in post.categories %}
       <category>{{ category | xml_escape }}</category>

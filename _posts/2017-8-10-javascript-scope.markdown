@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "JavaScript中的变量作用域"
+description: 用一组可运行的例子理解 var 的函数级作用域与闭包。
 date:   2017-08-11 23:00:10
 categories: javascript
 tags: [作用域]
@@ -33,7 +34,7 @@ code-1 代码段执行之后，我们获得了如下输出结果
 
 下面再来看一段代码：
 
-````
+````js
 //code-2
 var b = 123
 function fun(){
@@ -50,7 +51,7 @@ fun()
 
 code-2 代码段执行之后，我们获得如下的输入结果
 
-````
+````text
 123
 Uncaught ReferenceError: b is not defined
 ````
@@ -77,7 +78,7 @@ ECMAscript 规定了词法环境是一个用于定义特定变量和函数标识
 
 外部词法环境引用的作用是在标识符解析的过程中形成一条作用域链。比如在上一段所描述的三个函数，如果在b函数和c函数中找不到所期待的变量，会到上一级作用域，也就是外部词法环境引用的a函数的作用域中去寻找。
 
-````
+````js
 	var wang = "wang"
 	
 	function a(x){

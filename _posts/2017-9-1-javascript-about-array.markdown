@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "JavaScript中的数组操作总结"
+description: 按是否修改原数组归类总结 Array 的常用方法与返回值。
 date:   2017-09-01 20:22:13
 categories: javascript
 tags: [数组]

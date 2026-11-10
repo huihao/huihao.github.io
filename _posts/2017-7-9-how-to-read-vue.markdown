@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "如何阅读VUE2.0的源码"
+description: 阅读 Vue 2 源码的方法论：先补 ES6，再按构建入口、响应式与组件逐层拆解。
 date:   2017-07-09 22:42:10
 categories: javascript
 tags: [vue, es6]
@@ -22,12 +23,12 @@ tags: [vue, es6]
 
   我们可以看到package.json里的运行命令
 
-````
+````json
   "dev": "rollup -w -c build/config.js --environment     TARGET:web-full-dev",
 ````
 
   Vue 使用了rollup 去打包源文件，我们可以加上soursesMap选项，生成sourcemap文件，更好的帮助我们去阅读源码。
 
-````
+````json
   "dev": "rollup -w -c build/config.js --sourcemap --environment TARGET:web-full-dev",
 ````
