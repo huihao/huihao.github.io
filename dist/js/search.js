@@ -17,7 +17,7 @@
     var clear = root.querySelector('[data-search-clear]');
     var pagefindUrl = root.getAttribute('data-pagefind') || '/pagefind/pagefind.js';
     var timer = null;
-    var pagefind = null;
+    var ready = null;
 
     function text(value) {
         return value === undefined || value === null ? '' : String(value);
@@ -68,18 +68,30 @@
         clear.hidden = false;
         status.textContent = '搜索中…';
 
-        pagefind.search(term).then(function (response) {
-            var results_ = response.results.slice(0, 20);
+        // 索引可能还在加载，先等它就绪再查
+        ready
+            .then(function (module) {
+                return module ? module.search(term) : null;
+            })
+            .then(function (response) {
+                if (!response) {
+                    return;
+                }
 
-            return Promise.all(results_.map(function (result) {
-                return result.data();
-            })).then(function (data) {
-                status.textContent = '找到 ' + data.length + ' 条结果';
-                render(data);
+                var list = response.results.slice(0, 20);
+
+                return Promise.all(
+                    list.map(function (result) {
+                        return result.data();
+                    })
+                ).then(function (data) {
+                    status.textContent = '找到 ' + data.length + ' 条结果';
+                    render(data);
+                });
+            })
+            .catch(function () {
+                status.textContent = '搜索失败，请稍后再试。';
             });
-        }).catch(function () {
-            status.textContent = '搜索失败，请稍后再试。';
-        });
     }
 
     function schedule(query) {
@@ -112,23 +124,27 @@
         run('');
     });
 
-    import(pagefindUrl).then(function (module) {
-        pagefind = module;
-
-        if (typeof pagefind.options === 'function') {
-            pagefind.options({ excerptLength: 32 });
+    ready = import(pagefindUrl).then(function (module) {
+        if (typeof module.options === 'function') {
+            module.options({ excerptLength: 32 });
         }
 
-        var params = new URLSearchParams(window.location.search);
-        var initial = params.get('q');
-
-        if (initial) {
-            input.value = initial;
-            run(initial);
-        } else {
-            status.textContent = '输入关键词开始搜索。';
-        }
-    }).catch(function () {
-        status.textContent = '搜索索引尚未生成，请在本地运行 npm run build:search。';
+        return module;
     });
+
+    ready
+        .then(function () {
+            var params = new URLSearchParams(window.location.search);
+            var initial = params.get('q');
+
+            if (initial) {
+                input.value = initial;
+                run(initial);
+            } else {
+                status.textContent = '输入关键词开始搜索。';
+            }
+        })
+        .catch(function () {
+            status.textContent = '搜索索引尚未生成，请在本地运行 npm run build:search。';
+        });
 }());
