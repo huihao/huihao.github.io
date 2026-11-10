@@ -132,6 +132,8 @@
         return module;
     });
 
+    status.textContent = '正在加载搜索索引…';
+
     ready
         .then(function () {
             var params = new URLSearchParams(window.location.search);
