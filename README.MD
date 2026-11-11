@@ -42,6 +42,7 @@ npm run preview   # 预览 build/
 | `npm run build` | 依次执行 css / img / js / assets / search（含站点构建） |
 | `npm run clean` | 删除 `public/dist`、`public/pagefind`、`build/` |
 | `npm run lint:css` | stylelint 检查 SCSS |
+| `npm run verify` | 检查 `build/` 产物：必备页面、订阅源、站内链接是否齐全 |
 
 ## 目录结构
 
@@ -92,9 +93,18 @@ image: /dist/img/cover-xxx.png
 - RSS 2.0：<https://bio.wuhh.cc/feed.xml>
 - Atom：<https://bio.wuhh.cc/atom.xml>
 
-## 部署
+## 部署与 CI
 
-`.github/workflows/deploy.yml` 在 `master` 分支推送后自动构建并发布到 GitHub Pages。
+| 工作流 | 触发 | 作用 |
+| --- | --- | --- |
+| `.github/workflows/deploy.yml` | 推送到 `master` | lint → 构建 → 校验产物 → 发布到 GitHub Pages |
+| `.github/workflows/ci.yml` | Pull Request / 手动 | lint → 构建 → 校验产物，不发布 |
+
+- **Pagefind 索引缓存**：搜索索引只随内容变化，所以缓存键由 `src/content`、`src/pages`、
+  `src/components`、`src/layouts`、`src/lib`、`astro.config.mjs` 和 `package-lock.json`
+  的哈希生成；缓存命中时通过 `PAGEFIND_SKIP=1` 复用索引，跳过重新索引。
+- **产物校验**：`npm run verify` 会确认必备页面都生成了、订阅源与 sitemap 格式正确，
+  并且页面里 800+ 条站内链接都能找到对应文件，避免把坏链接发布出去。
 
 > 首次启用前，请在仓库 **Settings → Pages → Build and deployment → Source** 中
 > 选择 **GitHub Actions**（原来的 "Deploy from a branch" 指向的 Jekyll 构建已经不再产出站点）。

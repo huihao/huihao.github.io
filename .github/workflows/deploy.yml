@@ -25,11 +25,31 @@ jobs:
           node-version: 22
           cache: npm
 
+      # The Pagefind index only changes when the content changes, so it is
+      # cached under a key built from the sources it is derived from. On a
+      # cache hit the index is reused instead of being rebuilt.
+      - name: Cache the Pagefind index
+        id: pagefind-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/pagefind
+            .astro
+          key: pagefind-${{ runner.os }}-${{ hashFiles('src/content/**', 'src/pages/**', 'src/components/**', 'src/layouts/**', 'src/lib/**', 'astro.config.mjs', 'package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint the stylesheets
+        run: npm run lint:css
+
       - name: Build the site
         run: npm run build
+        env:
+          PAGEFIND_SKIP: ${{ steps.pagefind-cache.outputs.cache-hit }}
+
+      - name: Verify the build output
+        run: node scripts/verify-build.mjs
 
       - name: Upload the artifact
         uses: actions/upload-pages-artifact@v3

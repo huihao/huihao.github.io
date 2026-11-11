@@ -6,6 +6,10 @@
  * the same way the compiled CSS and images are.
  *
  *   npm run build:search
+ *
+ * Set PAGEFIND_SKIP=1 to reuse an index that is already present in
+ * public/pagefind (used by CI, where the index is restored from the Actions
+ * cache and only needs rebuilding when the content actually changed).
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -20,6 +24,13 @@ function run(command, args, options = {}) {
   execFileSync(command, args, { cwd: root, stdio: 'inherit', ...options });
 }
 
+async function exists(target) {
+  return fs.stat(target).then(
+    () => true,
+    () => false,
+  );
+}
+
 async function build() {
   console.log('search  building the site with Astro');
 
@@ -28,6 +39,17 @@ async function build() {
   run(process.execPath, [path.join(root, 'node_modules', 'astro', 'bin', 'astro.mjs'), 'build'], {
     env: { ...process.env, NODE_ENV: 'production' },
   });
+
+  /* The Astro build copies public/ into build/, so a restored index is already
+     part of the output; only the index itself is left to do. */
+  const reusable = process.env.PAGEFIND_SKIP === '1' || process.env.PAGEFIND_SKIP === 'true';
+
+  if (reusable && (await exists(path.join(outDir, 'pagefind.js')))) {
+    console.log('search  reusing the existing Pagefind index');
+    await fs.cp(outDir, path.join(siteDir, 'pagefind'), { recursive: true, force: true });
+
+    return;
+  }
 
   console.log('search  indexing with Pagefind');
 

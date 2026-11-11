@@ -1,0 +1,49 @@
+name: CI
+
+# Runs on every pull request (and on demand) so a broken build or a broken
+# stylesheet never reaches master. The deploy workflow covers master itself.
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, build and verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cache the Pagefind index
+        id: pagefind-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/pagefind
+            .astro
+          key: pagefind-${{ runner.os }}-${{ hashFiles('src/content/**', 'src/pages/**', 'src/components/**', 'src/layouts/**', 'src/lib/**', 'astro.config.mjs', 'package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint the stylesheets
+        run: npm run lint:css
+
+      - name: Build the site
+        run: npm run build
+        env:
+          PAGEFIND_SKIP: ${{ steps.pagefind-cache.outputs.cache-hit }}
+
+      - name: Verify the build output
+        run: node scripts/verify-build.mjs
