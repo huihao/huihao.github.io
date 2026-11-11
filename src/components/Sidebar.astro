@@ -1,0 +1,97 @@
+---
+import { getPosts, groupCount, dateParts } from '../lib/posts';
+
+const posts = await getPosts();
+
+const categoryCounts = groupCount(posts, (post) => post.data.categories);
+const tagCounts = groupCount(posts, (post) => post.data.tags);
+
+const yearCounts = new Map<string, number>();
+
+for (const post of posts) {
+  const year = String(dateParts(post.data.date).year);
+  yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
+}
+
+const categories = [...categoryCounts.entries()];
+const tags = [...tagCounts.entries()];
+const years = [...yearCounts.entries()];
+
+const iconFor = (category: string) => {
+  if (category === 'javascript') return 'icon-js';
+  if (category === 'css') return 'icon-css';
+  if (category === 'html') return 'icon-html';
+
+  return 'icon-default';
+};
+
+const slug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\u4e00-\u9fff-]/g, '');
+---
+
+<aside data-pagefind-ignore>
+	<section>
+        <div class="aside-header">
+            <i class="icon icon-triangle"></i> <span>分类</span>
+        </div>
+        <ul>
+        {categories.map(([category, count]) => (
+            <li>
+                <i class={`icon ${iconFor(category)}`}></i>
+                <span><a href={`/article/categories.html#${slug(category)}`}>{category}（{count}）</a></span>
+            </li>
+        ))}
+        </ul>
+    </section>
+    <section>
+        <div class="aside-header">
+            <i class="icon icon-calendar"></i> <span>时间归档</span>
+        </div>
+        <ul>
+        {years.map(([year, count]) => (
+            <li>
+                <i class="icon icon-default"></i>
+                <span><a href={`/article/archives.html#${year}`}>{year} 年（{count}）</a></span>
+            </li>
+        ))}
+        </ul>
+    </section>
+    <section>
+        <div class="aside-header">
+            <i class="icon icon-cross"></i> <span>标签</span>
+        </div>
+        <ul>
+        {tags.map(([tag, count]) => (
+            <li>
+                <i class="icon icon-tag"></i>
+                <span><a href={`/article/tags.html#${slug(tag)}`}>{tag}（{count}）</a></span>
+            </li>
+        ))}
+        </ul>
+    </section>
+    <section>
+        <div class="aside-header">
+            <i class="icon icon-circle"></i> <span>友情链接</span>
+        </div>
+        <ul>
+            <li>
+                <i class="icon icon-github"></i><span><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+            </li>
+            <li>
+                <i class="icon icon-git"></i><span><a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a></span>
+            </li>
+            <li>
+                <i class="icon icon-css"></i><span><a href="https://sass-lang.com/" target="_blank" rel="noopener noreferrer">Sass</a></span>
+            </li>
+            <li>
+                <i class="icon icon-css3"></i><span><a href="https://postcss.org/" target="_blank" rel="noopener noreferrer">PostCSS</a></span>
+            </li>
+            <li>
+                <i class="icon icon-html5"></i><span><a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a></span>
+            </li>
+        </ul>
+    </section>
+</aside>

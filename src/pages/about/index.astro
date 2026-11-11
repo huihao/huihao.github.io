@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../lib/site';
+---
+
+<BaseLayout title="About" description={`关于 ${SITE.title}：前端工程师的个人博客`} canonical="/about/">
+    <div id="main">
+        <article class="article-content">
+            <div class="title">
+                <div class="diamond">
+                    <div class="box tag-icon-default tag-icon-javascript"></div>
+                </div>
+                <div class="heading">
+                    <h1>About</h1>
+                    <div class="meta">
+                        <span class="cat">note</span>
+                    </div>
+                </div>
+            </div>
+            <div class="con markdown-body">
+                <p>Kimi</p>
+                <p>前端工程师</p>
+                <p>杭州光云科技有限公司</p>
+                <p><a href="mailto:{SITE.email}">{SITE.email}</a></p>
+                <p>wuhuihao.me</p>
+                <p>@wuhuihao</p>
+                <p>@闲谈不聊学习</p>
+                <p>313592350</p>
+            </div>
+            <div class="article-footer">
+                <a class="back base-link" href="/">
+                    <span>返回文章列表</span>
+                </a>
+            </div>
+        </article>
+    </div>
+</BaseLayout>

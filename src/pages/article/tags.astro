@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TaxonomyList from '../../components/TaxonomyList.astro';
+import { getPosts, groupCount } from '../../lib/posts';
+
+const posts = await getPosts();
+
+const counts = groupCount(posts, (post) => post.data.tags);
+
+const groups = [...counts.entries()]
+    .map(([name]) => ({
+        name,
+        slug: name
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\u4e00-\u9fff-]/g, ''),
+        posts: posts.filter((post) => post.data.tags.includes(name)),
+    }))
+    .sort((a, b) => b.posts.length - a.posts.length);
+---
+
+<BaseLayout title="标签" description="按标签浏览文章" canonical="/article/tags.html">
+    <TaxonomyList groups={groups} icon="icon-tag" label="标签" />
+</BaseLayout>

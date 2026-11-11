@@ -22,7 +22,7 @@ import cssnano from 'cssnano';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src', 'sass');
-const outDir = path.join(root, 'dist', 'css');
+const outDir = path.join(root, 'public', 'dist', 'css');
 
 const minify = process.argv.includes('--minify');
 const watch = process.argv.includes('--watch');

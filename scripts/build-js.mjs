@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src', 'js');
-const outDir = path.join(root, 'dist', 'js');
+const outDir = path.join(root, 'public', 'dist', 'js');
 
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });

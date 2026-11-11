@@ -1,0 +1,49 @@
+---
+import { urlOf, descriptionOf, formatDate } from '../lib/posts';
+import type { Post } from '../lib/posts';
+
+export interface TaxonomyGroup {
+    name: string;
+    slug: string;
+    posts: Post[];
+    title?: string;
+}
+
+interface Props {
+    groups: TaxonomyGroup[];
+    icon: string;
+    label: string;
+}
+
+const { groups, icon, label } = Astro.props;
+---
+
+<div id="main" data-pagefind-ignore>
+    <div class="categories-list">
+        {groups.map((group) => (
+            <a href={`#${group.slug}`} class="categories-list-item">
+                <i class={`icon ${icon}`}></i>{group.name}<span class="count">{group.posts.length}</span>
+            </a>
+        ))}
+    </div>
+
+    {groups.map((group) => (
+        <section class="taxonomy" id={group.slug}>
+            <h2 class="taxonomy-title">
+                <span>{group.title ?? group.name}</span>
+                <span class="taxonomy-count">{group.posts.length} 篇</span>
+            </h2>
+            <div class="category">
+                {group.posts.map((post) => (
+                    <article class="article">
+                        <div class="con">
+                            <h1><a href={urlOf(post)}>{post.data.title}</a></h1>
+                            <div class="tip">{descriptionOf(post).slice(0, 160)}</div>
+                            <p class="date"><span>{formatDate(post.data.date, 'zh')}</span></p>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </section>
+    ))}
+</div>

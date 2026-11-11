@@ -1,0 +1,164 @@
+---
+import { SITE, ICONS } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'zh' | 'en';
+  ogType?: 'article' | 'website';
+  ogImage?: string;
+  canonical: string;
+  translation?: { url: string; lang: 'zh' | 'en' };
+  published?: Date;
+  categories?: string[];
+  tags?: string[];
+  words?: number;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang = 'zh',
+  ogType = 'website',
+  ogImage,
+  canonical,
+  translation,
+  published,
+  categories = [],
+  tags = [],
+  words,
+  noindex = false,
+} = Astro.props;
+
+const site = SITE;
+const pageLang = lang === 'en' ? 'en' : 'zh-CN';
+const alternateLang = lang === 'en' ? 'en' : 'zh-CN';
+const absolute = (path: string) => new URL(path, site.url).href;
+const canonicalUrl = absolute(canonical);
+const image = absolute(ogImage || ICONS.ogDefault);
+const searchTemplate = '?q={search_term_string}';
+const searchUrl = `${absolute('/search.html')}${searchTemplate}`;
+
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': ogType === 'article' ? 'BlogPosting' : 'WebSite',
+  name: title,
+  headline: title,
+  description,
+  url: canonicalUrl,
+  image,
+  inLanguage: lang === 'en' ? 'en' : 'zh-CN',
+};
+
+if (ogType === 'article') {
+  jsonLd.datePublished = published?.toISOString();
+  jsonLd.dateModified = (published ?? new Date()).toISOString();
+  jsonLd.articleSection = categories[0] ?? 'note';
+  jsonLd.keywords = tags.join(', ');
+  jsonLd.wordCount = words ?? 0;
+  jsonLd.mainEntityOfPage = { '@type': 'WebPage', '@id': canonicalUrl };
+  jsonLd.author = { '@type': 'Person', name: site.author.name, url: site.author.uri };
+  jsonLd.publisher = { '@type': 'Person', name: site.author.name, url: site.author.uri };
+} else {
+  jsonLd.publisher = { '@type': 'Person', name: site.author.name, url: site.author.uri };
+  jsonLd.potentialAction = {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: searchUrl },
+    'query-input': 'required name=search_term_string',
+  };
+}
+---
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff">
+    <script is:inline>
+    /* The appearance is settled before the first paint, so the page never
+       flashes the wrong colours. A choice the visitor made earlier wins
+       over the system preference. */
+    (function () {
+        var theme;
+
+        try {
+            theme = localStorage.getItem('theme');
+        } catch (error) {
+            theme = null;
+        }
+
+        if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        var root = document.documentElement;
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        root.setAttribute('data-theme', theme);
+        root.style.colorScheme = theme;
+
+        if (meta) {
+            meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+        }
+    })();
+    </script>
+    <meta name="baidu-site-verification" content="jZBFJtnZR3" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonicalUrl} />
+    {translation && (
+        <link
+            rel="alternate"
+            hreflang={translation.lang === 'en' ? 'en' : 'zh-CN'}
+            href={absolute(translation.url)}
+        />
+    )}
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={absolute('/feed.xml')} />
+    <link rel="alternate" type="application/atom+xml" title={site.title} href={absolute('/atom.xml')} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'} />
+    {translation && (
+        <meta property="og:locale:alternate" content={translation.lang === 'en' ? 'en_US' : 'zh_CN'} />
+    )}
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    {ogType === 'article' && published && (
+        <meta property="article:published_time" content={published.toISOString()} />
+    )}
+    {ogType === 'article' && published && (
+        <meta property="article:modified_time" content={published.toISOString()} />
+    )}
+    {ogType === 'article' && <meta property="article:section" content={categories[0] ?? 'note'} />}
+    {ogType === 'article' && <meta property="article:author" content={site.author.name} />}
+    {ogType === 'article' && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={`@${site.twitterUsername}`} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <link rel="icon" href={ICONS.favicon} type="image/svg+xml" />
+    <link rel="icon" href={ICONS.faviconIco} sizes="any" />
+    <link rel="apple-touch-icon" href={ICONS.appleTouch} />
+    <link rel="manifest" href={ICONS.manifest} />
+    <link rel="stylesheet" href="/dist/css/main.css" />
+    <link rel="stylesheet" href="/dist/css/markdown.css" />
+    <script src="/dist/js/site.js" defer></script>
+    <script is:inline>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?9d57e5e7bd73fa1430771da8bc421098";
+	  var s = document.getElementsByTagName("script")[0];
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+</head>

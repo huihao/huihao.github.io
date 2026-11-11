@@ -13,7 +13,7 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src', 'img');
-const outDir = path.join(root, 'dist', 'img');
+const outDir = path.join(root, 'public', 'dist', 'img');
 
 /** Render an SVG source into a PNG of the given size. */
 async function render(source, size, target) {
@@ -92,14 +92,14 @@ async function build() {
         images.push({ size, data: await render(favicon, size, path.join(outDir, `.favicon-${size}.png`)) });
     }
 
-    await fs.writeFile(path.join(root, 'favicon.ico'), buildIco(images));
+    await fs.writeFile(path.join(root, 'public', 'favicon.ico'), buildIco(images));
     console.log(`icon favicon.ico (${sizes.join('/')})`);
 
     for (const size of sizes) {
         await fs.rm(path.join(outDir, `.favicon-${size}.png`), { force: true });
     }
 
-    await fs.copyFile(favicon, path.join(root, 'favicon.svg'));
+    await fs.copyFile(favicon, path.join(root, 'public', 'favicon.svg'));
     console.log('icon favicon.svg');
 
     // The cover images of the posts that ship with the repository: an SVG

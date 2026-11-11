@@ -1,0 +1,131 @@
+---
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Toc from '../components/Toc.astro';
+import PostNav from '../components/PostNav.astro';
+import Comments from '../components/Comments.astro';
+import { urlOf, formatDate, categoryOf, coverOf, wordCount } from '../lib/posts';
+import type { AnyPost, Translation } from '../lib/posts';
+
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
+}
+
+interface NavItem {
+    url: string;
+    title: string;
+}
+
+interface RelatedItem {
+    url: string;
+    title: string;
+    description: string;
+}
+
+interface Props {
+    post: AnyPost;
+    translation?: Translation;
+    headings: Heading[];
+    previous?: NavItem;
+    next?: NavItem;
+    related: RelatedItem[];
+}
+
+const { post, translation, headings, previous, next, related } = Astro.props;
+
+const lang = post.data.lang;
+const url = urlOf(post);
+const category = categoryOf(post);
+const tags = post.data.tags ?? [];
+const slug = (value: string) =>
+    value
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\u4e00-\u9fff-]/g, '');
+---
+
+<!DOCTYPE html>
+<html lang={lang === 'en' ? 'en' : 'zh-CN'}>
+    <Head
+        title={post.data.title}
+        description={post.data.description ?? ''}
+        lang={lang}
+        canonical={url}
+        translation={translation ? { url: urlOf(translation), lang: translation.data.lang } : undefined}
+        ogType="article"
+        ogImage={coverOf(post)}
+        published={post.data.date}
+        categories={post.data.categories}
+        tags={post.data.tags}
+        words={wordCount(post.body ?? '')}
+    />
+    <body class="layout-post">
+        <div class="reading-progress" aria-hidden="true"></div>
+        <div id="wrapper">
+            <Header currentPath={Astro.url.pathname} />
+            <div id="container">
+                <article class="article-content">
+                    <div class="title">
+                        <div class="diamond">
+                            <div class={`box tag-icon-default tag-icon-${category}`}></div>
+                        </div>
+                        <div class="heading">
+                            <h1>{post.data.title}</h1>
+                            <div class="meta">
+                                <span class="cat">{category}</span>
+                                <p class="date"><span>{formatDate(post.data.date, lang)}</span></p>
+                                <span class="read-time" data-read-time></span>
+                                {translation && (
+                                    <nav class="lang-switch" aria-label="语言切换">
+                                        {lang === 'en' ? (
+                                            <>
+                                                <a class="lang-switch-item" href={urlOf(translation)} hreflang="zh-CN" lang="zh-CN">中文</a>
+                                                <span class="lang-switch-item is-active" aria-current="true">English</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span class="lang-switch-item is-active" aria-current="true">中文</span>
+                                                <a class="lang-switch-item" href={urlOf(translation)} hreflang="en" lang="en">English</a>
+                                            </>
+                                        )}
+                                    </nav>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <Toc headings={headings} />
+
+                    <div class="con markdown-body" data-thread-key={url} data-title={post.data.title} data-url={url}>
+                        <slot />
+                    </div>
+
+                    {tags.length > 0 && (
+                        <div class="article-tags">
+                            <span class="article-tags-label">标签</span>
+                            <ul>
+                                {tags.map((tag) => (
+                                    <li><a class="tag-chip" href={`/article/tags.html#${slug(tag)}`}>{tag}</a></li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    <PostNav previous={previous} next={next} related={related} />
+
+                    <Comments />
+
+                    <div class="article-footer">
+                        <a class="back base-link" href="/">
+                            <span>返回文章列表</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <Footer />
+        </div>
+    </body>
+</html>

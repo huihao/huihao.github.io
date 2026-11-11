@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../../../layouts/PostLayout.astro';
+import {
+    getPosts,
+    getTranslations,
+    findTranslation,
+    relatedPosts,
+    neighbours,
+    routeParams,
+    urlOf,
+    descriptionOf,
+} from '../../../../lib/posts';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+
+    return posts
+        .filter((post) => post.data.lang !== 'en')
+        .map((post) => ({
+            params: routeParams(post),
+            props: { post },
+        }));
+}
+
+const { post } = Astro.props;
+
+const posts = await getPosts();
+const translations = await getTranslations();
+const translation = findTranslation(post, [...translations, ...posts]);
+const { Content, headings } = await render(post);
+
+const { previous, next } = neighbours(post, posts);
+const related = relatedPosts(post, posts, 4).filter(
+    (item) => !translation || urlOf(item) !== urlOf(translation),
+);
+
+const navItem = (item: { data: { title: string } } | undefined) =>
+    item ? { url: urlOf(item), title: item.data.title } : undefined;
+---
+
+<PostLayout
+    post={post}
+    translation={translation}
+    headings={headings}
+    previous={navItem(previous)}
+    next={navItem(next)}
+    related={related.map((item) => ({
+        url: urlOf(item),
+        title: item.data.title,
+        description: descriptionOf(item),
+    }))}
+>
+    <Content />
+</PostLayout>

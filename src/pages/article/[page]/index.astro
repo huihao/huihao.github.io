@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Card from '../../../components/Card.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getPosts, getTranslations, findTranslation } from '../../../lib/posts';
+import { SITE } from '../../../lib/site';
+
+export async function getStaticPaths() {
+    const posts = await getPosts();
+    const total = Math.ceil(posts.length / SITE.perPage);
+    const paths = [];
+
+    for (let page = 2; page <= total; page += 1) {
+        paths.push({ params: { page: String(page) }, props: { page } });
+    }
+
+    return paths;
+}
+
+const { page: currentPage } = Astro.props;
+
+const posts = await getPosts();
+const translations = await getTranslations();
+
+const total = Math.ceil(posts.length / SITE.perPage);
+const start = (currentPage - 1) * SITE.perPage;
+const slice = posts.slice(start, start + SITE.perPage);
+---
+
+<BaseLayout
+    title={`${SITE.title} · 第 ${currentPage} 页`}
+    description={SITE.description}
+    canonical={`/article/${currentPage}/`}
+>
+    <div id="main" data-pagefind-ignore>
+        {slice.map((post) => (
+            <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
+        ))}
+
+        <Pagination current={currentPage} total={total} />
+    </div>
+</BaseLayout>

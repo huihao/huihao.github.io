@@ -1,0 +1,28 @@
+---
+interface Props {
+  current: number;
+  total: number;
+}
+
+const { current, total } = Astro.props;
+
+const pageUrl = (page: number) => (page === 1 ? '/' : `/article/${page}/`);
+const previous = current > 1 ? pageUrl(current - 1) : undefined;
+const next = current < total ? pageUrl(current + 1) : undefined;
+---
+
+<div class="page">
+    {previous && (
+        <a class="prev base-link" href={previous}>
+            <span>上一页</span>
+        </a>
+    )}
+
+    <span class="pager">第 {current} / {total} 页</span>
+
+    {next && (
+        <a class="next base-link" href={next}>
+            <span>下一页</span>
+        </a>
+    )}
+</div>

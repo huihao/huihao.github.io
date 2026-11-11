@@ -2,8 +2,8 @@
  * Build the search index.
  *
  * Pagefind crawls the finished site and writes a small index that the search
- * page asks at runtime. GitHub Pages only runs Jekyll, so the index is built
- * here and committed, the same way dist/ is.
+ * page asks at runtime. The index is built here and copied into public/,
+ * the same way the compiled CSS and images are.
  *
  *   npm run build:search
  */
@@ -13,20 +13,20 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const siteDir = path.join(root, '.jekyll-site');
-const outDir = path.join(root, 'pagefind');
+const siteDir = path.join(root, 'build');
+const outDir = path.join(root, 'public', 'pagefind');
 
 function run(command, args, options = {}) {
   execFileSync(command, args, { cwd: root, stdio: 'inherit', ...options });
 }
 
 async function build() {
-  console.log('search  building the site with Jekyll');
+  console.log('search  building the site with Astro');
 
   await fs.rm(siteDir, { recursive: true, force: true });
 
-  run('jekyll', ['build', '--destination', siteDir], {
-    env: { ...process.env, JEKYLL_ENV: 'production' },
+  run(process.execPath, [path.join(root, 'node_modules', 'astro', 'bin', 'astro.mjs'), 'build'], {
+    env: { ...process.env, NODE_ENV: 'production' },
   });
 
   console.log('search  indexing with Pagefind');
@@ -38,6 +38,10 @@ async function build() {
   await fs.mkdir(outDir, { recursive: true });
 
   run(binary, ['--site', siteDir, '--output-path', outDir, '--root-selector', 'body']);
+
+  /* The Astro build already copied public/ into build/, but the index is
+     generated afterwards — copy it over so the deployable site has it. */
+  await fs.cp(outDir, path.join(siteDir, 'pagefind'), { recursive: true });
 
   const files = await fs.readdir(outDir, { recursive: true });
   const bytes = (
@@ -53,10 +57,6 @@ async function build() {
   ).reduce((total, size) => total + size, 0);
 
   console.log(`search  ${files.length} file(s) -> ${path.relative(root, outDir)} (${bytes} bytes)`);
-  console.log(`search  the site was built in ${path.relative(root, siteDir)}`);
 }
 
 await build();
-
-// The temporary build is not needed any more.
-await fs.rm(siteDir, { recursive: true, force: true });

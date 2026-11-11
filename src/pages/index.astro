@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import Pagination from '../components/Pagination.astro';
+import { getPosts, getTranslations, findTranslation } from '../lib/posts';
+import { SITE } from '../lib/site';
+
+const posts = await getPosts();
+const translations = await getTranslations();
+
+const pageSize = SITE.perPage;
+const total = Math.ceil(posts.length / pageSize);
+const slice = posts.slice(0, pageSize);
+---
+
+<BaseLayout title={SITE.title} description={SITE.description} canonical="/">
+    <div id="main" data-pagefind-ignore>
+        <div class="lang-filter" data-lang-filter role="group" aria-label="按语言阅读文章列表">
+            <button type="button" class="lang-filter-item is-active" data-lang-filter-item="zh">中文</button>
+            <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>
+        </div>
+
+        {slice.map((post) => (
+            <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
+        ))}
+
+        <Pagination current={1} total={total} />
+    </div>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import { SITE } from '../lib/site';
+
+const year = new Date().getUTCFullYear();
+---
+
+<footer data-pagefind-ignore>
+    <p class="copyright">© {year} {SITE.title} · {SITE.githubUsername}</p>
+    <p class="subtitle">
+        <a href={new URL('/feed.xml', SITE.url).href}>RSS</a> ·
+        <a href={new URL('/atom.xml', SITE.url).href}>Atom</a> ·
+        {SITE.url.replace('https://', '')}
+    </p>
+</footer>

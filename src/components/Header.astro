@@ -1,0 +1,60 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const links = [
+  { href: '/', label: '首页', match: (path: string) => path === '/' },
+  { href: '/article/categories.html', label: '分类', match: (path: string) => path.startsWith('/article/categories') },
+  { href: '/article/tags.html', label: '标签', match: (path: string) => path.startsWith('/article/tags') },
+  { href: '/search.html', label: '搜索', match: (path: string) => path.startsWith('/search') },
+  { href: '/about/', label: '关于', match: (path: string) => path.startsWith('/about') },
+];
+---
+
+<header data-pagefind-ignore>
+    <div class="top-line">
+        <div class="bar">
+            <a class="brand" href="/">Kimi</a>
+            <button class="theme-toggle" type="button" aria-label="切换外观" aria-pressed="false" title="切换外观">
+                <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                    <circle cx="12" cy="12" r="4.5"></circle>
+                    <path d="M12 2.5v2M12 19.5v2M4.7 4.7l1.4 1.4M17.9 17.9l1.4 1.4M2.5 12h2M19.5 12h2M4.7 19.3l1.4-1.4M17.9 6.1l1.4-1.4"></path>
+                </svg>
+                <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="con">
+        <div class="info">
+            <div class="avator">
+            </div>
+            <div class="basic">
+                <span class="name">wuhuihao</span>
+                <div class="basic-line"></div>
+                <span class="position">Frontend Developer</span>
+                <div class="icon-con"><i class="icon icon-html"></i><i class="icon icon-js"></i><i class="icon icon-css"></i><i class="icon icon-chrome"></i><i class="icon icon-git"></i></div>
+                <div class="location"><i class="icon icon-location"></i>Hangzhou,Wenzhou</div>
+            </div>
+            <div class="circle-1"></div>
+            <div class="circle-2"></div>
+            <div class="circle-3"></div>
+            <div class="circle-4"></div>
+        </div>
+        <nav>
+            <ul>
+                {links.map((link) => (
+                    <li>
+                        <a href={link.href} class={link.match(currentPath) ? 'active' : undefined}>
+                            {link.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </div>
+</header>

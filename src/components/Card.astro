@@ -1,0 +1,72 @@
+---
+import { urlOf, descriptionOf, coverOf, categoryOf, formatDate } from '../lib/posts';
+import type { AnyPost, Translation } from '../lib/posts';
+
+interface Props {
+  post: AnyPost;
+  translation?: Translation;
+}
+
+const { post, translation } = Astro.props;
+
+const lang = post.data.lang;
+const url = urlOf(post);
+const title = post.data.title;
+const desc = descriptionOf(post);
+const date = formatDate(post.data.date, lang);
+const cover = coverOf(post);
+const category = categoryOf(post);
+
+const i18n: Record<string, { title: string; desc: string; url: string; date: string }> = {
+  [lang]: { title, desc, url, date },
+};
+
+if (translation) {
+  const translationLang = translation.data.lang;
+
+  i18n[translationLang] = {
+    title: translation.data.title,
+    desc: descriptionOf(translation),
+    url: urlOf(translation),
+    date: formatDate(translation.data.date, translationLang),
+  };
+}
+
+const badge = translation
+  ? {
+      label: translation.data.lang === 'en' ? 'EN' : '中文',
+      href: urlOf(translation),
+      hreflang: translation.data.lang,
+      title: translation.data.lang === 'en' ? 'Read the English version' : '阅读中文版',
+    }
+  : undefined;
+---
+
+<article class="article" data-lang={lang} data-i18n={JSON.stringify(i18n)}>
+    <a class="cover" href={url} tabindex="-1" aria-hidden="true">
+        <div class="img">
+            <img src={cover} alt="" width="570" height="144" loading="lazy" decoding="async" />
+        </div>
+    </a>
+    <div class="con">
+        <div class="meta">
+            <div class="diamond">
+                <div class={`box tag-icon-default tag-icon-${category}`}></div>
+            </div>
+            <span class="cat">{category}</span>
+            {badge && (
+                <a class="lang-badge" href={badge.href} hreflang={badge.hreflang} title={badge.title}>
+                    {badge.label}
+                </a>
+            )}
+        </div>
+        <h1><a href={url}>{title}</a></h1>
+        <div class="tip">{desc}</div>
+        <div class="addition">
+            <a class="more base-link" href={url}>
+                <span>{lang === 'en' ? 'Read more' : '阅读全文'}</span>
+            </a>
+            <p class="date"><span>{date}</span></p>
+        </div>
+    </div>
+</article>

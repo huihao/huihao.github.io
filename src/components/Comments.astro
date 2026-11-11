@@ -1,0 +1,28 @@
+---
+import { SITE } from '../lib/site';
+
+const giscus = SITE.giscus;
+---
+
+{giscus.repoId && (
+    <section class="comments" aria-label="评论">
+        <h2 class="comments-title">评论</h2>
+        <script
+            src="https://giscus.app/client.js"
+            data-repo={giscus.repo}
+            data-repo-id={giscus.repoId}
+            data-category={giscus.category}
+            data-category-id={giscus.categoryId}
+            data-mapping={giscus.mapping}
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme={giscus.theme}
+            data-lang={giscus.lang}
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+        ></script>
+    </section>
+)}

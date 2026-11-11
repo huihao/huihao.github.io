@@ -1,36 +1,26 @@
 {
-  "name": "huihao.github.io",
-  "version": "1.0.0",
-  "description": "my blog",
-  "private": true,
+  "name": "huihao-blog",
   "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "description": "huihao 的个人博客 —— Astro + Apple HIG 设计语言",
   "scripts": {
-    "build": "npm-run-all build:css build:img build:js build:assets",
     "build:css": "node scripts/build-css.mjs",
-    "build:css:min": "node scripts/build-css.mjs --minify",
     "build:img": "node scripts/build-img.mjs",
     "build:js": "node scripts/build-js.mjs",
     "build:assets": "node scripts/build-assets.mjs",
+    "build:site": "astro build",
     "build:search": "node scripts/build-search.mjs",
+    "build": "npm-run-all build:css build:img build:js build:assets build:search",
+    "dev": "npm-run-all --parallel build:css build:img build:js build:assets \"astro dev\"",
+    "preview": "astro preview",
     "clean": "node scripts/clean.mjs",
-    "lint:css": "stylelint \"src/sass/**/*.scss\"",
-    "lint:css:fix": "stylelint \"src/sass/**/*.scss\" --fix",
-    "watch:css": "node scripts/build-css.mjs --watch",
-    "dev": "npm-run-all --parallel watch:css dev:serve",
-    "dev:serve": "browser-sync start --server --files \"dist/**/*, *.html, _includes/**/*, _layouts/**/*\" --port 5050 --no-open --ignore \"node_modules/**\" --ignore \".git/**\"",
-    "site": "bundle exec jekyll serve --watch"
+    "lint:css": "stylelint \"src/sass/**/*.scss\""
   },
-  "browserslist": [
-    ">= 0.5%",
-    "last 2 versions",
-    "Firefox ESR",
-    "not dead",
-    "not op_mini all"
-  ],
-  "keywords": [
-    "blog"
-  ],
-  "license": "ISC",
+  "dependencies": {
+    "@astrojs/rss": "^4.0.14",
+    "astro": "^7.4.10"
+  },
   "devDependencies": {
     "autoprefixer": "^10.6.2",
     "browser-sync": "^3.0.4",
@@ -38,10 +28,17 @@
     "npm-run-all": "^4.1.5",
     "pagefind": "^1.6.0",
     "postcss": "^8.5.32",
-    "postcss-preset-env": "^10.4.0",
+    "postcss-preset-env": "^10.6.1",
     "sass": "^1.89.2",
     "sharp": "^0.35.5",
     "stylelint": "^16.23.0",
     "stylelint-config-standard-scss": "^14.0.0"
-  }
+  },
+  "browserslist": [
+    ">= 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "not op_mini all"
+  ]
 }

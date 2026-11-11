@@ -46,12 +46,20 @@
       var code = pre.querySelector('code');
       var language = '';
 
-      /* Rouge puts the language on the wrapper of the block
-         (`div.language-js.highlighter-rouge`), a plain markdown block keeps
-         it on the code element (`code.language-js`). */
+      /* Shiki marks the block with `data-language` and keeps the language
+         class on the <code> element; Rouge puts it on the wrapper
+         (`div.language-js.highlighter-rouge`). */
+      var language = pre.getAttribute('data-language') || '';
+
+      var preMatch = !language && pre.className ? pre.className.match(/language-([\w-]+)/) : null;
+
+      if (preMatch) {
+        language = preMatch[1];
+      }
+
       var highlighter = pre.closest ? pre.closest('.highlighter-rouge') : null;
 
-      if (highlighter) {
+      if (highlighter && !language) {
         Array.prototype.forEach.call(highlighter.classList, function (name) {
           if (name.indexOf('language-') === 0 && !language) {
             language = name.slice('language-'.length);

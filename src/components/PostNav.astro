@@ -1,0 +1,58 @@
+---
+interface NavItem {
+    url: string;
+    title: string;
+}
+
+interface RelatedItem {
+    url: string;
+    title: string;
+    description: string;
+}
+
+interface Props {
+    previous?: NavItem;
+    next?: NavItem;
+    related: RelatedItem[];
+}
+
+const { previous, next, related } = Astro.props;
+const hasNav = Boolean(previous || next);
+---
+
+{hasNav && (
+    <nav class="post-nav" aria-label="上一篇与下一篇" data-pagefind-ignore>
+        {previous ? (
+            <a class="post-nav-item post-nav-prev" href={previous.url}>
+                <span class="post-nav-label">上一篇</span>
+                <span class="post-nav-title">{previous.title}</span>
+            </a>
+        ) : (
+            <span class="post-nav-item post-nav-empty" aria-hidden="true" />
+        )}
+        {next ? (
+            <a class="post-nav-item post-nav-next" href={next.url}>
+                <span class="post-nav-label">下一篇</span>
+                <span class="post-nav-title">{next.title}</span>
+            </a>
+        ) : (
+            <span class="post-nav-item post-nav-empty" aria-hidden="true" />
+        )}
+    </nav>
+)}
+
+{related.length > 0 && (
+    <section class="related" aria-label="相关文章" data-pagefind-ignore>
+        <h2 class="related-title">相关文章</h2>
+        <ul class="related-list">
+            {related.map((item) => (
+                <li class="related-item">
+                    <a href={item.url}>
+                        <span class="related-item-title">{item.title}</span>
+                        <span class="related-item-desc">{item.description}</span>
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </section>
+)}

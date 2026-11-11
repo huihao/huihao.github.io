@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="搜索" description="搜索站内文章" canonical="/search.html">
+    <section class="search-page" data-search data-pagefind="/pagefind/pagefind.js">
+        <h1 class="search-title">搜索</h1>
+        <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="M20 20l-3.6-3.6"></path>
+            </svg>
+            <input class="search-input" type="search" data-search-input placeholder="搜索文章标题与内容" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="搜索文章">
+            <button class="search-clear" type="button" data-search-clear aria-label="清空搜索" hidden>&times;</button>
+        </div>
+        <p class="search-status" data-search-status role="status">输入关键词开始搜索。</p>
+        <ul class="search-results" data-search-results></ul>
+    </section>
+    <script src="/dist/js/search.js" defer></script>
+</BaseLayout>

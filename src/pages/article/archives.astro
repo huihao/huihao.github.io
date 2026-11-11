@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TaxonomyList from '../../components/TaxonomyList.astro';
+import { getPosts, dateParts } from '../../lib/posts';
+
+const posts = await getPosts();
+
+const years = new Map<string, typeof posts>();
+
+for (const post of posts) {
+    const year = String(dateParts(post.data.date).year);
+    const list = years.get(year) ?? [];
+
+    list.push(post);
+    years.set(year, list);
+}
+
+const groups = [...years.entries()]
+    .sort((a, b) => Number(b[0]) - Number(a[0]))
+    .map(([name, items]) => ({
+        name,
+        slug: name,
+        title: `${name} 年`,
+        posts: items,
+    }));
+---
+
+<BaseLayout title="归档" description="按年份归档的文章" canonical="/article/archives.html">
+    <TaxonomyList groups={groups} icon="icon-calendar" label="归档" />
+</BaseLayout>

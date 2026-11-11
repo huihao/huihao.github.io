@@ -6,6 +6,8 @@
  * rest of the site.
  */
 
+@use "theme" as *;
+
 .markdown-body {
   font-family: var(--font-text);
   font-size: var(--text-headline);
@@ -269,5 +271,26 @@
 
   li:has(> input[type="checkbox"]) {
     list-style: none;
+  }
+}
+
+/* Syntax highlighting — Shiki 双主题，亮色用 --shiki-light，暗色用 --shiki-dark */
+.astro-code {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.astro-code span {
+  color: var(--shiki-light);
+}
+
+@include dark-only {
+  .astro-code {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+
+  .astro-code span {
+    color: var(--shiki-dark);
   }
 }

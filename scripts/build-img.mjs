@@ -12,7 +12,7 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src', 'img');
-const outDir = path.join(root, 'dist', 'img');
+const outDir = path.join(root, 'public', 'dist', 'img');
 
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
