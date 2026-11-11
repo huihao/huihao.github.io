@@ -4,22 +4,44 @@ layout: default
 
 <div id="main" data-pagefind-ignore>
 
-    {% comment %} 语言筛选：默认展示全部，可切换为只看中文或只看英文 {% endcomment %}
-    <div class="lang-filter" data-lang-filter role="group" aria-label="按语言筛选文章">
-        <button type="button" class="lang-filter-item is-active" data-lang-filter-item="all">全部</button>
-        <button type="button" class="lang-filter-item" data-lang-filter-item="zh">中文</button>
+    {% include translation-docs.html %}
+
+    {% comment %}
+      语言切换：每篇文章在首页只出现一次（译稿在 _translations/ 集合里，不属于 site.posts）。
+      切换语言时，卡片里的标题、摘要、日期与链接换成该语言的版本；
+      没有译文的文章保持原样。
+    {% endcomment %}
+    <div class="lang-filter" data-lang-filter role="group" aria-label="按语言阅读文章列表">
+        <button type="button" class="lang-filter-item is-active" data-lang-filter-item="zh">中文</button>
         <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>
     </div>
 
 {% for post in paginator.posts %}
 
-        {% assign post_lang = post.lang | default: 'zh' %}
+        {% assign primary_lang = post.lang | default: 'zh' %}
+        {% assign primary_title = post.title %}
+        {% assign primary_desc = post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 160 %}
+        {% assign primary_url = post.url %}
+        {% if primary_lang == 'en' %}
+            {% assign primary_date = post.date | date: "%b %d, %Y" %}
+        {% else %}
+            {% assign primary_date = post.date | date: "%Y年%m月%d日" %}
+        {% endif %}
+
+        {% comment %} 译稿（同一篇文章的另一种语言版本） {% endcomment %}
+        {% assign tr = nil %}
+        {% if post.translation_key and post.translation_key != '' %}
+            {% assign tr = translation_docs | where: "translation_key", post.translation_key | first %}
+        {% endif %}
+
+        {% capture card_i18n %}{"{{ primary_lang }}":{"title":{{ primary_title | jsonify }},"desc":{{ primary_desc | jsonify }},"url":{{ primary_url | jsonify }},"date":{{ primary_date | jsonify }}}{% if tr %}{% assign tr_lang = tr.lang | default: 'zh' %}{% if tr_lang == 'en' %}{% assign tr_date = tr.date | date: "%b %d, %Y" %}{% else %}{% assign tr_date = tr.date | date: "%Y年%m月%d日" %}{% endif %},"{{ tr_lang }}":{"title":{{ tr.title | jsonify }},"desc":{{ tr.description | default: tr.excerpt | strip_html | strip_newlines | truncate: 160 | jsonify }},"url":{{ tr.url | jsonify }},"date":{{ tr_date | jsonify }}}{% endif %}}{% endcapture %}
+
         {% assign cover = post.image %}
         {% unless cover %}
             {% assign cover = '//whhbio.oss-cn-beijing.aliyuncs.com/blog/' | append: post.title | append: '.jpg' %}
         {% endunless %}
 
-        <article class="article" data-lang="{{ post_lang }}">
+        <article class="article" data-lang="{{ primary_lang }}" data-i18n="{{ card_i18n | strip | escape }}">
             <a class="cover" href="{{ site.baseurl }}{{ post.url }}" tabindex="-1" aria-hidden="true">
                 <div class="img">
                     <img src="{{ cover }}" alt="" width="570" height="144" loading="lazy" decoding="async">
@@ -32,23 +54,20 @@ layout: default
                         </div>
                     </div>
                     <span class="cat">{{ post.categories[0] | default: "note" }}</span>
-                    {% if post_lang != 'zh' %}
-                    <span class="lang-badge">{{ post_lang | upcase }}</span>
+                    {% if tr %}
+                    {% assign badge_lang = tr.lang | default: 'zh' %}
+                    <a class="lang-badge" href="{{ site.baseurl }}{{ tr.url }}" hreflang="{{ badge_lang }}" title="{% if badge_lang == 'en' %}Read the English version{% else %}阅读中文版{% endif %}">{% if badge_lang == 'en' %}EN{% else %}中文{% endif %}</a>
                     {% endif %}
                 </div>
                 <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
                 <div class="tip">
-                    {{ post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 160 }}
+                    {{ primary_desc }}
                 </div>
                 <div class="addition">
                     <a class="more base-link" href="{{ site.baseurl }}{{ post.url }}">
-                        <span>{% if post_lang == 'en' %}Read more{% else %}阅读全文{% endif %}</span>
+                        <span>{% if primary_lang == 'en' %}Read more{% else %}阅读全文{% endif %}</span>
                     </a>
-                    {% if post_lang == 'en' %}
-                    <p class="date"><span>{{ post.date | date: "%b %d, %Y" }}</span></p>
-                    {% else %}
-                    <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
-                    {% endif %}
+                    <p class="date"><span>{{ primary_date }}</span></p>
                 </div>
             </div>
         </article>
@@ -78,5 +97,3 @@ layout: default
         {% endif %}
     </div>
 </div>
-
-

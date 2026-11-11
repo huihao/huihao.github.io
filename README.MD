@@ -11,6 +11,7 @@ materials, generous corner radii and the spring easing that native apps use.
 | Path | What it is |
 | --- | --- |
 | `_posts/` | the blog posts |
+| `_translations/` | the translations of the posts, one file per other language |
 | `_layouts/`, `_includes/` | Jekyll templates |
 | `index.html`, `article/`, `about.md` | the pages: the list, the categories, the tags, the archive and the about page |
 | `search.html` | the search page, the index comes from `pagefind/` |
@@ -56,8 +57,8 @@ post belongs to a category and to any number of tags, and the pages under
 
 ## Bilingual posts
 
-A post can be written in two languages. The Chinese version is the default;
-the English one is a second post that points back at the first through a
+A post can be written in two languages. The main version lives in `_posts/`, the
+translation in the `_translations/` collection, and the two are paired through a
 shared `translation_key`:
 
 ```yaml
@@ -74,7 +75,7 @@ translation_key: ai-battle-royale
 ```
 
 ```yaml
-# _posts/2026-11-11-ai-battle-royale-en.md
+# _translations/2026-11-11-ai-battle-royale-en.md
 ---
 title: "The Internet Development World Under AI Is a Battle Royale"
 description: AI did not eliminate a single role; it keeps narrowing the range of skills.
@@ -87,21 +88,32 @@ permalink: /en/2026/11/11/ai-battle-royale.html
 ---
 ```
 
-Both versions then get
+A collection is not `site.posts`, so a translation never shows up as a second
+entry: the list holds one card per article, the pagination counts the articles
+only, and the feeds publish the articles only. The translation is reachable
+through
 
-- a language switch (中文 / English) in the article header that jumps to the
-  other version,
-- the matching `<html lang>`, `og:locale`, `hreflang` and JSON-LD `inLanguage`,
-- their own entry in the list, where the card of a non-Chinese post carries an
-  `EN` badge.
+- the language switch (中文 / English) in the article header,
+- the badge on the card of the list, which links to the article in the other
+  language,
+- the `hreflang` link and the sitemap.
 
-The list page also has a language filter (全部 / 中文 / English). It filters the
-cards in the browser and keeps the choice in the `?lang=` parameter, so the
-address can be shared.
+The list also has a language switch (中文 / English) above the cards. It swaps
+the title, the summary, the date and the links of every card that has a
+translation and keeps the choice in the `?lang=` parameter, so the address can
+be shared. Articles without a translation keep their original text.
 
 The English version needs an explicit `permalink` when it should live outside
 of the date structure — the site uses a custom permalink style, and Jekyll
 drops the `.html` suffix of the pages that do not declare one.
+
+The collection is enabled in `_config.yml`:
+
+```yaml
+collections:
+  translations:
+    output: true
+```
 
 ## Feeds
 

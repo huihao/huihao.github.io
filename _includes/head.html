@@ -35,10 +35,7 @@
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
     {% comment %} 多语言：找出同一篇文章的另一种语言版本 {% endcomment %}
-    {% assign translation = nil %}
-    {% if page.translation_key and page.translation_key != '' %}
-        {% assign translation = site.posts | where: "translation_key", page.translation_key | where_exp: "item", "item.url != page.url" | first %}
-    {% endif %}
+    {% include translation.html %}
     {% assign page_lang = page.lang | default: 'zh' %}
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
     {% if translation %}

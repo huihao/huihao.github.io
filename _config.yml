@@ -28,6 +28,13 @@ paginate_path: "article/:num"
 # 代码高亮：Rouge（Jekyll 的默认高亮器，也随 GitHub Pages 一起提供）
 highlighter: rouge
 
+# 译稿集合：一篇文章的其他语言版本放在 _translations/ 里。
+# 集合不是 site.posts，因此译文不会出现在列表页、分页和订阅源中，
+# 首页每篇文章只出现一次，译文由文章页的语言切换器进入。
+collections:
+  translations:
+    output: true
+
 # 第三方插件（均为 GitHub Pages 官方白名单插件）
 #   jekyll-feed     生成 Atom feed（/atom.xml）
 #   jekyll-paginate 分页

@@ -173,7 +173,11 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* The language filter above the article list                          */
+  /* The language switch above the article list                           */
+  /*                                                                     */
+  /* Every article shows up once. Switching the language swaps the       */
+  /* title, the summary, the date and the links of the cards that have    */
+  /* a translation; the others stay as they are.                         */
   /* ------------------------------------------------------------------ */
   function setupLanguageFilter() {
     var root = document.querySelector('[data-lang-filter]');
@@ -184,6 +188,15 @@
 
     var buttons = root.querySelectorAll('[data-lang-filter-item]');
     var cards = document.querySelectorAll('#main .article[data-lang]');
+    var languages = ['zh', 'en'];
+
+    function moreLabel(language) {
+      return language === 'en' ? 'Read more' : '阅读全文';
+    }
+
+    function badgeLabel(language) {
+      return language === 'en' ? 'EN' : '中文';
+    }
 
     function apply(language) {
       Array.prototype.forEach.call(buttons, function (button) {
@@ -194,18 +207,71 @@
       });
 
       Array.prototype.forEach.call(cards, function (card) {
-        var lang = card.getAttribute('data-lang');
+        var data;
 
-        card.hidden = language !== 'all' && lang !== language;
+        try {
+          data = JSON.parse(card.getAttribute('data-i18n') || '{}');
+        } catch (error) {
+          return;
+        }
+
+        var entry = data[language];
+
+        if (!entry) {
+          return;
+        }
+
+        var title = card.querySelector('h1 a');
+        var tip = card.querySelector('.tip');
+        var date = card.querySelector('.date span');
+        var more = card.querySelector('.more');
+        var cover = card.querySelector('.cover');
+        var badge = card.querySelector('.lang-badge');
+
+        if (title) {
+          title.textContent = entry.title;
+          title.setAttribute('href', entry.url);
+        }
+
+        if (tip) {
+          tip.textContent = entry.desc;
+        }
+
+        if (date) {
+          date.textContent = entry.date;
+        }
+
+        if (more) {
+          more.setAttribute('href', entry.url);
+
+          var label = more.querySelector('span');
+
+          if (label) {
+            label.textContent = moreLabel(language);
+          }
+        }
+
+        if (cover) {
+          cover.setAttribute('href', entry.url);
+        }
+
+        if (badge) {
+          var other = languages.filter(function (item) {
+            return item !== language;
+          })[0];
+          var otherEntry = data[other];
+
+          badge.textContent = badgeLabel(other);
+
+          if (otherEntry) {
+            badge.setAttribute('href', otherEntry.url);
+          }
+        }
       });
 
       var url = new URL(window.location.href);
 
-      if (language === 'all') {
-        url.searchParams.delete('lang');
-      } else {
-        url.searchParams.set('lang', language);
-      }
+      url.searchParams.set('lang', language);
 
       window.history.replaceState({}, '', url);
     }
@@ -218,7 +284,7 @@
 
     var initial = new URLSearchParams(window.location.search).get('lang');
 
-    apply(initial === 'zh' || initial === 'en' ? initial : 'all');
+    apply(languages.indexOf(initial) >= 0 ? initial : 'zh');
   }
 
   /* ------------------------------------------------------------------ */

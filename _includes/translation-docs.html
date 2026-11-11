@@ -1,0 +1,14 @@
+{% comment %}
+  译稿集合 _translations/ 的文档列表。
+  Jekyll 3.x 的 site.collections 是数组，Jekyll 4.x 是哈希，两种都兼容。
+  结果写入 translation_docs 变量。
+{% endcomment %}
+{% assign translation_docs = nil %}
+{% if site.collections.translations.docs %}
+    {% assign translation_docs = site.collections.translations.docs %}
+{% else %}
+    {% assign translation_collection = site.collections | where: "label", "translations" | first %}
+    {% if translation_collection %}
+        {% assign translation_docs = translation_collection.docs %}
+    {% endif %}
+{% endif %}
