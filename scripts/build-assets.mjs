@@ -101,6 +101,17 @@ async function build() {
 
     await fs.copyFile(favicon, path.join(root, 'favicon.svg'));
     console.log('icon favicon.svg');
+
+    // The cover images of the posts that ship with the repository: an SVG
+    // source is rendered into the 570x144 banner the cards use.
+    const sources = await fs.readdir(srcDir);
+    const covers = sources.filter((file) => file.startsWith('cover-') && file.endsWith('.svg'));
+
+    for (const file of covers) {
+        const name = file.replace(/\.svg$/, '.png');
+        await renderExact(path.join(srcDir, file), 570, 144, path.join(outDir, name));
+        console.log(`icon dist/img/${name} (570x144)`);
+    }
 }
 
 await build();

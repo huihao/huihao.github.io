@@ -173,6 +173,55 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* The language filter above the article list                          */
+  /* ------------------------------------------------------------------ */
+  function setupLanguageFilter() {
+    var root = document.querySelector('[data-lang-filter]');
+
+    if (!root) {
+      return;
+    }
+
+    var buttons = root.querySelectorAll('[data-lang-filter-item]');
+    var cards = document.querySelectorAll('#main .article[data-lang]');
+
+    function apply(language) {
+      Array.prototype.forEach.call(buttons, function (button) {
+        var active = button.getAttribute('data-lang-filter-item') === language;
+
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      Array.prototype.forEach.call(cards, function (card) {
+        var lang = card.getAttribute('data-lang');
+
+        card.hidden = language !== 'all' && lang !== language;
+      });
+
+      var url = new URL(window.location.href);
+
+      if (language === 'all') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', language);
+      }
+
+      window.history.replaceState({}, '', url);
+    }
+
+    Array.prototype.forEach.call(buttons, function (button) {
+      button.addEventListener('click', function () {
+        apply(button.getAttribute('data-lang-filter-item'));
+      });
+    });
+
+    var initial = new URLSearchParams(window.location.search).get('lang');
+
+    apply(initial === 'zh' || initial === 'en' ? initial : 'all');
+  }
+
+  /* ------------------------------------------------------------------ */
   /* The bar grows a hairline shadow once the page is scrolled           */
   /* ------------------------------------------------------------------ */
   function updateBar() {
@@ -346,6 +395,7 @@
   addBackToTop();
   addHeadingAnchors();
   hideBrokenImages();
+  setupLanguageFilter();
   updateProgress();
   updateBar();
   updateToc();

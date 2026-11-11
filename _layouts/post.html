@@ -1,6 +1,12 @@
 ---
 layout: article
 ---
+{% comment %} 同一篇文章的另一种语言版本 {% endcomment %}
+{% assign translation = nil %}
+{% if page.translation_key and page.translation_key != '' %}
+    {% assign translation = site.posts | where: "translation_key", page.translation_key | where_exp: "item", "item.url != page.url" | first %}
+{% endif %}
+{% assign page_lang = page.lang | default: 'zh' %}
 <div class="article-content">
     <div class="title">
         <div class="diamond">
@@ -13,6 +19,17 @@ layout: article
                 <span class="cat">{{ page.categories[0] | default: "note" }}</span>
                 <p class="date"><span>{{ page.date | date: "%Y年%m月%d日" }}</span></p>
                 <span class="read-time" data-read-time></span>
+                {% if translation %}
+                <nav class="lang-switch" aria-label="语言切换">
+                    {% if page_lang == 'en' %}
+                    <a class="lang-switch-item" href="{{ translation.url | relative_url }}" hreflang="zh-CN" lang="zh-CN">中文</a>
+                    <span class="lang-switch-item is-active" aria-current="true">English</span>
+                    {% else %}
+                    <span class="lang-switch-item is-active" aria-current="true">中文</span>
+                    <a class="lang-switch-item" href="{{ translation.url | relative_url }}" hreflang="en" lang="en">English</a>
+                    {% endif %}
+                </nav>
+                {% endif %}
             </div>
         </div>
     </div>

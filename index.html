@@ -4,12 +4,25 @@ layout: default
 
 <div id="main" data-pagefind-ignore>
 
+    {% comment %} 语言筛选：默认展示全部，可切换为只看中文或只看英文 {% endcomment %}
+    <div class="lang-filter" data-lang-filter role="group" aria-label="按语言筛选文章">
+        <button type="button" class="lang-filter-item is-active" data-lang-filter-item="all">全部</button>
+        <button type="button" class="lang-filter-item" data-lang-filter-item="zh">中文</button>
+        <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>
+    </div>
+
 {% for post in paginator.posts %}
 
-        <article class="article">
+        {% assign post_lang = post.lang | default: 'zh' %}
+        {% assign cover = post.image %}
+        {% unless cover %}
+            {% assign cover = '//whhbio.oss-cn-beijing.aliyuncs.com/blog/' | append: post.title | append: '.jpg' %}
+        {% endunless %}
+
+        <article class="article" data-lang="{{ post_lang }}">
             <a class="cover" href="{{ site.baseurl }}{{ post.url }}" tabindex="-1" aria-hidden="true">
                 <div class="img">
-                    <img src="//whhbio.oss-cn-beijing.aliyuncs.com/blog/{{ post.title }}.jpg" alt="" width="570" height="144" loading="lazy" decoding="async">
+                    <img src="{{ cover }}" alt="" width="570" height="144" loading="lazy" decoding="async">
                 </div>
             </a>
             <div class="con">
@@ -19,6 +32,9 @@ layout: default
                         </div>
                     </div>
                     <span class="cat">{{ post.categories[0] | default: "note" }}</span>
+                    {% if post_lang != 'zh' %}
+                    <span class="lang-badge">{{ post_lang | upcase }}</span>
+                    {% endif %}
                 </div>
                 <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
                 <div class="tip">
@@ -26,9 +42,13 @@ layout: default
                 </div>
                 <div class="addition">
                     <a class="more base-link" href="{{ site.baseurl }}{{ post.url }}">
-                        <span>阅读全文</span>
+                        <span>{% if post_lang == 'en' %}Read more{% else %}阅读全文{% endif %}</span>
                     </a>
+                    {% if post_lang == 'en' %}
+                    <p class="date"><span>{{ post.date | date: "%b %d, %Y" }}</span></p>
+                    {% else %}
                     <p class="date"><span>{{ post.date | date: "%Y年%m月%d日" }}</span></p>
+                    {% endif %}
                 </div>
             </div>
         </article>
@@ -59,4 +79,4 @@ layout: default
     </div>
 </div>
 
-       
+

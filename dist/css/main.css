@@ -315,6 +315,11 @@ body {
   margin: 0;
 }
 
+/* The hidden attribute wins over any display rule a component sets. */
+[hidden] {
+  display: none !important;
+}
+
 h1,
 h2,
 h3,
@@ -1057,6 +1062,45 @@ a:active {
   background: var(--accent-tint);
   color: var(--accent-text-hover);
 }
+#main {
+  /* The language filter above the list, shaped like an iOS segmented
+     control. */
+}
+#main .lang-filter {
+  display: inline-flex;
+  gap: 2px;
+  margin-bottom: var(--space-5);
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  box-shadow: inset 0 0 0 1px var(--separator);
+}
+#main .lang-filter .lang-filter-item {
+  padding: 6px 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--label-secondary);
+  font-family: inherit;
+  font-size: var(--text-footnote);
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+#main .lang-filter .lang-filter-item:hover {
+  color: var(--label);
+}
+#main .lang-filter .lang-filter-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#main .lang-filter .lang-filter-item.is-active {
+  background: var(--badge-surface);
+  color: var(--label);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
 #main .category h2 {
   margin: var(--space-6) 0 var(--space-4);
   font-size: var(--text-title-3);
@@ -1153,6 +1197,19 @@ a:active {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--accent-text);
+}
+#main article.article .con .meta {
+  /* The language badge of a post that is not in the site language. */
+}
+#main article.article .con .meta .lang-badge {
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-tint);
+  color: var(--accent-text);
+  font-size: var(--text-caption-2);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
 }
 #main article.article .con h1 {
   margin: 0 0 var(--space-2);
@@ -1377,6 +1434,43 @@ a:active {
 #container .article-content .title .heading .meta .read-time:not(:empty)::before {
   content: "·";
   margin-right: var(--space-2);
+}
+#container .article-content .title .heading .meta {
+  /* The switch between the language versions of the article. */
+}
+#container .article-content .title .heading .meta .lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: var(--space-2);
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  box-shadow: inset 0 0 0 1px var(--separator);
+}
+#container .article-content .title .heading .meta .lang-switch .lang-switch-item {
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--label-secondary);
+  font-size: var(--text-caption-2);
+  font-weight: 500;
+  line-height: 1.6;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+#container .article-content .title .heading .meta .lang-switch .lang-switch-item:hover {
+  color: var(--label);
+}
+#container .article-content .title .heading .meta .lang-switch .lang-switch-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#container .article-content .title .heading .meta .lang-switch .lang-switch-item.is-active {
+  background: var(--badge-surface);
+  color: var(--label);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
 #container .article-content .con {
   padding-top: 0;

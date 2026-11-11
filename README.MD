@@ -17,7 +17,7 @@ materials, generous corner radii and the spring easing that native apps use.
 | `404.html` | the page GitHub Pages serves for a missing address |
 | `feed.xml` | the RSS 2.0 feed, `/feed.xml` |
 | `src/sass/` | Sass sources — `_tokens.scss` holds the design tokens |
-| `src/img/` | the images the site uses, `app-icon.svg` and `og-default.svg` included |
+| `src/img/` | the images the site uses: `app-icon.svg`, `og-default.svg` and the `cover-*.svg` banners of the posts |
 | `src/js/` | the browser scripts: `site.js` (reading progress, copy buttons, reading time, appearance) and `search.js` |
 | `dist/css/`, `dist/img/`, `dist/js/` | build output, committed because GitHub Pages serves the site as plain static files |
 | `pagefind/` | the search index, committed for the same reason |
@@ -53,6 +53,55 @@ code block follows the appearance of the page.
 The categories, the tags and the archive are built from the front matter: a
 post belongs to a category and to any number of tags, and the pages under
 `article/` list them.
+
+## Bilingual posts
+
+A post can be written in two languages. The Chinese version is the default;
+the English one is a second post that points back at the first through a
+shared `translation_key`:
+
+```yaml
+# _posts/2026-11-11-ai-battle-royale.md
+---
+title: "AI 发展下的互联网开发圈现在就是一场大逃杀"
+description: AI 并没有消灭任何一个岗位，它只是在不断压缩开发者需要掌握的技能区间。
+date: 2026-11-11 02:30:00
+categories: [思考]
+tags: [AI, 职业发展]
+lang: zh
+translation_key: ai-battle-royale
+---
+```
+
+```yaml
+# _posts/2026-11-11-ai-battle-royale-en.md
+---
+title: "The Internet Development World Under AI Is a Battle Royale"
+description: AI did not eliminate a single role; it keeps narrowing the range of skills.
+date: 2026-11-11 02:30:00
+categories: [thinking]
+tags: [AI, career]
+lang: en
+translation_key: ai-battle-royale
+permalink: /en/2026/11/11/ai-battle-royale.html
+---
+```
+
+Both versions then get
+
+- a language switch (中文 / English) in the article header that jumps to the
+  other version,
+- the matching `<html lang>`, `og:locale`, `hreflang` and JSON-LD `inLanguage`,
+- their own entry in the list, where the card of a non-Chinese post carries an
+  `EN` badge.
+
+The list page also has a language filter (全部 / 中文 / English). It filters the
+cards in the browser and keeps the choice in the `?lang=` parameter, so the
+address can be shared.
+
+The English version needs an explicit `permalink` when it should live outside
+of the date structure — the site uses a custom permalink style, and Jekyll
+drops the `.html` suffix of the pages that do not declare one.
 
 ## Feeds
 

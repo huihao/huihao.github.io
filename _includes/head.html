@@ -34,7 +34,16 @@
     <meta name="baidu-site-verification" content="jZBFJtnZR3" />
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    {% comment %} 多语言：找出同一篇文章的另一种语言版本 {% endcomment %}
+    {% assign translation = nil %}
+    {% if page.translation_key and page.translation_key != '' %}
+        {% assign translation = site.posts | where: "translation_key", page.translation_key | where_exp: "item", "item.url != page.url" | first %}
+    {% endif %}
+    {% assign page_lang = page.lang | default: 'zh' %}
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+    {% if translation %}
+        <link rel="alternate" hreflang="{% if translation.lang == 'en' %}en{% else %}zh-CN{% endif %}" href="{{ translation.url | absolute_url }}">
+    {% endif %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}" />
     {% feed_meta %}
     {% comment %} 社交卡片：文章用第一张配图，其余页面用站点默认图 {% endcomment %}
@@ -63,7 +72,10 @@
     <meta property="og:description" content="{{ og_description | escape }}">
     <meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
     <meta property="og:site_name" content="{{ site.title | escape }}">
-    <meta property="og:locale" content="{{ site.lang | default: 'zh-CN' }}">
+    <meta property="og:locale" content="{% if page_lang == 'en' %}en_US{% else %}zh_CN{% endif %}">
+    {% if translation %}
+        <meta property="og:locale:alternate" content="{% if translation.lang == 'en' %}en_US{% else %}zh_CN{% endif %}">
+    {% endif %}
     <meta property="og:image" content="{{ og_image }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -92,7 +104,7 @@
         "description": {{ og_description | jsonify }},
         "url": {{ page.url | replace:'index.html','' | absolute_url | jsonify }},
         "image": {{ og_image | jsonify }},
-        "inLanguage": {{ site.lang | default: 'zh-CN' | jsonify }},
+        "inLanguage": {% if page_lang == 'en' %}"en"{% else %}"zh-CN"{% endif %},
         {% if page.layout == 'post' %}
             "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
             "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
