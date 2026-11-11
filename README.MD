@@ -92,7 +92,7 @@ to follow the redirect from `huihao.github.io` to `bio.wuhh.cc`.
 | Structured data | `_includes/head.html` | JSON-LD: `BlogPosting` for a post, `WebSite` with a `SearchAction` for the other pages |
 | Search | `search.html` | [Pagefind](https://pagefind.app) indexes the built site |
 | Icons | `src/img/*.svg` | `favicon.svg`, `favicon.ico`, `apple-touch-icon.png` and `site.webmanifest` |
-| Comments | `_layouts/post.html` | [giscus](https://giscus.app), hidden until it is configured |
+| Comments | `_layouts/post.html` | [giscus](https://giscus.app) on GitHub Discussions, `Announcements` category |
 
 ### Search
 
@@ -111,20 +111,25 @@ well — a search should return articles, not the article list.
 
 ### Comments
 
-giscus stores the comments in a GitHub Discussion. Open the repository
-settings → Discussions → General and create the discussion category, then fill
-the four values from <https://giscus.app> into `_config.yml`:
+giscus stores the comments in a GitHub Discussion. The repository settings →
+Discussions → General must have Discussions enabled, and the discussion
+category used below is `Announcements`. The values live in `_config.yml`:
 
 ```yaml
 giscus:
   repo: huihao/huihao.github.io
-  repo_id: "R_xxxxxxx"
-  category: "Comments"
-  category_id: "DIC_xxxxxxx"
-  client_id: "xxxxx"
+  repo_id: "MDEwOlJlcG9zaXRvcnkzODU2NTA5MQ=="
+  category: "Announcements"
+  category_id: "DIC_kwDOAkx0484DK2yc"
+  mapping: "pathname"
+  theme: "preferred_color_scheme"
+  lang: "zh-CN"
 ```
 
-While `client_id` is empty the comment section is not rendered at all.
+`mapping: pathname` links every article to the discussion of its own path,
+`theme: preferred_color_scheme` lets giscus follow the visitor's system
+appearance, and `lang` sets the language of the comment box. While `repo_id`
+is empty the comment section is not rendered at all.
 
 ## Build
 

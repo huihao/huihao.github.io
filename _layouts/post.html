@@ -31,7 +31,7 @@ layout: article
     </div>
     {% endif %}
     {% include post-nav.html %}
-    {% if site.giscus.client_id and site.giscus.client_id != '' %}
+    {% if site.giscus.repo_id and site.giscus.repo_id != '' %}
     <section class="comments" aria-label="评论">
         <h2 class="comments-title">评论</h2>
         <script src="https://giscus.app/client.js"
@@ -39,14 +39,14 @@ layout: article
                 data-repo-id="{{ site.giscus.repo_id }}"
                 data-category="{{ site.giscus.category }}"
                 data-category-id="{{ site.giscus.category_id }}"
-                data-mapping="specific"
-                data-term="{{ page.url }}"
-                data-strict="1"
+                data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+                data-strict="0"
                 data-reactions-enabled="1"
                 data-emit-metadata="0"
-                data-input-position="top"
-                data-theme="preferred_color_scheme"
-                data-lang="{{ site.lang | default: 'zh-CN' }}"
+                data-input-position="bottom"
+                data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+                data-lang="{{ site.giscus.lang | default: site.lang | default: 'zh-CN' }}"
+                data-loading="lazy"
                 crossorigin="anonymous"
                 async></script>
     </section>

@@ -1620,7 +1620,10 @@ a:active {
   letter-spacing: var(--tracking-tight);
 }
 #container .article-content .comments iframe {
+  display: block;
   width: 100%;
+  min-height: 220px;
+  border: 0;
 }
 
 @media (width <= 760px) {
