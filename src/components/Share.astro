@@ -1,0 +1,28 @@
+---
+/**
+ * 一键分享到 X（Twitter）。
+ *
+ * 纯链接实现，不依赖脚本：链接里已经带好文章标题和绝对地址，
+ * 点击后由 X 打开分享面板，用户确认后即可发布。
+ */
+interface Props {
+    url: string;
+    title: string;
+    label?: string;
+}
+
+const { url, title, label = '分享到 X' } = Astro.props;
+
+const base = String(Astro.site ?? 'https://bio.wuhh.cc').replace(/\/$/, '');
+const absolute = /^https?:\/\//.test(url)
+    ? url
+    : `${base}${url.startsWith('/') ? '' : '/'}${url}`;
+const intent = `https://twitter.com/intent/tweet?url=${encodeURIComponent(absolute)}&text=${encodeURIComponent(title)}`;
+---
+
+<a class="share-button" href={intent} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}>
+    <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+    </svg>
+    <span>{label}</span>
+</a>

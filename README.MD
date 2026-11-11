@@ -17,7 +17,7 @@
 | 高亮 | Shiki 双主题（`github-light-high-contrast` / `github-dark-high-contrast`，随明暗模式切换，对比度达 WCAG AA） |
 | 搜索 | Pagefind（构建时索引，产物在 `public/pagefind/`） |
 | 评论 | giscus（GitHub Discussions） |
-| 订阅源 | 手写 RSS 2.0（`/feed.xml`）+ Astro 官方 RSS（`/atom.xml`） |
+| 订阅源 | 手写 RSS 2.0（`/feed.xml`）+ 手写 Atom 1.0（`/atom.xml`） |
 | 部署 | GitHub Actions → GitHub Pages |
 
 ## 快速开始
@@ -87,6 +87,12 @@ image: /dist/img/cover-xxx.png
 
 站点跟随系统偏好，也可以右上角一键切换。切换结果存在 `localStorage`，
 `<head>` 里的内联脚本在首次绘制前就决定主题，所以不会闪烁。
+
+## 分享
+
+文章页标题下方有「分享到 X」按钮，点击直接打开 X 的分享面板，
+标题和文章地址已经填好。它是一个纯链接（`src/components/Share.astro`），
+不依赖脚本，也不拦截跳转。
 
 ## 订阅源
 

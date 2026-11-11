@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Toc from '../components/Toc.astro';
 import PostNav from '../components/PostNav.astro';
 import Comments from '../components/Comments.astro';
+import Share from '../components/Share.astro';
 import { urlOf, formatDate, categoryOf, coverOf, wordCount } from '../lib/posts';
 import type { AnyPost, Translation } from '../lib/posts';
 
@@ -93,6 +94,13 @@ const slug = (value: string) =>
                                         )}
                                     </nav>
                                 )}
+                            </div>
+                            <div class="share">
+                                <Share
+                                    url={url}
+                                    title={post.data.title}
+                                    label={lang === 'en' ? 'Share on X' : '分享到 X'}
+                                />
                             </div>
                         </div>
                     </div>
