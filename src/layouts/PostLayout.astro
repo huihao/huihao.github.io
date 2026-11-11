@@ -99,7 +99,9 @@ const slug = (value: string) =>
                                 <Share
                                     url={url}
                                     title={post.data.title}
-                                    label={lang === 'en' ? 'Share on X' : '分享到 X'}
+                                    label={lang === 'en' ? 'Share' : '分享'}
+                                    copyLabel={lang === 'en' ? 'Copy link' : '复制链接'}
+                                    copiedLabel={lang === 'en' ? 'Copied' : '已复制'}
                                 />
                             </div>
                         </div>

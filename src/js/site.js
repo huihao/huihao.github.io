@@ -181,6 +181,98 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Sharing. On a phone the Web Share API opens the system share sheet, */
+  /* which already contains X, WeChat and the other apps of the visitor.  */
+  /* On the desktop there is no such sheet, so a small menu with the     */
+  /* intent links takes its place.                                       */
+  /* ------------------------------------------------------------------ */
+  function initShare() {
+    var root = document.querySelector('[data-share]');
+
+    if (!root) {
+      return;
+    }
+
+    var toggle = root.querySelector('[data-share-toggle]');
+    var menu = root.querySelector('.share-menu');
+    var copy = root.querySelector('[data-share-copy]');
+    var url = root.getAttribute('data-url') || window.location.href;
+    var title = root.getAttribute('data-title') || document.title;
+
+    if (!toggle || !menu) {
+      return;
+    }
+
+    function closeMenu() {
+      menu.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator
+          .share({ title: title, text: title, url: url })
+          .catch(function (error) {
+            /* The visitor closed the sheet, nothing to do. */
+            if (!error || error.name !== 'AbortError') {
+              closeMenu();
+            }
+          });
+
+        return;
+      }
+
+      var open = menu.hidden;
+
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    if (copy) {
+      var label = copy.querySelector('[data-share-copy-label]');
+      var copied = copy.getAttribute('data-share-copied-label') || label.textContent;
+
+      copy.addEventListener('click', function () {
+        function done() {
+          if (label) {
+            label.textContent = copied;
+          }
+
+          window.setTimeout(function () {
+            if (label) {
+              label.textContent = label.getAttribute('data-share-default') || label.textContent;
+            }
+          }, 2000);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done).catch(done);
+        } else {
+          done();
+        }
+
+        closeMenu();
+      });
+
+      if (label) {
+        label.setAttribute('data-share-default', label.textContent);
+      }
+    }
+
+    document.addEventListener('click', function (event) {
+      if (!root.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* The language switch above the article list                           */
   /*                                                                     */
   /* Every article shows up once. Switching the language swaps the       */
@@ -470,6 +562,7 @@
   addHeadingAnchors();
   hideBrokenImages();
   setupLanguageFilter();
+  initShare();
   updateProgress();
   updateBar();
   updateToc();

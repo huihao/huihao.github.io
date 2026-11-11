@@ -1,28 +1,67 @@
 ---
 /**
- * 一键分享到 X（Twitter）。
+ * 分享按钮。
  *
- * 纯链接实现，不依赖脚本：链接里已经带好文章标题和绝对地址，
- * 点击后由 X 打开分享面板，用户确认后即可发布。
+ * 现代做法：优先调用 Web Share API（navigator.share），在手机上直接打开系统
+ * 原生分享面板，里面就有 X、微信、信息等；桌面浏览器没有原生面板时，展开
+ * 一个小的分享菜单，同样是 intent 链接，不做任何拦截。
  */
 interface Props {
     url: string;
     title: string;
     label?: string;
+    copyLabel?: string;
+    copiedLabel?: string;
 }
 
-const { url, title, label = '分享到 X' } = Astro.props;
+const {
+    url,
+    title,
+    label = '分享',
+    copyLabel = '复制链接',
+    copiedLabel = '已复制',
+} = Astro.props;
 
 const base = String(Astro.site ?? 'https://bio.wuhh.cc').replace(/\/$/, '');
 const absolute = /^https?:\/\//.test(url)
     ? url
     : `${base}${url.startsWith('/') ? '' : '/'}${url}`;
-const intent = `https://twitter.com/intent/tweet?url=${encodeURIComponent(absolute)}&text=${encodeURIComponent(title)}`;
+
+/* x.com/intent/post 是 X 现在的分享地址（老的 twitter.com/intent/tweet 仍可用）。 */
+const xIntent = `https://x.com/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(absolute)}`;
+const weiboIntent = `https://service.weibo.com/share/share.php?url=${encodeURIComponent(absolute)}&title=${encodeURIComponent(title)}`;
 ---
 
-<a class="share-button" href={intent} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}>
-    <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-    </svg>
-    <span>{label}</span>
-</a>
+<div class="share" data-share data-url={absolute} data-title={title}>
+    <button class="share-button" type="button" data-share-toggle aria-haspopup="menu" aria-expanded="false">
+        <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 2.6 6.9 7.7l1.5 1.5 2.6-2.6V16h2V6.6l2.6 2.6 1.5-1.5L12 2.6Z"></path>
+            <path d="M19 13.5h-2v6H7v-6H5v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6Z"></path>
+        </svg>
+        <span>{label}</span>
+    </button>
+
+    <div class="share-menu" role="menu" hidden>
+        <a class="share-item" role="menuitem" href={xIntent} target="_blank" rel="noopener noreferrer">
+            <svg class="share-item-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+            <span>X</span>
+        </a>
+        <a class="share-item" role="menuitem" href={weiboIntent} target="_blank" rel="noopener noreferrer">
+            <svg class="share-item-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"></path>
+            </svg>
+            <span>微博</span>
+        </a>
+        <button class="share-item" type="button" role="menuitem" data-share-copy data-share-copied-label={copiedLabel}>
+            <svg class="share-item-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M8 4h10a2 2 0 0 1 2 2v10h-2V6H8V4Z"></path>
+                <path d="M4 8h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"></path>
+            </svg>
+            <span data-share-copy-label>{copyLabel}</span>
+        </button>
+    </div>
+
+    <noscript><style>.share-menu[hidden] { display: flex !important; }</style></noscript>
+</div>
