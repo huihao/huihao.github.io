@@ -131,7 +131,22 @@
   /* The refraction recipe of a glass surface: saturate the colours behind
      it, then blur them. */
   --glass-filter: saturate(180%) blur(20px);
+  --glass-filter-soft: saturate(160%) blur(12px);
   --glass-border: rgb(255 255 255 / 60%);
+
+  /* The frosted glass surfaces of the page: cards, the sidebar, the
+     directory, the menus. They are translucent, so the ambient colours
+     behind them bleed through. */
+  --glass-bg: rgb(255 255 255 / 58%);
+  --glass-bg-strong: rgb(255 255 255 / 76%);
+  --glass-bg-subtle: rgb(255 255 255 / 38%);
+  /* The hairline that separates a glass surface from what is behind it. */
+  --glass-hairline: rgb(60 60 67 / 12%);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 10px 30px rgb(0 0 0 / 8%);
+  /* The light that catches the top edge of a glass surface. */
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 85%);
+  /* The fine engineering grid that sits behind the page. */
+  --grid-dot: rgb(60 60 67 / 8%);
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 8px rgb(0 0 0 / 4%);
   --shadow-md: 0 2px 6px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 7%);
@@ -202,6 +217,14 @@
   --material: rgb(28 28 30 / 72%);
   --material-thick: rgb(28 28 30 / 88%);
   --glass-border: rgb(255 255 255 / 12%);
+
+  --glass-bg: rgb(28 28 30 / 58%);
+  --glass-bg-strong: rgb(28 28 30 / 76%);
+  --glass-bg-subtle: rgb(28 28 30 / 40%);
+  --glass-hairline: rgb(255 255 255 / 10%);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 34%), 0 10px 30px rgb(0 0 0 / 42%);
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 9%);
+  --grid-dot: rgb(235 235 245 / 7%);
 
   --accent: #4ed4ff;
   --accent-strong: #7ce0ff;

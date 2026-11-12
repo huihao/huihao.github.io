@@ -5,6 +5,8 @@
  * lays the text out, instead of stretching over the full page.
  */
 
+@use "theme" as *;
+
 #container {
   .article-content {
     width: 100%;
@@ -81,6 +83,13 @@
           }
 
           /* Filled in by the script, empty when JavaScript is off. */
+          .read-time {
+            font-family: var(--font-mono);
+            font-size: var(--text-caption);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.02em;
+          }
+
           .read-time:not(:empty)::before {
             content: "\00b7";
             margin-right: var(--space-2);
@@ -177,11 +186,9 @@
           flex-direction: column;
           min-width: 148px;
           padding: 6px;
-          border: 1px solid var(--glass-border);
           border-radius: var(--radius-large);
-          background: var(--material);
-          backdrop-filter: var(--glass-filter);
-          box-shadow: var(--shadow-card);
+
+          @include glass-strong;
         }
 
         .share-item {
@@ -230,13 +237,15 @@
       margin-bottom: var(--space-6);
       padding: var(--space-4) var(--space-5);
       border-radius: var(--radius-large);
-      background: var(--fill-tertiary);
+
+      @include glass(var(--glass-bg), var(--glass-filter));
 
       .toc-title {
         margin: 0 0 var(--space-3);
-        font-size: var(--text-footnote);
+        font-family: var(--font-mono);
+        font-size: var(--text-caption);
         font-weight: 600;
-        letter-spacing: var(--tracking-wide);
+        letter-spacing: 0.1em;
         color: var(--label-tertiary);
         text-transform: uppercase;
       }
@@ -293,7 +302,11 @@
       font-size: var(--text-footnote);
 
       .article-tags-label {
+        font-family: var(--font-mono);
+        font-size: var(--text-caption);
+        letter-spacing: 0.1em;
         color: var(--label-tertiary);
+        text-transform: uppercase;
       }
 
       ul {
@@ -310,10 +323,13 @@
         align-items: center;
         padding: 4px 12px;
         border-radius: var(--radius-pill);
-        background: var(--fill-tertiary);
         color: var(--label-secondary);
-        font-size: var(--text-footnote);
+        font-family: var(--font-mono);
+        font-size: var(--text-caption);
+        letter-spacing: 0.02em;
         text-decoration: none;
+
+        @include glass-subtle;
         transition:
           background-color var(--duration-fast) var(--ease-standard),
           color var(--duration-fast) var(--ease-standard),
@@ -342,10 +358,11 @@
         gap: var(--space-2);
         padding: 8px 16px;
         border-radius: var(--radius-pill);
-        background: var(--fill);
         color: var(--accent-text);
         font-size: var(--text-footnote);
         font-weight: 500;
+
+        @include glass-subtle;
         transition:
           background-color var(--duration-fast) var(--ease-standard),
           transform var(--duration-fast) var(--ease-spring);
@@ -381,8 +398,9 @@
       min-width: 0;
       padding: var(--space-4);
       border-radius: var(--radius-large);
-      background: var(--fill-tertiary);
       color: var(--label);
+
+      @include glass(var(--glass-bg), var(--glass-filter));
       text-decoration: none;
       transition:
         background-color var(--duration-fast) var(--ease-standard),
@@ -397,8 +415,9 @@
       }
 
       .post-nav-label {
+        font-family: var(--font-mono);
         font-size: var(--text-caption);
-        letter-spacing: var(--tracking-wide);
+        letter-spacing: 0.1em;
         color: var(--label-tertiary);
         text-transform: uppercase;
       }
@@ -447,8 +466,9 @@
         height: 100%;
         padding: var(--space-4);
         border-radius: var(--radius-large);
-        background: var(--fill-tertiary);
         text-decoration: none;
+
+        @include glass(var(--glass-bg), var(--glass-filter));
         transition:
           background-color var(--duration-fast) var(--ease-standard),
           transform var(--duration-fast) var(--ease-spring);

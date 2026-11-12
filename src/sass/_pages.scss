@@ -5,6 +5,8 @@
  * the groups themselves, each one a list of compact rows.
  */
 
+@use "theme" as *;
+
 .taxonomy {
   margin-top: var(--space-6);
 
@@ -23,9 +25,10 @@
     color: var(--label);
 
     .taxonomy-count {
-      font-family: var(--font-text);
-      font-size: var(--text-footnote);
-      font-weight: 500;
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
       color: var(--label-tertiary);
     }
   }
@@ -36,6 +39,7 @@
   padding: 1px 7px;
   border-radius: var(--radius-pill);
   background: var(--fill-tertiary);
+  font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-variant-numeric: tabular-nums;
   color: var(--label-tertiary);
@@ -73,8 +77,13 @@
 
 /* The 404 page. */
 .not-found {
-  padding: var(--space-8) 0 var(--space-7);
+  max-width: 560px;
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-6) var(--space-7);
+  border-radius: var(--radius-continuous);
   text-align: center;
+
+  @include glass(var(--glass-bg), var(--glass-filter));
 
   .not-found-code {
     font-family: var(--font-display);
@@ -83,6 +92,15 @@
     line-height: 1;
     letter-spacing: var(--tracking-tightest);
     color: var(--accent-text);
+  }
+
+  /* The line a terminal would print. */
+  .not-found-log {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: 0.08em;
+    color: var(--label-tertiary);
   }
 
   h1 {
@@ -110,7 +128,7 @@
 
 @media (width <= 760px) {
   .not-found {
-    padding: var(--space-7) 0 var(--space-6);
+    padding: var(--space-7) var(--space-5) var(--space-6);
 
     .not-found-code {
       font-size: 3.5rem;

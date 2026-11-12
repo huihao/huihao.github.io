@@ -2,6 +2,8 @@
  * The sidebar, laid out like an inset grouped list.
  */
 
+@use "theme" as *;
+
 #container {
   aside {
     .aside-header {
@@ -12,10 +14,13 @@
       height: auto;
       margin-bottom: var(--space-2);
       padding-inline: var(--space-1);
-      line-height: 1.4;
-      font-size: var(--text-footnote);
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
       font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
       color: var(--label-secondary);
+      text-transform: uppercase;
 
       i {
         position: static;
@@ -47,12 +52,11 @@
     ul {
       margin: 0;
       padding: 0;
-      border: 1px solid var(--border);
       border-radius: var(--radius-medium);
-      background: var(--background-card);
-      box-shadow: var(--shadow-sm);
       list-style: none;
       overflow: hidden;
+
+      @include glass(var(--glass-bg), var(--glass-filter));
 
       li {
         position: relative;
@@ -65,6 +69,11 @@
         line-height: 1.4;
         font-size: var(--text-subhead);
         color: var(--label);
+        transition: background-color var(--duration-fast) var(--ease-standard);
+
+        &:hover {
+          background: var(--fill-tertiary);
+        }
 
         & + li::before {
           position: absolute;

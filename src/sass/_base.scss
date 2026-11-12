@@ -33,24 +33,79 @@ body.layout-list {
 }
 
 /* The soft colour wash behind the page, the way a native app tints the
-   top of a grouped list. */
+   top of a grouped list. It is the wallpaper the glass surfaces refract. */
 #wrapper::before {
   position: absolute;
   z-index: -1;
   inset: 0 0 auto;
-  height: 520px;
+  height: 720px;
   content: "";
   pointer-events: none;
   background:
     radial-gradient(60% 100% at 12% 0%, var(--accent-tint) 0%, transparent 70%),
-    radial-gradient(50% 90% at 92% 4%, rgb(88 86 214 / 8%) 0%, transparent 72%);
+    radial-gradient(50% 90% at 92% 4%, rgb(88 86 214 / 8%) 0%, transparent 72%),
+    radial-gradient(45% 70% at 58% 26%, rgb(90 200 250 / 7%) 0%, transparent 72%);
+}
+
+/* The engineering grid: a fine dotted matrix, the blueprint the page is
+   laid out on. It fades out towards the bottom. */
+#wrapper::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 720px;
+  content: "";
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, rgb(0 0 0 / 70%) 0%, transparent 76%);
 }
 
 @include dark-only {
   #wrapper::before {
     background:
       radial-gradient(60% 100% at 12% 0%, rgb(78 212 255 / 12%) 0%, transparent 70%),
-      radial-gradient(50% 90% at 92% 4%, rgb(94 92 230 / 16%) 0%, transparent 72%);
+      radial-gradient(50% 90% at 92% 4%, rgb(94 92 230 / 16%) 0%, transparent 72%),
+      radial-gradient(45% 70% at 58% 26%, rgb(255 45 85 / 8%) 0%, transparent 72%);
+  }
+}
+
+/* A slim scrollbar, the way a native app draws one. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--label-quaternary) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--label-quaternary);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fill);
+  background-clip: content-box;
+}
+
+/* Anchored headings clear the sticky bar, and the scroll is smooth unless
+   the visitor asked for less motion. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -64,4 +119,9 @@ h6 {
   font-weight: 700;
   letter-spacing: var(--tracking-tight);
   line-height: 1.2;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }

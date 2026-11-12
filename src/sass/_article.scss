@@ -6,6 +6,8 @@
  * read more action and the date.
  */
 
+@use "theme" as *;
+
 #main {
   .categories-list {
     display: flex;
@@ -47,8 +49,8 @@
     margin-bottom: var(--space-5);
     padding: 2px;
     border-radius: var(--radius-pill);
-    background: var(--fill);
-    box-shadow: inset 0 0 0 1px var(--separator);
+
+    @include glass-subtle;
 
     .lang-filter-item {
       padding: 6px 16px;
@@ -119,10 +121,9 @@
     height: auto;
     margin-bottom: var(--space-5);
     overflow: hidden;
-    border: 1px solid var(--border);
     border-radius: var(--radius-continuous);
-    background: var(--background-card);
-    box-shadow: var(--shadow-card);
+
+    @include glass(var(--glass-bg), var(--glass-filter));
     transition:
       transform var(--duration) var(--ease-spring),
       box-shadow var(--duration) var(--ease-standard),
@@ -131,7 +132,10 @@
     &:hover {
       transform: translateY(-4px);
       border-color: rgb(32 198 242 / 32%);
-      box-shadow: var(--shadow-lg);
+      box-shadow:
+        var(--glass-shadow),
+        var(--glass-inset),
+        var(--shadow-lg);
     }
 
     /* The media band. It sits on top of the card and keeps the radius of
@@ -203,6 +207,7 @@
           border-radius: var(--radius-pill);
           background: var(--accent-tint);
           color: var(--accent-text);
+          font-family: var(--font-mono);
           font-size: var(--text-caption-2);
           font-weight: 600;
           letter-spacing: 0.06em;
@@ -303,7 +308,10 @@
 
         .date {
           margin: 0;
-          font-size: var(--text-footnote);
+          font-family: var(--font-mono);
+          font-size: var(--text-caption);
+          font-variant-numeric: tabular-nums;
+          letter-spacing: 0.02em;
           line-height: 1.4;
           color: var(--label-tertiary);
         }
@@ -322,6 +330,10 @@
 
     .pager {
       flex: 1 1 auto;
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
       color: var(--label-secondary);
       text-align: center;
     }
@@ -335,14 +347,13 @@
       min-width: 88px;
       height: 36px;
       padding: 0 var(--space-4);
-      border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      background: var(--background-card);
       color: var(--accent-text);
       font-size: var(--text-footnote);
       font-weight: 500;
       text-align: center;
-      box-shadow: var(--shadow-sm);
+
+      @include glass-subtle;
       transition:
         background-color var(--duration-fast) var(--ease-standard),
         transform var(--duration-fast) var(--ease-spring);

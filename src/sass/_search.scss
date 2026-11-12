@@ -5,6 +5,8 @@
  * the matches and paints them with the design system.
  */
 
+@use "theme" as *;
+
 #container {
   .search-page {
     width: 100%;
@@ -27,14 +29,17 @@
       gap: var(--space-3);
       padding: var(--space-3) var(--space-4);
       border-radius: var(--radius-large);
-      background: var(--fill-tertiary);
+
+      @include glass(var(--glass-bg-strong), var(--glass-filter));
       transition:
         background-color var(--duration-fast) var(--ease-standard),
         box-shadow var(--duration-fast) var(--ease-standard);
 
       &:focus-within {
-        background: var(--background);
-        box-shadow: 0 0 0 3px var(--accent-tint-hover);
+        box-shadow:
+          0 0 0 3px var(--accent-tint-hover),
+          var(--glass-shadow),
+          var(--glass-inset);
       }
 
       svg {
@@ -111,9 +116,12 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
-      padding: var(--space-4) 0;
-      border-bottom: 1px solid var(--separator);
+      padding: var(--space-4);
+      margin-bottom: var(--space-2);
+      border-radius: var(--radius-medium);
       text-decoration: none;
+
+      @include glass-subtle;
       transition:
         background-color var(--duration-fast) var(--ease-standard),
         transform var(--duration-fast) var(--ease-spring);

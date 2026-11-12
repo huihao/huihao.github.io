@@ -46,8 +46,13 @@
       font-weight: 500;
     }
 
+    /* The links to the feeds, set in the monospace face: they are machine
+       endpoints, and they read like one. */
     .subtitle {
       margin-top: var(--space-1);
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      letter-spacing: 0.04em;
       color: var(--label-tertiary);
 
       a {

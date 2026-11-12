@@ -29,3 +29,38 @@
     @content;
   }
 }
+
+/**
+ * A frosted glass surface.
+ *
+ * The recipe is the one macOS and iOS use for their translucent panels: a
+ * translucent fill, the colours behind it saturated and blurred, a hairline
+ * that catches the light along the top edge, and a soft shadow that lifts
+ * the surface off the page.
+ *
+ * A browser without `backdrop-filter` keeps the translucent fill and gets
+ * an opaque one instead, so the surface still reads as a panel.
+ */
+@mixin glass($bg: var(--glass-bg), $filter: var(--glass-filter)) {
+  background: $bg;
+  border: 1px solid var(--glass-hairline);
+  box-shadow:
+    var(--glass-shadow),
+    var(--glass-inset);
+  -webkit-backdrop-filter: $filter;
+  backdrop-filter: $filter;
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background: var(--background-card);
+  }
+}
+
+/* The heavier variant, for the surfaces that sit on top of other glass. */
+@mixin glass-strong {
+  @include glass(var(--glass-bg-strong), var(--glass-filter));
+}
+
+/* The lighter variant, for surfaces that only need a hint of refraction. */
+@mixin glass-subtle {
+  @include glass(var(--glass-bg-subtle), var(--glass-filter-soft));
+}

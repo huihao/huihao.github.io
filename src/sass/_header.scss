@@ -15,16 +15,16 @@
     overflow-x: clip;
 
     /* The thin bar on top. It floats above the page with the material
-       treatment iOS gives its bars. */
+       treatment iOS gives its bars: the content behind it is blurred and
+       saturated, and the light catches its top edge. */
     .top-line {
       position: sticky;
       z-index: 20;
       top: 0;
       height: 52px;
       border-bottom: 1px solid var(--separator);
-      background: var(--material);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
+
+      @include glass(var(--material), var(--glass-filter));
 
       .bar {
         display: flex;
@@ -59,7 +59,8 @@
         border: 0;
         border-radius: 50%;
         color: var(--label-secondary);
-        background: var(--fill);
+
+        @include glass-subtle;
         cursor: pointer;
         transition:
           color var(--duration-fast) var(--ease-standard),
@@ -191,15 +192,22 @@
         }
 
         .location {
-          display: flex;
+          display: inline-flex;
           align-items: center;
+          gap: var(--space-1);
           margin-top: var(--space-3);
-          font-size: var(--text-footnote);
+          padding: 4px 12px 4px 8px;
+          border-radius: var(--radius-pill);
+          font-family: var(--font-mono);
+          font-size: var(--text-caption);
+          letter-spacing: 0.02em;
           color: var(--label-tertiary);
+
+          @include glass-subtle;
 
           .icon {
             position: static;
-            margin-right: var(--space-2);
+            margin-right: 0;
             opacity: 0.6;
           }
         }
@@ -216,8 +224,9 @@
         gap: 2px;
         padding: 3px;
         border-radius: var(--radius-medium);
-        background: var(--fill);
         list-style: none;
+
+        @include glass-subtle;
 
         li {
           float: none;
@@ -243,7 +252,7 @@
 
           &.active {
             color: var(--label);
-            background: var(--background-card);
+            background: var(--badge-surface);
             box-shadow: var(--shadow-sm);
           }
 

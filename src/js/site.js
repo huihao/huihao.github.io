@@ -77,13 +77,24 @@
 
       wrapper.className = 'code-block';
       pre.parentNode.insertBefore(wrapper, pre);
+
+      /* The bar of the block: the language on the left, the copy action
+         on the right, the way an editor draws it. */
+      var head = document.createElement('div');
+      var languageLabel = document.createElement('span');
+
+      head.className = 'code-head';
+      languageLabel.className = 'code-lang';
+      languageLabel.textContent = language || 'code';
+
+      head.appendChild(languageLabel);
+
+      wrapper.appendChild(head);
       wrapper.appendChild(pre);
 
       button.type = 'button';
       button.className = 'copy-code';
-      button.innerHTML =
-        '<span class="copy-label">' + (language || '代码') + '</span>' +
-        '<span class="copy-action">复制</span>';
+      button.innerHTML = '<span class="copy-action">复制</span>';
 
       button.addEventListener('click', function () {
         var text = code ? code.innerText : pre.innerText;
@@ -110,7 +121,7 @@
         });
       });
 
-      wrapper.appendChild(button);
+      head.appendChild(button);
     });
   }
 

@@ -83,6 +83,25 @@ image: /dist/img/cover-xxx.png
 - 译稿用 `translation_key` 与主稿配对，文章页会出现语言切换，列表页不会出现重复条目。
 - URL 规则：主稿 `/YYYY/MM/DD/slug.html`，译稿 `/en/YYYY/MM/DD/slug.html`。
 
+## 视觉与材质
+
+站点的视觉变量全部集中在 `src/sass/_tokens.scss`，改配色和材质只需要改这一处。
+
+- **毛玻璃**：`src/sass/_theme.scss` 里的 `glass` / `glass-strong` / `glass-subtle`
+  混入是唯一的玻璃入口——半透明填充 + `saturate() blur()` 折射背后内容 +
+  顶部一道高光内阴影 + 一层柔和投影。列表卡片、侧栏分组、目录、上下篇、
+  相关文章、标签、分页按钮、搜索框、分享菜单和 404 面板都用它；
+  不支持 `backdrop-filter` 的浏览器自动退回不透明面板。
+- **背景**：页面背后有一层彩色光晕（`#wrapper::before`）和一层 28px 的
+  点阵网格（`#wrapper::after`），玻璃才有东西可以折射；网格也是整站的
+  蓝图底纹。
+- **等宽细节**：日期、阅读时长、标签、目录标题、上下篇标签、分页计数、
+  分类计数、代码块语言名和订阅源链接都用 `var(--font-mono)`，代码块还有
+  一条编辑器风格的头部栏（左侧语言、右侧复制）。
+- **其它**：标题 `text-wrap: balance`、正文 `text-wrap: pretty`、
+  锚点标题留出 `scroll-margin-top` 避开吸顶栏、细滚动条、
+  `prefers-reduced-motion` 下关闭平滑滚动。
+
 ## 明暗模式
 
 站点跟随系统偏好，也可以右上角一键切换。切换结果存在 `localStorage`，
