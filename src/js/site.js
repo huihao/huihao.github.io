@@ -338,6 +338,7 @@
         var more = card.querySelector('.more');
         var cover = card.querySelector('.cover');
         var badge = card.querySelector('.lang-badge');
+        var cat = card.querySelector('.cat');
 
         if (title) {
           title.textContent = entry.title;
@@ -360,6 +361,10 @@
           if (label) {
             label.textContent = moreLabel(language);
           }
+        }
+
+        if (cat && entry.cat) {
+          cat.textContent = entry.cat;
         }
 
         if (cover) {

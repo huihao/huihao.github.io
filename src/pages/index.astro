@@ -20,9 +20,21 @@ const slice = posts.slice(0, pageSize);
             <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>
         </div>
 
-        {slice.map((post) => (
-            <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
-        ))}
+        {slice[0] && (
+            <Card
+                post={slice[0]}
+                translation={findTranslation(slice[0], [...translations, ...posts])}
+                variant="featured"
+            />
+        )}
+
+        {slice.length > 1 && (
+            <div class="article-list">
+                {slice.slice(1).map((post) => (
+                    <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
+                ))}
+            </div>
+        )}
 
         <Pagination current={1} total={total} />
     </div>

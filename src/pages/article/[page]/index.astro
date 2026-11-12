@@ -33,9 +33,21 @@ const slice = posts.slice(start, start + SITE.perPage);
     canonical={`/article/${currentPage}/`}
 >
     <div id="main" data-pagefind-ignore>
-        {slice.map((post) => (
-            <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
-        ))}
+        {slice[0] && (
+            <Card
+                post={slice[0]}
+                translation={findTranslation(slice[0], [...translations, ...posts])}
+                variant="featured"
+            />
+        )}
+
+        {slice.length > 1 && (
+            <div class="article-list">
+                {slice.slice(1).map((post) => (
+                    <Card post={post} translation={findTranslation(post, [...translations, ...posts])} />
+                ))}
+            </div>
+        )}
 
         <Pagination current={currentPage} total={total} />
     </div>

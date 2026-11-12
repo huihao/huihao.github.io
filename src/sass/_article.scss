@@ -1,9 +1,10 @@
 /**
- * The article list: cards, the tag badge and the pagination.
+ * The article list: the featured card, the grouped list of rows and the
+ * pagination.
  *
- * The card follows the shape of a native app: a media band on top, a
- * category kicker, a headline, a short excerpt and a footer row with the
- * read more action and the date.
+ * The list keeps one headline at the top — the newest post, with its cover
+ * — and lets the rest breathe in a single grouped panel, the way a native
+ * reader app separates "the story of the day" from "everything else".
  */
 
 @use "theme" as *;
@@ -86,44 +87,76 @@
     }
   }
 
-  .category {
-    h2 {
-      margin: var(--space-6) 0 var(--space-4);
-      font-size: var(--text-title-3);
-      color: var(--label);
+  /* The kicker line every card shares: the category, the date and the
+     badge that points to the other language. */
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+
+    .cat {
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-text);
     }
 
-    /* The category index is a compact list, not a media card. */
-    article.article {
-      margin-bottom: var(--space-3);
-      padding: var(--space-4) var(--space-5);
+    .meta-sep {
+      color: var(--label-tertiary);
+    }
+
+    .date {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      color: var(--label-tertiary);
+    }
+
+    /* The badge that points to the other language of the article. */
+    .lang-badge {
+      margin-left: auto;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-tint);
+      color: var(--accent-text);
+      font-family: var(--font-mono);
+      font-size: var(--text-caption-2);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      text-decoration: none;
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        color var(--duration-fast) var(--ease-standard);
 
       &:hover {
-        transform: translateY(-1px);
+        background: var(--fill-secondary);
+        color: var(--accent-text-hover);
       }
 
-      .con h1 {
-        margin: 0;
-        font-size: var(--text-headline);
-        font-weight: 600;
-      }
-
-      .date {
-        margin-top: var(--space-1);
-        font-size: var(--text-caption);
+      &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
     }
   }
 
-  article.article {
+  /* The feature: the newest post gets the media band and the big
+     headline. */
+  article.article--featured {
     display: block;
     width: 100%;
-    height: auto;
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
     overflow: hidden;
     border-radius: var(--radius-continuous);
 
     @include glass(var(--glass-bg), var(--glass-filter));
+
     transition:
       transform var(--duration) var(--ease-spring),
       box-shadow var(--duration) var(--ease-standard),
@@ -166,69 +199,6 @@
     .con {
       padding: var(--space-5);
 
-      /* The kicker: the category artwork next to the category name. */
-      .meta {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        margin-bottom: var(--space-3);
-
-        .diamond {
-          flex: none;
-          width: 26px;
-          height: 26px;
-          margin: 0;
-
-          .box {
-            width: 26px;
-            height: 26px;
-            border: 0;
-            border-radius: 8px;
-            background-color: var(--badge-surface);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            box-shadow:
-              0 0 0 1px rgb(0 0 0 / 6%),
-              var(--shadow-sm);
-          }
-        }
-
-        .cat {
-          font-size: var(--text-footnote);
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          color: var(--accent-text);
-        }
-
-        /* The badge that points to the other language of the article. */
-        .lang-badge {
-          padding: 1px 7px;
-          border-radius: var(--radius-pill);
-          background: var(--accent-tint);
-          color: var(--accent-text);
-          font-family: var(--font-mono);
-          font-size: var(--text-caption-2);
-          font-weight: 600;
-          letter-spacing: 0.06em;
-          line-height: 1.5;
-          text-decoration: none;
-          transition:
-            background-color var(--duration-fast) var(--ease-standard),
-            color var(--duration-fast) var(--ease-standard);
-
-          &:hover {
-            background: var(--fill-secondary);
-            color: var(--accent-text-hover);
-          }
-
-          &:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-          }
-        }
-      }
-
       h1 {
         margin: 0 0 var(--space-2);
         font-family: var(--font-display);
@@ -257,64 +227,93 @@
         line-height: 1.65;
         color: var(--label-secondary);
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+
+  /* Everything else lives in one grouped panel: a hairline between the
+     rows and nothing else. */
+  .article-list {
+    overflow: hidden;
+    border-radius: var(--radius-continuous);
+
+    @include glass(var(--glass-bg), var(--glass-filter));
+
+    article.article {
+      display: block;
+      padding: var(--space-4) var(--space-5);
+      border-top: 1px solid var(--glass-hairline);
+      transition: background-color var(--duration-fast) var(--ease-standard);
+
+      &:first-child {
+        border-top: 0;
       }
 
-      /* The footer of the card: the action on the left, the date on the
-         right, the way a native list row is laid out. */
-      .addition {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-3);
-        margin-top: var(--space-4);
-        padding-top: var(--space-3);
-        border-top: 1px solid var(--separator);
+      &:hover {
+        background: var(--fill-tertiary);
+      }
 
-        .more {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-1);
-          height: auto;
-          padding: 5px 10px 5px 12px;
-          border: 0;
-          border-radius: var(--radius-pill);
-          background: var(--accent-tint);
-          color: var(--accent-text);
-          font-size: var(--text-footnote);
-          font-weight: 500;
-          line-height: 1.3;
-          transition:
-            background-color var(--duration-fast) var(--ease-standard),
-            transform var(--duration-fast) var(--ease-spring);
+      h1 {
+        margin: 0 0 var(--space-1);
+        font-family: var(--font-display);
+        font-size: var(--text-headline);
+        font-weight: 600;
+        line-height: 1.45;
+        letter-spacing: var(--tracking-tight);
+        color: var(--label);
 
-          /* The disclosure chevron. */
-          &::after {
-            content: "\203A";
-            font-size: 1.1em;
-            line-height: 1;
-            transform: translateY(-1px);
-          }
+        a {
+          color: inherit;
+          cursor: pointer;
+          transition: color var(--duration-fast) var(--ease-standard);
 
           &:hover {
-            background-color: var(--accent-tint-hover);
             color: var(--accent-text-hover);
           }
-
-          &:active {
-            transform: scale(0.96);
-          }
         }
+      }
 
-        .date {
-          margin: 0;
-          font-family: var(--font-mono);
-          font-size: var(--text-caption);
-          font-variant-numeric: tabular-nums;
-          letter-spacing: 0.02em;
-          line-height: 1.4;
-          color: var(--label-tertiary);
-        }
+      .tip {
+        display: -webkit-box;
+        margin: 0;
+        overflow: hidden;
+        font-size: var(--text-footnote);
+        line-height: 1.6;
+        color: var(--label-secondary);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+    }
+  }
+
+  .category {
+    h2 {
+      margin: var(--space-6) 0 var(--space-4);
+      font-size: var(--text-title-3);
+      color: var(--label);
+    }
+
+    /* The category index is a compact list, not a media card. */
+    article.article {
+      margin-bottom: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-large);
+      background: var(--fill-tertiary);
+
+      &:hover {
+        background: var(--fill-secondary);
+      }
+
+      .con h1 {
+        margin: 0;
+        font-size: var(--text-headline);
+        font-weight: 600;
+      }
+
+      .date {
+        margin-top: var(--space-1);
+        font-size: var(--text-caption);
       }
     }
   }
@@ -379,7 +378,7 @@
 
 @media (width <= 760px) {
   #main {
-    article.article {
+    article.article--featured {
       border-radius: var(--radius-large);
 
       .con {
@@ -392,6 +391,14 @@
         .tip {
           font-size: var(--text-subhead);
         }
+      }
+    }
+
+    .article-list {
+      border-radius: var(--radius-large);
+
+      article.article {
+        padding: var(--space-3) var(--space-4);
       }
     }
 
