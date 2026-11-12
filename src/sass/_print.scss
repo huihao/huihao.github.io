@@ -1,0 +1,128 @@
+/**
+ * The print stylesheet.
+ *
+ * A printed page is paper: no glass, no shadows, no navigation, and the
+ * text in black on white. The article is what the reader came for.
+ */
+
+@media print {
+  @page {
+    margin: 18mm 16mm;
+  }
+
+  html {
+    background: #fff !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  /* The chrome of the site has no place on paper. */
+  .top-line,
+  .reading-progress,
+  .back-to-top,
+  .skip-link,
+  #container aside,
+  .share,
+  .share-menu,
+  .toc,
+  .post-nav,
+  .related,
+  .comments,
+  .article-footer,
+  .pagination,
+  .page,
+  .code-head .copy-code {
+    display: none !important;
+  }
+
+  #wrapper::before,
+  #wrapper::after {
+    display: none !important;
+  }
+
+  #wrapper #container {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .article-content {
+    max-width: none !important;
+  }
+
+  /* Every surface loses its glass and keeps only its outline. */
+  .article--featured,
+  .article-list,
+  .article-list article.article,
+  .taxonomy,
+  .post-nav-item,
+  .related-item a,
+  .not-found,
+  .toc,
+  .article-content,
+  .search-field {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* The cover art is worth keeping, but not as a huge band. */
+  .article--featured .cover .img {
+    max-height: 60mm;
+  }
+
+  .article--featured .con {
+    padding: 0;
+  }
+
+  /* A link keeps its address, so a printed page is still usable. */
+  .markdown-body a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  .markdown-body a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    color: #444;
+    word-break: break-all;
+  }
+
+  /* Code and quotes stay legible, but they do not need a surface. */
+  .markdown-body pre,
+  .markdown-body .code-block,
+  .markdown-body blockquote {
+    background: none !important;
+    border: 1px solid #ccc !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  /* The code keeps its own colours, they are legible on paper. */
+  .astro-code,
+  .astro-code span {
+    color: #000 !important;
+    background: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+}

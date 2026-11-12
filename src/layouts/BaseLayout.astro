@@ -37,10 +37,13 @@ const currentPath = Astro.url.pathname;
         noindex={noindex}
     />
     <body class="layout-list">
+        <a class="skip-link" href="#main">跳到主要内容</a>
         <div id="wrapper">
             <Header currentPath={currentPath} />
             <div id="container">
-                <slot />
+                <main id="main" tabindex="-1">
+                    <slot />
+                </main>
                 <Sidebar />
             </div>
             <Footer />

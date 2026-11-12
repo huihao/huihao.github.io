@@ -14,7 +14,8 @@ const slice = posts.slice(0, pageSize);
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description} canonical="/">
-    <div id="main" data-pagefind-ignore>
+    <div data-pagefind-ignore>
+        <h1 class="visually-hidden">{SITE.title} · 最新文章</h1>
         <div class="lang-filter" data-lang-filter role="group" aria-label="按语言阅读文章列表">
             <button type="button" class="lang-filter-item is-active" data-lang-filter-item="zh">中文</button>
             <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>

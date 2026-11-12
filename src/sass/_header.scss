@@ -52,8 +52,8 @@
         flex: none;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         margin-left: auto;
         padding: 0;
         border: 0;
@@ -235,7 +235,7 @@
 
         a {
           display: block;
-          padding: 6px 18px;
+          padding: 8px 18px;
           border-radius: 9px;
           font-size: var(--text-subhead);
           font-weight: 500;
@@ -263,16 +263,16 @@
       }
     }
 
-    /* The decorative circles. They are blurred into soft ambient washes,
-       the way the wallpaper colours bleed behind a native window. */
+    /* The decorative circles. They are the colour of the wallpaper, not
+       pictures: a soft radial wash that the glass surfaces refract. In the
+       light appearance they are warm and low in saturation, in the dark one
+       they turn into cool light. */
     .circle-1,
     .circle-2,
     .circle-3,
     .circle-4 {
       position: absolute;
       border-radius: 50%;
-      background-repeat: no-repeat;
-      background-size: cover;
       pointer-events: none;
       user-select: none;
     }
@@ -282,9 +282,14 @@
       left: 208px;
       width: 124px;
       height: 124px;
-      background-image: url("../img/Oval1.png");
-      filter: blur(28px);
-      opacity: 0.4;
+      background-image: radial-gradient(
+        circle at 50% 50%,
+        rgb(255 159 10 / 55%) 0%,
+        rgb(255 159 10 / 18%) 42%,
+        rgb(255 159 10 / 0%) 72%
+      );
+      filter: blur(18px);
+      opacity: 0.55;
     }
 
     .circle-2 {
@@ -292,9 +297,14 @@
       left: 252px;
       width: 158px;
       height: 158px;
-      background-image: url("../img/Oval2.png");
-      filter: blur(34px);
-      opacity: 0.35;
+      background-image: radial-gradient(
+        circle at 50% 50%,
+        rgb(255 45 85 / 42%) 0%,
+        rgb(255 45 85 / 14%) 44%,
+        rgb(255 45 85 / 0%) 74%
+      );
+      filter: blur(24px);
+      opacity: 0.5;
     }
 
     .circle-3 {
@@ -302,9 +312,14 @@
       left: 346px;
       width: 272px;
       height: 272px;
-      background-image: url("../img/Oval4.png");
-      filter: blur(46px);
-      opacity: 0.28;
+      background-image: radial-gradient(
+        circle at 50% 50%,
+        rgb(32 198 242 / 34%) 0%,
+        rgb(32 198 242 / 12%) 44%,
+        rgb(32 198 242 / 0%) 74%
+      );
+      filter: blur(36px);
+      opacity: 0.6;
     }
 
     .circle-4 {
@@ -312,14 +327,20 @@
       left: 493px;
       width: 210px;
       height: 210px;
-      background-image: url("../img/Oval3.png");
-      filter: blur(40px);
-      opacity: 0.3;
+      background-image: radial-gradient(
+        circle at 50% 50%,
+        rgb(94 92 230 / 32%) 0%,
+        rgb(94 92 230 / 12%) 44%,
+        rgb(94 92 230 / 0%) 74%
+      );
+      filter: blur(30px);
+      opacity: 0.55;
     }
   }
 }
 
-/* In the dark appearance the switch offers the sun instead. */
+/* In the dark appearance the switch offers the sun instead, and the
+   wallpaper turns into cool light. */
 @include dark-only {
   #wrapper {
     header {
@@ -335,6 +356,46 @@
             transform: rotate(70deg) scale(0.4);
           }
         }
+      }
+
+      .circle-1 {
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgb(255 159 10 / 85%) 0%,
+          rgb(255 159 10 / 32%) 42%,
+          rgb(255 159 10 / 0%) 72%
+        );
+        opacity: 0.55;
+      }
+
+      .circle-2 {
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgb(255 55 95 / 80%) 0%,
+          rgb(255 55 95 / 28%) 44%,
+          rgb(255 55 95 / 0%) 74%
+        );
+        opacity: 0.6;
+      }
+
+      .circle-3 {
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgb(78 212 255 / 75%) 0%,
+          rgb(78 212 255 / 26%) 44%,
+          rgb(78 212 255 / 0%) 74%
+        );
+        opacity: 0.7;
+      }
+
+      .circle-4 {
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgb(120 120 255 / 75%) 0%,
+          rgb(120 120 255 / 26%) 44%,
+          rgb(120 120 255 / 0%) 74%
+        );
+        opacity: 0.65;
       }
     }
   }

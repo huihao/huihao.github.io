@@ -20,7 +20,8 @@
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-      padding: 6px 14px;
+      min-height: 36px;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
       background: var(--fill);
       color: var(--label-secondary);
@@ -54,7 +55,8 @@
     @include glass-subtle;
 
     .lang-filter-item {
-      padding: 6px 16px;
+      min-height: 36px;
+      padding: 8px 18px;
       border: 0;
       border-radius: var(--radius-pill);
       background: transparent;
@@ -199,7 +201,7 @@
     .con {
       padding: var(--space-5);
 
-      h1 {
+      h2 {
         margin: 0 0 var(--space-2);
         font-family: var(--font-display);
         font-size: var(--text-title-2);
@@ -243,7 +245,7 @@
     article.article {
       display: block;
       padding: var(--space-4) var(--space-5);
-      border-top: 1px solid var(--glass-hairline);
+      border-top: 1px solid var(--separator);
       transition: background-color var(--duration-fast) var(--ease-standard);
 
       &:first-child {
@@ -254,7 +256,7 @@
         background: var(--fill-tertiary);
       }
 
-      h1 {
+      h2 {
         margin: 0 0 var(--space-1);
         font-family: var(--font-display);
         font-size: var(--text-headline);
@@ -305,7 +307,7 @@
         background: var(--fill-secondary);
       }
 
-      .con h1 {
+      .con h2 {
         margin: 0;
         font-size: var(--text-headline);
         font-weight: 600;
@@ -344,7 +346,7 @@
       justify-content: center;
       flex: none;
       min-width: 88px;
-      height: 36px;
+      height: 40px;
       padding: 0 var(--space-4);
       border-radius: var(--radius-pill);
       color: var(--accent-text);
@@ -384,7 +386,7 @@
       .con {
         padding: var(--space-4);
 
-        h1 {
+        h2 {
           font-size: var(--text-title-3);
         }
 

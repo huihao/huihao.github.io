@@ -64,76 +64,80 @@ const slug = (value: string) =>
         words={wordCount(post.body ?? '')}
     />
     <body class="layout-post">
+        <a class="skip-link" href="#main">跳到主要内容</a>
         <div class="reading-progress" aria-hidden="true"></div>
         <div id="wrapper">
             <Header currentPath={Astro.url.pathname} />
             <div id="container">
-                <article class="article-content">
-                    <div class="title">
-                        <div class="diamond">
-                            <div class={`box tag-icon-default tag-icon-${category}`}></div>
-                        </div>
-                        <div class="heading">
-                            <h1>{post.data.title}</h1>
-                            <div class="meta">
-                                <span class="cat">{category}</span>
-                                <p class="date"><span>{formatDate(post.data.date, lang)}</span></p>
-                                <span class="read-time" data-read-time></span>
-                                {translation && (
-                                    <nav class="lang-switch" aria-label="语言切换">
-                                        {lang === 'en' ? (
-                                            <>
-                                                <a class="lang-switch-item" href={urlOf(translation)} hreflang="zh-CN" lang="zh-CN">中文</a>
-                                                <span class="lang-switch-item is-active" aria-current="true">English</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span class="lang-switch-item is-active" aria-current="true">中文</span>
-                                                <a class="lang-switch-item" href={urlOf(translation)} hreflang="en" lang="en">English</a>
-                                            </>
-                                        )}
-                                    </nav>
-                                )}
+                <main id="main" tabindex="-1">
+                    <article class="article-content">
+                        <div class="title">
+                            <div class="diamond">
+                                <div class={`box tag-icon-default tag-icon-${category}`}></div>
                             </div>
-                            <div class="share">
-                                <Share
-                                    url={url}
-                                    title={post.data.title}
-                                    label={lang === 'en' ? 'Share' : '分享'}
-                                    copyLabel={lang === 'en' ? 'Copy link' : '复制链接'}
-                                    copiedLabel={lang === 'en' ? 'Copied' : '已复制'}
-                                />
+                            <div class="heading">
+                                <h1>{post.data.title}</h1>
+                                <div class="meta">
+                                    <span class="cat">{category}</span>
+                                <span class="meta-sep" aria-hidden="true">·</span>
+                                    <p class="date"><span>{formatDate(post.data.date, lang)}</span></p>
+                                    <span class="read-time" data-read-time></span>
+                                    {translation && (
+                                        <nav class="lang-switch" aria-label="语言切换">
+                                            {lang === 'en' ? (
+                                                <>
+                                                    <a class="lang-switch-item" href={urlOf(translation)} hreflang="zh-CN" lang="zh-CN">中文</a>
+                                                    <span class="lang-switch-item is-active" aria-current="true">English</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span class="lang-switch-item is-active" aria-current="true">中文</span>
+                                                    <a class="lang-switch-item" href={urlOf(translation)} hreflang="en" lang="en">English</a>
+                                                </>
+                                            )}
+                                        </nav>
+                                    )}
+                                </div>
+                                <div class="share">
+                                    <Share
+                                        url={url}
+                                        title={post.data.title}
+                                        label={lang === 'en' ? 'Share' : '分享'}
+                                        copyLabel={lang === 'en' ? 'Copy link' : '复制链接'}
+                                        copiedLabel={lang === 'en' ? 'Copied' : '已复制'}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <Toc headings={headings} />
+                        <Toc headings={headings} />
 
-                    <div class="con markdown-body" data-thread-key={url} data-title={post.data.title} data-url={url}>
-                        <slot />
-                    </div>
-
-                    {tags.length > 0 && (
-                        <div class="article-tags">
-                            <span class="article-tags-label">标签</span>
-                            <ul>
-                                {tags.map((tag) => (
-                                    <li><a class="tag-chip" href={`/article/tags.html#${slug(tag)}`}>{tag}</a></li>
-                                ))}
-                            </ul>
+                        <div class="con markdown-body" data-thread-key={url} data-title={post.data.title} data-url={url}>
+                            <slot />
                         </div>
-                    )}
 
-                    <PostNav previous={previous} next={next} related={related} />
+                        {tags.length > 0 && (
+                            <div class="article-tags">
+                                <span class="article-tags-label">标签</span>
+                                <ul>
+                                    {tags.map((tag) => (
+                                        <li><a class="tag-chip" href={`/article/tags.html#${slug(tag)}`}>{tag}</a></li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
-                    <Comments />
+                        <PostNav previous={previous} next={next} related={related} />
 
-                    <div class="article-footer">
-                        <a class="back base-link" href="/">
-                            <span>返回文章列表</span>
-                        </a>
-                    </div>
-                </article>
+                        <Comments />
+
+                        <div class="article-footer">
+                            <a class="back base-link" href="/">
+                                <span>返回文章列表</span>
+                            </a>
+                        </div>
+                    </article>
+                </main>
             </div>
             <Footer />
         </div>

@@ -332,7 +332,9 @@
           return;
         }
 
-        var title = card.querySelector('h1 a');
+        /* The title of a card is a second level heading; the first level
+           one belongs to the page itself. */
+        var title = card.querySelector('h2 a') || card.querySelector('h1 a');
         var tip = card.querySelector('.tip');
         var date = card.querySelector('.date span');
         var more = card.querySelector('.more');

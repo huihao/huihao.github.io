@@ -37,6 +37,8 @@
   --text-subhead: 0.9375rem; /* 15px */
   --text-footnote: 0.8125rem; /* 13px */
   --text-caption: 0.75rem; /* 12px */
+  --text-caption-2: 0.6875rem; /* 11px — the smallest label, the one that
+     sits on a badge or inside a chip */
 
   --tracking-tight: -0.022em;
   --tracking-tightest: -0.03em;
@@ -137,11 +139,11 @@
   /* The frosted glass surfaces of the page: cards, the sidebar, the
      directory, the menus. They are translucent, so the ambient colours
      behind them bleed through. */
-  --glass-bg: rgb(255 255 255 / 58%);
-  --glass-bg-strong: rgb(255 255 255 / 76%);
-  --glass-bg-subtle: rgb(255 255 255 / 38%);
+  --glass-bg: rgb(255 255 255 / 72%);
+  --glass-bg-strong: rgb(255 255 255 / 86%);
+  --glass-bg-subtle: rgb(255 255 255 / 48%);
   /* The hairline that separates a glass surface from what is behind it. */
-  --glass-hairline: rgb(60 60 67 / 12%);
+  --glass-hairline: rgb(60 60 67 / 14%);
   --glass-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 10px 30px rgb(0 0 0 / 8%);
   /* The light that catches the top edge of a glass surface. */
   --glass-inset: inset 0 1px 0 rgb(255 255 255 / 85%);
@@ -218,11 +220,14 @@
   --material-thick: rgb(28 28 30 / 88%);
   --glass-border: rgb(255 255 255 / 12%);
 
-  --glass-bg: rgb(28 28 30 / 58%);
-  --glass-bg-strong: rgb(28 28 30 / 76%);
-  --glass-bg-subtle: rgb(28 28 30 / 40%);
-  --glass-hairline: rgb(255 255 255 / 10%);
-  --glass-shadow: 0 1px 2px rgb(0 0 0 / 34%), 0 10px 30px rgb(0 0 0 / 42%);
+  /* In the dark appearance a glass surface is a thin veil of white over
+     black, not a slab of dark grey: the panel has to end up lighter than
+     the page, the way an iOS card does. */
+  --glass-bg: rgb(255 255 255 / 9%);
+  --glass-bg-strong: rgb(255 255 255 / 14%);
+  --glass-bg-subtle: rgb(255 255 255 / 6%);
+  --glass-hairline: rgb(255 255 255 / 14%);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 50%);
   --glass-inset: inset 0 1px 0 rgb(255 255 255 / 9%);
   --grid-dot: rgb(235 235 245 / 7%);
 

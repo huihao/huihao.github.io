@@ -32,7 +32,8 @@ const slice = posts.slice(start, start + SITE.perPage);
     description={SITE.description}
     canonical={`/article/${currentPage}/`}
 >
-    <div id="main" data-pagefind-ignore>
+    <div data-pagefind-ignore>
+        <h1 class="visually-hidden">{SITE.title} · 第 {currentPage} 页</h1>
         {slice[0] && (
             <Card
                 post={slice[0]}

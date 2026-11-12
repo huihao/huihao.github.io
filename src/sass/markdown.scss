@@ -100,8 +100,9 @@
 
   a {
     color: var(--accent-text);
-    text-decoration: none;
-    text-decoration-color: rgb(32 198 242 / 40%);
+    text-decoration: underline;
+    text-decoration-color: rgb(32 198 242 / 45%);
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     transition:
       color var(--duration-fast) var(--ease-standard),
@@ -198,7 +199,7 @@
     overflow: auto;
     border: 1px solid var(--border);
     border-radius: var(--radius-large);
-    background: var(--background-secondary);
+    background: var(--syntax-bg);
     color: var(--label);
     font-size: 0.8125rem;
     line-height: 1.7;
@@ -221,7 +222,7 @@
     overflow: hidden;
     border: 1px solid var(--border);
     border-radius: var(--radius-large);
-    background: var(--background-secondary);
+    background: var(--syntax-bg);
     box-shadow: var(--shadow-sm);
 
     pre {

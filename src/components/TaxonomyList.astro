@@ -18,7 +18,8 @@ interface Props {
 const { groups, icon, label } = Astro.props;
 ---
 
-<div id="main" data-pagefind-ignore>
+<div data-pagefind-ignore>
+    <h1 class="visually-hidden">{label}</h1>
     <div class="categories-list">
         {groups.map((group) => (
             <a href={`#${group.slug}`} class="categories-list-item">
@@ -37,7 +38,7 @@ const { groups, icon, label } = Astro.props;
                 {group.posts.map((post) => (
                     <article class="article">
                         <div class="con">
-                            <h1><a href={urlOf(post)}>{post.data.title}</a></h1>
+                            <h2><a href={urlOf(post)}>{post.data.title}</a></h2>
                             <div class="tip">{descriptionOf(post).slice(0, 160)}</div>
                             <p class="date"><span>{formatDate(post.data.date, 'zh')}</span></p>
                         </div>
