@@ -7,15 +7,17 @@ interface Heading {
 
 interface Props {
     headings: Heading[];
+    label?: string;
+    title?: string;
 }
 
-const { headings } = Astro.props;
+const { headings, label = '文章目录', title = '目录' } = Astro.props;
 const items = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 ---
 
 {items.length > 0 && (
-    <nav class="toc" aria-label="文章目录" data-pagefind-ignore>
-        <h2 class="toc-title">目录</h2>
+    <nav class="toc" aria-label={label} data-pagefind-ignore>
+        <h2 class="toc-title">{title}</h2>
         <ul class="toc-list">
             {items.map((heading) => (
                 <li class={`toc-item toc-level-${heading.depth}`}>

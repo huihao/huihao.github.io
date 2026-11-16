@@ -568,3 +568,52 @@
     }
   }
 }
+
+/**
+ * On a wide screen the directory leaves the text and becomes a rail on
+ * the right of the article. It sticks to the window while the reader
+ * scrolls, so the sections of the post are always one click away.
+ */
+@media (width >= 1040px) {
+  body.layout-post {
+    #container {
+      .article-content {
+        display: grid;
+        grid-template-columns: minmax(0, var(--measure)) minmax(0, var(--toc-width));
+        column-gap: var(--toc-gap);
+        align-items: start;
+        max-width: calc(var(--measure) + var(--toc-gap) + var(--toc-width));
+
+        .title {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
+        .article-body {
+          grid-column: 1;
+          grid-row: 2;
+        }
+
+        .toc {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+          position: sticky;
+          top: var(--sticky-top);
+          max-height: calc(100vh - var(--sticky-top) - var(--space-6));
+          margin-bottom: 0;
+          padding: var(--space-4);
+          overflow-y: auto;
+          overscroll-behavior: contain;
+
+          .toc-title {
+            margin-bottom: var(--space-2);
+          }
+
+          .toc-item a {
+            padding-block: 4px;
+          }
+        }
+      }
+    }
+  }
+}

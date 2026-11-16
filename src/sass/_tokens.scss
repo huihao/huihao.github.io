@@ -77,6 +77,12 @@
   /* The measure of a reading column, the way Apple Books and Safari
      keep the line length comfortable. */
   --measure: 720px;
+  /* The directory that floats beside the article on a wide screen. */
+  --toc-width: 240px;
+  --toc-gap: 32px;
+  /* How far a sticky element sits from the top of the window: the height
+     of the floating bar plus a little air. */
+  --sticky-top: 76px;
   /* The artwork of a post, in the proportions the site has always used. */
   --media-ratio: 570 / 144;
 

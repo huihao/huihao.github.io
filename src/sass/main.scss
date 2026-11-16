@@ -47,6 +47,14 @@
   }
 }
 
+/* A post has no sidebar: the container is a single column, and the
+   article lays out its own directory beside the text. */
+body.layout-post {
+  #wrapper #container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (width <= 760px) {
   #wrapper {
     #container {

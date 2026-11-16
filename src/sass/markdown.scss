@@ -36,7 +36,7 @@
     letter-spacing: var(--tracking-tight);
     color: var(--label);
     /* An anchored heading clears the sticky bar. */
-    scroll-margin-top: 76px;
+    scroll-margin-top: var(--sticky-top);
   }
 
   h1 {
