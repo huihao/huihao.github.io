@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="570" height="144" viewBox="0 0 570 144" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="570" y2="144" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0a1020" />
+      <stop offset="0.5" stop-color="#131a33" />
+      <stop offset="1" stop-color="#1b1030" />
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7fe6ff" />
+      <stop offset="1" stop-color="#a97bff" />
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1b2745" />
+      <stop offset="1" stop-color="#101728" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop stop-color="#20c6f2" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#20c6f2" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="570" height="144" rx="16" fill="url(#bg)" />
+  <circle cx="452" cy="104" r="92" fill="url(#glow)" />
+
+  <!-- desktop window -->
+  <g>
+    <rect x="26" y="22" width="322" height="100" rx="12" fill="url(#glass)" stroke="url(#stroke)" stroke-width="1.8" />
+    <rect x="26" y="22" width="322" height="18" rx="12" fill="#0f1730" />
+    <rect x="26" y="34" width="322" height="6" fill="#0f1730" />
+    <g fill="#3b4d75">
+      <circle cx="40" cy="31" r="3" />
+      <circle cx="52" cy="31" r="3" />
+      <circle cx="64" cy="31" r="3" />
+    </g>
+    <rect x="82" y="27" width="54" height="8" rx="4" fill="#26365c" />
+
+    <!-- sidebar: agents by status -->
+    <g>
+      <rect x="36" y="48" width="88" height="13" rx="4" fill="#233459" stroke="#3f5b8a" stroke-width="0.8" />
+      <circle cx="47" cy="54.5" r="3.4" fill="#ffb547" />
+      <rect x="56" y="51" width="54" height="6" rx="3" fill="#6e88bb" />
+
+      <rect x="36" y="66" width="88" height="13" rx="4" fill="#1b2745" />
+      <circle cx="47" cy="72.5" r="3.4" fill="#20c6f2" />
+      <rect x="56" y="69" width="46" height="6" rx="3" fill="#3f5b8a" />
+
+      <rect x="36" y="84" width="88" height="13" rx="4" fill="#1b2745" />
+      <circle cx="47" cy="90.5" r="3.4" fill="#4ade80" />
+      <rect x="56" y="87" width="60" height="6" rx="3" fill="#3f5b8a" />
+    </g>
+
+    <!-- transcript column -->
+    <g>
+      <rect x="136" y="48" width="92" height="16" rx="5" fill="#24365c" />
+      <rect x="146" y="54" width="60" height="4" rx="2" fill="#7f9ad4" />
+      <rect x="152" y="70" width="126" height="24" rx="5" fill="#182342" />
+      <rect x="162" y="78" width="88" height="4" rx="2" fill="#8ea9dd" />
+      <rect x="162" y="86" width="52" height="4" rx="2" fill="#4a6ba8" />
+      <rect x="176" y="100" width="70" height="12" rx="5" fill="#20c6f2" fill-opacity="0.16" stroke="#20c6f2" stroke-width="0.9" />
+    </g>
+  </g>
+
+  <!-- connection link -->
+  <g stroke="#4a6ba8" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4">
+    <path d="M348 72 h42" />
+  </g>
+  <circle cx="372" cy="72" r="3" fill="#7fe6ff" />
+
+  <!-- phone -->
+  <g>
+    <rect x="398" y="14" width="62" height="116" rx="14" fill="#0d1526" stroke="url(#stroke)" stroke-width="1.8" />
+    <rect x="415" y="18" width="28" height="4" rx="2" fill="#2b3c63" />
+    <rect x="406" y="30" width="46" height="22" rx="6" fill="#223258" />
+    <circle cx="414" cy="38" r="3" fill="#ffb547" />
+    <rect x="422" y="35" width="22" height="6" rx="3" fill="#6e88bb" />
+    <rect x="406" y="58" width="46" height="14" rx="6" fill="#182342" />
+    <rect x="412" y="63" width="26" height="4" rx="2" fill="#8ea9dd" />
+    <rect x="406" y="80" width="46" height="30" rx="6" fill="#20c6f2" fill-opacity="0.14" stroke="#20c6f2" stroke-width="0.9" />
+    <g fill="#7fe6ff">
+      <rect x="412" y="88" width="16" height="5" rx="2.5" />
+      <rect x="432" y="88" width="14" height="5" rx="2.5" />
+    </g>
+    <rect x="412" y="98" width="34" height="5" rx="2.5" fill="#4a6ba8" />
+    <rect x="420" y="122" width="18" height="3" rx="1.5" fill="#2b3c63" />
+  </g>
+
+  <!-- push badge -->
+  <g>
+    <circle cx="466" cy="24" r="11" fill="#ffb547" />
+    <path d="M466 18 v7" stroke="#0a1020" stroke-width="2.4" stroke-linecap="round" />
+    <circle cx="466" cy="29" r="1.4" fill="#0a1020" />
+  </g>
+
+  <!-- sparkles -->
+  <g opacity="0.85">
+    <circle cx="352" cy="34" r="2.4" fill="#7fe6ff" />
+    <circle cx="536" cy="72" r="2.2" fill="#a97bff" />
+    <circle cx="380" cy="110" r="1.8" fill="#20c6f2" />
+  </g>
+</svg>
