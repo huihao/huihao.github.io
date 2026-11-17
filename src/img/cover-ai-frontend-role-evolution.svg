@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="570" height="144" viewBox="0 0 570 144" role="img" aria-label="一个岗位被拆成三块，再收敛到一枚责任之环">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1020"/>
+      <stop offset="1" stop-color="#161f36"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.76" cy="0.5" r="0.56">
+      <stop offset="0" stop-color="#20c6f2" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#20c6f2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="570" height="144" fill="url(#bg)"/>
+  <rect width="570" height="144" fill="url(#glow)"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.06">
+    <path d="M0 18H570"/>
+    <path d="M0 126H570"/>
+  </g>
+
+  <!-- 左边：一个整体的岗位 -->
+  <rect x="34" y="46" width="152" height="52" rx="14" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.12"/>
+  <g fill="#ffffff" fill-opacity="0.10">
+    <rect x="54" y="60" width="94" height="7" rx="3.5"/>
+    <rect x="54" y="76" width="66" height="7" rx="3.5"/>
+    <rect x="54" y="92" width="44" height="7" rx="3.5"/>
+  </g>
+
+  <!-- 拆开：一个整体散成三条 -->
+  <g stroke="#20c6f2" stroke-opacity="0.30" fill="none">
+    <path d="M186 60C216 60 214 42 242 42"/>
+    <path d="M186 72C216 72 214 72 242 72"/>
+    <path d="M186 84C216 84 214 102 242 102"/>
+  </g>
+
+  <!-- 右边：三块新的职责 -->
+  <rect x="242" y="34" width="112" height="16" rx="8" fill="#ffffff" fill-opacity="0.07"/>
+  <rect x="242" y="64" width="112" height="16" rx="8" fill="#ffffff" fill-opacity="0.11"/>
+  <rect x="242" y="94" width="112" height="16" rx="8" fill="#ffffff" fill-opacity="0.07"/>
+  <rect x="242" y="64" width="46" height="16" rx="8" fill="#20c6f2" fill-opacity="0.55"/>
+
+  <!-- 终点：收敛成一枚可签名的环 -->
+  <g fill="none" stroke="#20c6f2">
+    <circle cx="446" cy="72" r="46" stroke-opacity="0.12"/>
+    <circle cx="446" cy="72" r="32" stroke-opacity="0.22"/>
+    <circle cx="446" cy="72" r="18" stroke-opacity="0.40"/>
+    <circle cx="446" cy="72" r="5" fill="#20c6f2" fill-opacity="0.9" stroke="none"/>
+  </g>
+</svg>
