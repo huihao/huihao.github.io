@@ -1,18 +1,27 @@
 /**
- * The sidebar, laid out like an inset grouped list.
+ * The sidebar: a compact rail of navigation groups.
+ *
+ * It sits beside the articles and sticks to the window while the reader
+ * scrolls. Every group is a band of pills that wraps, so the rail stays
+ * roughly the height of the article list next to it instead of three
+ * times taller — the tags, the long part of it, live at the bottom of
+ * the home page now.
  */
 
 @use "theme" as *;
 
 #container {
   aside {
+    position: sticky;
+    top: var(--sticky-top);
+    max-height: calc(100vh - var(--sticky-top) - var(--space-5));
+    overflow-y: auto;
+
     .aside-header {
-      position: relative;
       display: flex;
       align-items: center;
       gap: var(--space-2);
-      height: auto;
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-3);
       padding-inline: var(--space-1);
       font-family: var(--font-mono);
       font-size: var(--text-caption);
@@ -24,8 +33,6 @@
 
       i {
         position: static;
-        top: 0;
-        left: 0;
         min-width: 26px;
         min-height: 26px;
         padding: 4px;
@@ -36,8 +43,6 @@
 
       span {
         position: static;
-        left: auto;
-        top: auto;
 
         a {
           color: inherit;
@@ -46,78 +51,23 @@
     }
 
     section {
-      margin-bottom: var(--space-6);
-    }
+      margin-bottom: var(--space-5);
 
-    ul {
-      margin: 0;
-      padding: 0;
-      border-radius: var(--radius-medium);
-      list-style: none;
-      overflow: hidden;
-
-      @include glass(var(--glass-bg), var(--glass-filter));
-
-      li {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: var(--space-3);
-        min-height: 44px;
-        padding: var(--space-2) var(--space-4);
-        height: auto;
-        line-height: 1.4;
-        font-size: var(--text-subhead);
-        color: var(--label);
-        transition: background-color var(--duration-fast) var(--ease-standard);
-
-        &:hover {
-          background: var(--fill-tertiary);
-        }
-
-        & + li::before {
-          position: absolute;
-          top: 0;
-          right: 0;
-          left: 52px;
-          height: 1px;
-          content: "";
-          background: var(--separator);
-        }
-
-        i {
-          flex: none;
-          min-width: 30px;
-          min-height: 30px;
-          padding: 5px;
-          border-radius: 8px;
-          background-color: var(--fill);
-          background-origin: content-box;
-          opacity: 0.85;
-        }
-
-        span {
-          flex: 1 1 auto;
-          min-width: 0;
-
-          a {
-            color: inherit;
-            transition: color var(--duration-fast) var(--ease-standard);
-
-            &:hover {
-              color: var(--accent-text-hover);
-            }
-          }
-        }
-
-        &::after {
-          flex: none;
-          content: "\203A";
-          color: var(--label-tertiary);
-          font-size: var(--text-title-3);
-          line-height: 1;
-        }
+      &:last-child {
+        margin-bottom: 0;
       }
+    }
+  }
+}
+
+/* On a narrow screen the rail falls below the articles, so it must not
+   stick to the window any more. */
+@media (width <= 900px) {
+  #container {
+    aside {
+      position: static;
+      max-height: none;
+      overflow: visible;
     }
   }
 }

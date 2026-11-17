@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Card from '../components/Card.astro';
 import Pagination from '../components/Pagination.astro';
+import TagCloud from '../components/TagCloud.astro';
 import { getPosts, getTranslations, findTranslation } from '../lib/posts';
 import { SITE } from '../lib/site';
 
@@ -16,6 +17,12 @@ const slice = posts.slice(0, pageSize);
 <BaseLayout title={SITE.title} description={SITE.description} canonical="/">
     <div data-pagefind-ignore>
         <h1 class="visually-hidden">{SITE.title} · 最新文章</h1>
+
+        <div class="list-head">
+            <h2>最新文章</h2>
+            <span class="list-head-count">共 {posts.length} 篇</span>
+        </div>
+
         <div class="lang-filter" data-lang-filter role="group" aria-label="按语言阅读文章列表">
             <button type="button" class="lang-filter-item is-active" data-lang-filter-item="zh">中文</button>
             <button type="button" class="lang-filter-item" data-lang-filter-item="en">English</button>
@@ -38,5 +45,7 @@ const slice = posts.slice(0, pageSize);
         )}
 
         <Pagination current={1} total={total} />
+
+        <TagCloud />
     </div>
 </BaseLayout>

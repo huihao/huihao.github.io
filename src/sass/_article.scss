@@ -43,6 +43,33 @@
     }
   }
 
+  /* The headline of the list: what the page is and how much of it there
+     is. It gives the column an anchor, the way the taxonomy pages do. */
+  .list-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+
+    h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-title-3);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+      color: var(--label);
+    }
+
+    .list-head-count {
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+      color: var(--label-tertiary);
+    }
+  }
+
   /* The language filter above the list, shaped like an iOS segmented
      control. */
   .lang-filter {
@@ -374,6 +401,39 @@
 
     .next {
       float: none;
+    }
+  }
+
+  /* The whole taxonomy of the blog, as one band of pills at the end of
+     the list. It used to be a column of forty rows in the rail. */
+  .tag-cloud {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--separator);
+
+    .tag-cloud-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+
+      h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: var(--text-title-3);
+        font-weight: 700;
+        letter-spacing: var(--tracking-tight);
+        color: var(--label);
+      }
+
+      .tag-cloud-count {
+        font-family: var(--font-mono);
+        font-size: var(--text-caption);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.04em;
+        color: var(--label-tertiary);
+      }
     }
   }
 }

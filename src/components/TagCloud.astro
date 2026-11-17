@@ -1,0 +1,43 @@
+---
+import { getPosts, groupCount } from '../lib/posts';
+
+const posts = await getPosts();
+
+const tagCounts = groupCount(posts, (post) => post.data.tags);
+
+/* The busiest tags first: the ones that lead somewhere. */
+const tags = [...tagCounts.entries()].sort(
+  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh'),
+);
+
+const slug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\u4e00-\u9fff-]/g, '');
+---
+
+{/*
+    The whole taxonomy of the blog as one band of pills.
+
+    It used to be a column of forty rows in the rail, which made the rail
+    three times taller than the article list next to it. Here it sits at
+    the end of the articles, where a wide band of pills reads as a map of
+    the whole site instead of a stack.
+*/}
+<section class="tag-cloud" aria-labelledby="tag-cloud-title">
+    <div class="tag-cloud-header">
+        <h2 id="tag-cloud-title">全部标签</h2>
+        <span class="tag-cloud-count">{tags.length} 个标签</span>
+    </div>
+    <ul class="chip-list">
+    {tags.map(([tag, count]) => (
+        <li>
+            <a href={`/article/tags.html#${slug(tag)}`}>
+                <span>{tag}</span>
+                <span class="chip-count">{count}</span>
+            </a>
+        </li>
+    ))}
+    </ul>
+</section>

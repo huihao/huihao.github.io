@@ -19,6 +19,82 @@ a:active {
   color: var(--accent-text-hover);
 }
 
+/**
+ * A group of small pills.
+ *
+ * The categories, the archive years, the tags and the friend links all
+ * want the same thing: a list that is short. A column of rows is tall —
+ * forty tags became a screenful of rows — so they are pills that wrap
+ * into a band instead, the way a native app lays out a filter bar.
+ */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-flex;
+    max-width: 100%;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 30px;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--fill-tertiary);
+    color: var(--label-secondary);
+    font-size: var(--text-footnote);
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-spring);
+  }
+
+  /* A visited pill keeps the quiet label colour: the rail is a map of the
+     site, not a list of things that have been read. */
+  a:link,
+  a:visited {
+    color: var(--label-secondary);
+  }
+
+  a:hover,
+  a:active {
+    background: var(--accent-tint);
+    color: var(--accent-text-hover);
+  }
+
+  /* The number follows the name it belongs to. */
+  a:hover .chip-count,
+  a:active .chip-count {
+    color: inherit;
+  }
+
+  a:active {
+    transform: scale(0.96);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* The count of a pill: a number, in the mono face, one step quieter. */
+  .chip-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption-2);
+    font-variant-numeric: tabular-nums;
+    color: var(--label-secondary);
+  }
+}
+
 /* The small pill used by the "read more" button and by the pagination. */
 .base-link {
   display: inline-block;
