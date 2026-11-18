@@ -10,9 +10,11 @@ permalink: /en/2026/11/17/ai-frontend-role-evolution.html
 image: /dist/img/cover-ai-frontend-role-evolution.png
 ---
 
-Start with the conclusion: **front-end work was not killed off — it was taken apart.**
+Start with the conclusion: **the front-end job wasn't killed off — it was taken apart and reassigned.**
 
-The evidence does not come from panic. It comes from what the big companies wrote down this year. Read a handful of key posts and one deep-dive report side by side and the major Chinese tech firms are doing three things at the same time:
+The work didn't vanish; it changed hands. Boilerplate, assembled UI and repetitive tests went to the model. Setting standards, enforcing acceptance and signing off when something breaks moved out of "done along the way" and became a job of its own — and one that no longer belongs to front-end engineers alone.
+
+That conclusion doesn't come from panic. It comes from what the big companies wrote down this year. Read a handful of key posts and one deep-dive report side by side and the major Chinese tech firms are doing three things at the same time:
 
 1. **Writing AI into the delivery process**, and no longer treating it as a toy but as capacity;
 2. **Turning team experience into something agents can read**, moving it from "something a person remembers" to "rules an agent executes";
@@ -53,7 +55,7 @@ From numbers to people. The LatePost report names three:
 
 There is also Gao Hong, a front-end engineer at Shopee who interviewed for an "agent engineer" role and came away with: **"I kept finding that the interviewers often knew less than I did."**
 
-So "will AI replace front-end engineers?" stopped being an open question in 2026. Partial replacement is happening, and faster than most people prepared for.
+So "will AI replace front-end engineers?" stopped being an open question in 2026. Part of the work has already changed hands, and faster than most people prepared for.
 
 The real question is: **if the job title itself is being erased, what exactly is being erased — the role, or the role as we imagined it?**
 
