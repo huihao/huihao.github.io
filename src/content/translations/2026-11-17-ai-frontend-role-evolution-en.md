@@ -55,6 +55,8 @@ From numbers to people. The LatePost report names three:
 
 There is also Gao Hong, a front-end engineer at Shopee who interviewed for an "agent engineer" role and came away with: **"I kept finding that the interviewers often knew less than I did."**
 
+The four cases share one thing: not one of them is "the front-end job was cut". What got moved was a piece of one person's work — reassigned to a model, or to the back-end team next door. The headcount slot may survive, the title may survive, the team may even keep hiring; what is gone is the part of the work that had to be done by a human.
+
 So "will AI replace front-end engineers?" stopped being an open question in 2026. Part of the work has already changed hands, and faster than most people prepared for.
 
 The real question is: **if the job title itself is being erased, what exactly is being erased — the role, or the role as we imagined it?**
@@ -287,7 +289,7 @@ On the hiring market, one self-media account offers a frightening pair of number
 
 ## 7. A few objections I expect to get
 
-Articles like this usually draw a few complaints. Here are the four I expect, answered once and for all.
+Articles like this usually draw a few complaints. Here are the five I expect, answered once and for all.
 
 ### "Contracting jobs ≠ AI substitution"
 
@@ -299,7 +301,7 @@ There are counter-examples too. The reduction on ByteDance's Wuhan team was, by 
 
 But put more precisely, "being replaced by AI" may not even be the right description. The Huxiu observation is closer to the truth: **what disappears first is not the old jobs but the new jobs that were never created.** Nobody was "replaced" — they simply found that the position which would have appeared for them did not appear this time. Which is why the statistics show nothing: no layoff lists, no last days, only a slightly larger gap between companies reporting lower staffing needs (9%) and those reporting higher needs (6%).
 
-So this article will not contain a conclusion like "so many front-end jobs were cut". Whether the total is falling and how the structure is changing are two questions, and here I only answer the second one.
+So this article will not contain a conclusion like "so many front-end jobs were cut". Whether the total is falling and how the structure is changing are two questions; everything above is about the second one. But the second one is not the gentler of the two — someone whose work gets reassigned does not get a notification.
 
 ### "Most of your data comes from self-media"
 
@@ -333,6 +335,24 @@ More output does not mean less risk. **Verification cost is the new scarce resou
 
 One more piece of positive evidence belongs here: the circulating screenshot's line — **"a front-end engineer no longer needs three months to learn how to write a back-end endpoint"**. Falling migration cost is AI's most direct contribution to the individual. It turns "become full stack" from something that took three years of gritted teeth into something you can learn while you work.
 
+### "Reassigning the work is just layoffs with a nicer name"
+
+Mechanically, yes.
+
+Firing people has a cost: severance, process, legal review, bad press, and the mood of everyone left in the room. Reassigning a piece of work to an agent or to the team next door costs nothing, and nobody has to sign anything.
+
+The LatePost interviews show what that looks like in practice: not hiring, not renewing contracts, adjusting the business. The front-end engineer with ten years at Fliggy got a severance package and half the desks in the work area went empty; the woman engineer at Shopee who had topped the performance ranking year after year was not told "AI replaced you", she was told she was leaving; Zhao Shu is the clearest case — the reason she was given was "the back end can now write front-end code by itself", and in her last month she had no work at all.
+
+That last case is the hardest to sit with. There is no moment you can point to and no document you can produce; you just slowly notice that the job seems no longer to need you. The day you finally leave is, in a way, the more dignified outcome.
+
+At the organisational level it is the same set of moves: according to workplace media, JD removed the "front-end engineer" hiring keyword and Meituan folded its front-end team into the back end — no longer hiring under that name on the outside, and folding the people under it into a different division on the inside.
+
+There is also an unwritten rule, which one interviewee in the LatePost piece put as precisely as anything I have read on this: **"replacing someone else with AI first is assumed to be the best reason for you to be the one who stays."** That is not a joke; it is the survival move inside this mechanism — take over someone's work first, and you are not on the next list.
+
+So "no company has publicly announced layoffs caused by AI" and "people are being squeezed out" can both be true. The difference is only that the first is an event and the second is a default state. A default state never makes it into a notice, so there is no document you can point at and say "this is a layoff".
+
+Which leaves one question: in this mechanism, what actually decides who is kept?
+
 ---
 
 ## 8. When the job title is gone, where do you stand
@@ -356,6 +376,8 @@ Four concrete things:
 **Four: move up a level and become the person who calls it.** The first three are about catching the work; the fourth is about owning the responsibility. There is a line in the Huxiu piece I read twice: **"a senior programmer exists because someone allowed them, ten years ago, to write code that was not yet good."** The Stanford numbers point the same way — early-career workers aged 22 to 25 saw roughly a 16% relative employment decline while seniors stayed relatively stable. AI took the first rung of the ladder away and pushed weight onto the top of it. So the safest position is not "writing faster than AI" but **knowing what can be handed to AI, what cannot, and being able to say why**.
 
 And one last note, which I think matters most of all: **turn "I can hold on alone" into "I can get the whole team through it".** The scarce thing in the AI era is not individual throughput; it is people who can **define constraints, distil rules, and carry the final judgement**.
+
+One more thing, and it is not flattering: all four of the above assume **you are already in the room**. For people who have not started yet, this mechanism is a net contraction — the work that got reassigned never needed that many people in the first place, and the rung where you would enter has been removed. The same mechanism is an upgrade for those already inside and a closing door for those about to walk in. The answer to "what is left of the job" weighs differently depending on where you are standing.
 
 ---
 
