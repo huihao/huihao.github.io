@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383" role="img" aria-label="前端岗位的消失论，或许这次不是狼来了">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1020"/>
+      <stop offset="1" stop-color="#161f36"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#20c6f2" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#20c6f2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="383" fill="url(#bg)"/>
+  <rect width="900" height="383" fill="url(#glow)"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.05">
+    <path d="M0 44H900"/>
+    <path d="M0 339H900"/>
+  </g>
+
+  <!-- 左边：一个整体的岗位 -->
+  <rect x="26" y="150" width="130" height="84" rx="18" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.14"/>
+  <g fill="#ffffff" fill-opacity="0.12">
+    <rect x="46" y="172" width="90" height="9" rx="4.5"/>
+    <rect x="46" y="192" width="62" height="9" rx="4.5"/>
+    <rect x="46" y="212" width="40" height="9" rx="4.5"/>
+  </g>
+
+  <!-- 中间：标题 -->
+  <g font-family="WenQuanYi Micro Hei, Noto Sans CJK SC, sans-serif" text-anchor="middle">
+    <text x="450" y="96" font-size="22" fill="#20c6f2" letter-spacing="6">AI 时代 · 大厂一手材料</text>
+    <text x="450" y="180" font-size="54" fill="#ffffff" stroke="#ffffff" stroke-width="2" letter-spacing="2">前端岗位的消失论</text>
+    <text x="450" y="240" font-size="38" fill="#cfdcf0" stroke="#cfdcf0" stroke-width="1" letter-spacing="2">或许这次不是"狼来了"</text>
+    <text x="450" y="300" font-size="20" fill="#8fa3c4" letter-spacing="3">活儿被谁接走 · 谁来验收 · 经验归谁</text>
+  </g>
+
+  <!-- 右边：拆开之后收敛成一枚可签名的环 -->
+  <g stroke="#20c6f2" stroke-opacity="0.26" fill="none">
+    <path d="M660 168C686 168 684 150 712 150"/>
+    <path d="M660 191C686 191 684 191 712 191"/>
+    <path d="M660 214C686 214 684 232 712 232"/>
+  </g>
+  <rect x="712" y="140" width="86" height="20" rx="10" fill="#ffffff" fill-opacity="0.07"/>
+  <rect x="712" y="181" width="86" height="20" rx="10" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="712" y="222" width="86" height="20" rx="10" fill="#ffffff" fill-opacity="0.07"/>
+  <rect x="712" y="181" width="34" height="20" rx="10" fill="#20c6f2" fill-opacity="0.55"/>
+
+  <g fill="none" stroke="#20c6f2">
+    <circle cx="846" cy="191" r="34" stroke-opacity="0.12"/>
+    <circle cx="846" cy="191" r="23" stroke-opacity="0.22"/>
+    <circle cx="846" cy="191" r="13" stroke-opacity="0.42"/>
+    <circle cx="846" cy="191" r="4" fill="#20c6f2" fill-opacity="0.9" stroke="none"/>
+  </g>
+
+  <text x="450" y="352" font-family="WenQuanYi Micro Hei, sans-serif" font-size="17" fill="#5f7395" text-anchor="middle" letter-spacing="2">bio.wuhh.cc</text>
+</svg>
