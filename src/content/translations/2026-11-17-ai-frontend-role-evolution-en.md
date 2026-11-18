@@ -1,5 +1,5 @@
 ---
-title: "After AI, What Is Left of the Frontend Job?"
+title: "Is the Frontend Job Disappearing? This Time, Maybe It Isn't Crying Wolf"
 date: 2026-11-17 12:00:00
 categories: [thinking]
 tags: [AI, frontend, AI coding, career, organisation]
@@ -14,7 +14,7 @@ Start with the conclusion: **the front-end job wasn't killed off — it was take
 
 The work didn't vanish; it changed hands. Boilerplate, assembled UI and repetitive tests went to the model. Setting standards, enforcing acceptance and signing off when something breaks moved out of "done along the way" and became a job of its own — and one that no longer belongs to front-end engineers alone.
 
-That conclusion doesn't come from panic. It comes from what the big companies wrote down this year. Read a handful of key posts and one deep-dive report side by side and the major Chinese tech firms are doing three things at the same time:
+That conclusion doesn't come from panic. It comes from what the big companies wrote down this year. Whether this round of "the wolf is at the door" is empty, read a handful of key posts and one deep-dive report side by side and the major Chinese tech firms are doing three things at the same time:
 
 1. **Writing AI into the delivery process**, and no longer treating it as a toy but as capacity;
 2. **Turning team experience into something agents can read**, moving it from "something a person remembers" to "rules an agent executes";
