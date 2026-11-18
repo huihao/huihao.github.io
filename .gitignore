@@ -7,3 +7,9 @@ public/favicon.ico
 public/favicon.svg
 _preview/
 .DS_Store
+
+# 微信公众号发布：凭据与转换产物绝不入库
+drafts/ai-frontend-role-evolution/wechat/out/
+drafts/ai-frontend-role-evolution/wechat/credentials.json
+.env
+.env.*
