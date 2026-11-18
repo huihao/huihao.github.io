@@ -23,6 +23,8 @@ const fields = z.object({
   translation_key: z.string().optional(),
   image: z.string().optional(),
   permalink: z.string().optional(),
+  /* 文章是不是 AI 写的。写明白了，页面上就挂一枚标记。 */
+  ai_written: z.boolean().default(false),
 });
 
 const blog = defineCollection({

@@ -6,6 +6,7 @@ tags: [浏览器自动化, AI Agent, 开源, 效率工具, 测试]
 description: qz（轻舟）是阿里巴巴开源的本地优先浏览器 Agent：以 Chrome 扩展的形式跑在你自己的浏览器里，自带模型无关的技能体系与 CLI/MCP。本文拆解它的中心思想与架构，并落到三个具体场景——填写复杂表单、提取页面关键信息、把 UI 测试跑通并留下截图与操作记录。
 translation_key: qz-browser-agent
 lang: zh
+ai_written: true
 image: /dist/img/cover-qz-browser-agent.png
 ---
 

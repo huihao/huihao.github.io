@@ -96,6 +96,12 @@
   --accent-text: #0071a8;
   --accent-text-hover: #005a86;
 
+  /* The marker that says an article was written by AI. It is the one
+     place the site allows a second hue: the note has to be noticed, and
+     amber is the colour that means "look at this" without shouting. */
+  --ai-tint: rgb(255 149 0 / 14%);
+  --ai-text: #8a4b00;
+
   /* Light appearance */
   --blue: #007aff;
   --indigo: #5856d6;
@@ -243,6 +249,9 @@
   --accent-tint-hover: rgb(78 212 255 / 26%);
   --accent-text: #4ed4ff;
   --accent-text-hover: #7ce0ff;
+
+  --ai-tint: rgb(255 159 10 / 18%);
+  --ai-text: #ffb340;
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 8px rgb(0 0 0 / 24%);
   --shadow-md: 0 2px 6px rgb(0 0 0 / 36%), 0 8px 24px rgb(0 0 0 / 40%);

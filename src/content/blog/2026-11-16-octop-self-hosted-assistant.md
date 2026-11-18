@@ -3,9 +3,10 @@ title: Octop：一次部署，一屋子只记得自己事情的 AI 同事
 date: 2026-11-16 16:45:00
 categories: [工具]
 tags: [AI Agent, 自托管, 多用户, MCP, 开源, 效率工具]
-description: Octop 是腾讯云开源的 MIT 许可自托管 AI 助手平台。一次部署，家人和同事就各有���个只记得自己事情的「专家」；专家能住进飞书、微信、钉钉，能接管真实浏览器、终端和桌面，还能一边通过 ACP 收编 coding CLI、一边通过 MCP 被别的 Agent 调用。本文按公开文档拆解它最值得抄的七个设计，并与 Claude Code、Codex、Open WebUI、Dify 对照。
+description: Octop 是腾讯云开源的 MIT 许可自托管 AI 助手平台。一次部署，家人和同事就各有一个只记得自己事情的「专家」；专家能住进飞书、微信、钉钉，能接管真实浏览器、终端和桌面，还能一边通过 ACP 收编 coding CLI、一边通过 MCP 被别的 Agent 调用。本文按公开文档拆解它最值得抄的七个设计，并与 Claude Code、Codex、Open WebUI、Dify 对照。
 translation_key: octop-self-hosted-assistant
 lang: zh
+ai_written: true
 image: /dist/img/cover-octop-self-hosted-assistant.png
 ---
 

@@ -344,6 +344,18 @@
         margin-top: var(--space-1);
         font-size: var(--text-caption);
       }
+
+      /* The date and the disclosure marker share one line. */
+      .taxonomy-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-top: var(--space-1);
+
+        .date {
+          margin-top: 0;
+        }
+      }
     }
   }
 

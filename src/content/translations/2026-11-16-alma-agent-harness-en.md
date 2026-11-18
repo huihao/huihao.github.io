@@ -6,6 +6,7 @@ tags: [AI agent, harness, local-first, desktop app, open source, productivity]
 description: "Alma is yetone's desktop-and-mobile agent harness, and simultaneously the graphical client for the open-source herdr project. What matters most about it is not one more chat window but three things: \"who needs you\" becomes a pushable state stream, tool selection is delegated to a separate lightweight model, and browser actions come back as auditable receipts. This article unpacks those designs and weighs them against Claude Code, Codex, Cursor, OpenCode and Goose — where Alma is genuinely stronger, and where it is not."
 translation_key: alma-agent-harness
 lang: en
+ai_written: true
 permalink: /en/2026/11/16/alma-agent-harness.html
 image: /dist/img/cover-alma-agent-harness.png
 ---

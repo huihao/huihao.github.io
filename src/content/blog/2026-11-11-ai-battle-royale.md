@@ -6,6 +6,7 @@ tags: [AI, 职业发展, 效率工具, 生存指南]
 description: AI 没有淘汰某个岗位，却在持续压缩"开发者要掌握哪些技能"的区间边界。被吃掉的恰好是最容易被自动化的那部分，留下的是判断力——本文是一份在 AI 冲击下继续留在牌桌上的准备清单。
 translation_key: ai-battle-royale
 lang: zh
+ai_written: true
 image: /dist/img/cover-ai-battle-royale.png
 ---
 

@@ -6,6 +6,7 @@ tags: [LLM, local deployment, GPU, VRAM, hardware]
 description: "GPU prices may not loosen until late 2028, but if the question is framed as \"can an ordinary person run a genuinely useful large model locally\", the answer is already yes in 2026. This article lays out the institutional forecasts for memory and GPU prices, explains why this cycle will not collapse the way the mining boom did, and turns a VRAM budget table into a concrete buy-or-wait decision."
 translation_key: local-frontier-llm
 lang: en
+ai_written: true
 permalink: /en/2026/11/16/local-frontier-llm.html
 image: /dist/img/cover-local-frontier-llm.png
 ---

@@ -6,6 +6,7 @@ tags: [AI, frontend, AI coding, career, organisation]
 description: "In 2026 China's large tech companies have been doing three things at once: writing AI into the delivery process, turning team experience into assets that agents can reuse, and erasing the 'frontend / backend' job category from the org chart. This article assembles first-hand material published in 2026 by Meituan, Alibaba, ByteDance, Tencent and Dewu, plus a deep-dive report and several sets of public data, breaks the frontend role into three turning points, and answers the only question that matters — once the job title is gone, where do you stand?"
 translation_key: ai-frontend-role-evolution
 lang: en
+ai_written: true
 permalink: /en/2026/11/17/ai-frontend-role-evolution.html
 image: /dist/img/cover-ai-frontend-role-evolution.png
 ---

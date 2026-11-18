@@ -1,6 +1,7 @@
 ---
 import { urlOf, descriptionOf, coverOf, categoryOf, formatDate } from '../lib/posts';
 import type { AnyPost, Translation } from '../lib/posts';
+import AiBadge from './AiBadge.astro';
 
 interface Props {
     post: AnyPost;
@@ -18,8 +19,23 @@ const date = formatDate(post.data.date, lang);
 const cover = coverOf(post);
 const category = categoryOf(post);
 
-const i18n: Record<string, { title: string; desc: string; url: string; date: string; cat: string }> = {
-    [lang]: { title, desc, url, date, cat: category },
+const aiLabel = (l: 'zh' | 'en') => (l === 'en' ? 'AI-written' : 'AI 文');
+const aiTitle = (l: 'zh' | 'en') => (l === 'en' ? 'This article was written by AI.' : '本文由 AI 撰写。');
+
+const i18n: Record<
+    string,
+    { title: string; desc: string; url: string; date: string; cat: string; ai: boolean; aiLabel: string; aiTitle: string }
+> = {
+    [lang]: {
+        title,
+        desc,
+        url,
+        date,
+        cat: category,
+        ai: post.data.ai_written,
+        aiLabel: aiLabel(lang),
+        aiTitle: aiTitle(lang),
+    },
 };
 
 if (translation) {
@@ -31,6 +47,9 @@ if (translation) {
         url: urlOf(translation),
         date: formatDate(translation.data.date, translationLang),
         cat: categoryOf(translation),
+        ai: translation.data.ai_written,
+        aiLabel: aiLabel(translationLang),
+        aiTitle: aiTitle(translationLang),
     };
 }
 
@@ -59,6 +78,7 @@ const badge = translation
             <span class="cat">{category}</span>
             <span class="meta-sep" aria-hidden="true">·</span>
             <p class="date"><span>{date}</span></p>
+            <AiBadge lang={lang} hidden={!post.data.ai_written} />
             {
                 badge && (
                     <a class="lang-badge" href={badge.href} hreflang={badge.hreflang} title={badge.title}>

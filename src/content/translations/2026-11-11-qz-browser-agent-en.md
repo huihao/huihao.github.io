@@ -6,6 +6,7 @@ tags: [browser automation, AI agent, open source, productivity, testing]
 description: "qz (Qingzhou) is Alibaba's open-source, local-first browser agent: a Chrome extension that runs inside the browser you already use, with a model-agnostic skill system plus a CLI and MCP bridge. This article unpacks its central idea and architecture, then lands on three concrete scenarios — filling out complex forms, extracting key information from pages, and running UI tests that leave screenshots and an operation log behind."
 translation_key: qz-browser-agent
 lang: en
+ai_written: true
 permalink: /en/2026/11/11/qz-browser-agent.html
 image: /dist/img/cover-qz-browser-agent.png
 ---

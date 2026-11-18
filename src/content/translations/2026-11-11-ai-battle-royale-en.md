@@ -6,6 +6,7 @@ tags: [AI, career, productivity, survival guide]
 description: AI did not eliminate a single role; it keeps narrowing the range of skills a developer has to master. What it eats first is the easiest to automate, and what remains is judgement — a checklist for staying in the game.
 translation_key: ai-battle-royale
 lang: en
+ai_written: true
 permalink: /en/2026/11/11/ai-battle-royale.html
 image: /dist/img/cover-ai-battle-royale.png
 ---

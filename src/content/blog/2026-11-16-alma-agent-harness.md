@@ -6,6 +6,7 @@ tags: [AI Agent, harness, 本地优先, 桌面应用, 开源, 效率工具]
 description: Alma 是 yetone 做的桌面 + 移动 Agent harness，同时是开源项目 herdr 的图形客户端。它最有价值的地方不是又一个聊天窗口，而是三件事：把「谁需要你」变成可推送的状态流、把工具调用拆给一个独立的轻量模型、把浏览器操作变成带回执的审计记录。本文拆解这些设计，并对照 Claude Code、Codex、Cursor、OpenCode、Goose 等工具说明它强在哪、弱在哪。
 translation_key: alma-agent-harness
 lang: zh
+ai_written: true
 image: /dist/img/cover-alma-agent-harness.png
 ---
 

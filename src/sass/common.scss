@@ -95,6 +95,30 @@ a:active {
   }
 }
 
+/* The marker that says an article was written by AI. It sits in the meta
+   line beside the date, so it reads as a fact about the text rather than
+   as a decoration. */
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--ai-tint);
+  color: var(--ai-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption-2);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  white-space: nowrap;
+
+  /* The attribute wins over the display above, or the badge would show
+     up on every article that has nothing to disclose. */
+  &[hidden] {
+    display: none;
+  }
+}
+
 /* The small pill used by the "read more" button and by the pagination. */
 .base-link {
   display: inline-block;

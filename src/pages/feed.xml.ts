@@ -40,6 +40,10 @@ ${items
             .map((item) => `      <category>${escapeXml(item)}</category>`)
             .join('\n');
 
+        /* A reader who follows the feed should learn where the words came
+           from without having to open the article. */
+        const disclosure = post.data.ai_written ? '      <category>AI 文</category>\n' : '';
+
         return `    <item>
       <title>${escapeXml(post.data.title)}</title>
       <link>${url}</link>
@@ -47,7 +51,7 @@ ${items
       <pubDate>${rfc822(post.data.date)}</pubDate>
       <description>${escapeXml(descriptionOf(post).slice(0, 200))}</description>
       <content:encoded><![CDATA[${post.body.replace(/]]>/g, ']]]]><![CDATA[>')}]]></content:encoded>
-${categories}
+${categories}${disclosure}
     </item>`;
     })
     .join('\n')}

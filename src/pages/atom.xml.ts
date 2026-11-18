@@ -29,6 +29,10 @@ export const GET: APIRoute = async (context) => {
                 .map((name) => `    <category term="${escapeXml(name)}" />`)
                 .join('\n');
 
+            /* The same disclosure the page carries, so the feed reader
+               learns it without opening the article. */
+            const disclosure = post.data.ai_written ? '    <category term="AI 文" />\n' : '';
+
             return `  <entry>
     <title type="text">${escapeXml(post.data.title)}</title>
     <link href="${link}" rel="alternate" type="text/html" title="${escapeXml(post.data.title)}" />
@@ -37,7 +41,7 @@ export const GET: APIRoute = async (context) => {
     <id>${link}</id>
     <content type="html" xml:base="${link}">${escapeXml(post.body ?? '')}</content>
     <summary type="text">${escapeXml(descriptionOf(post))}</summary>
-${categories}
+${categories}${disclosure}
   </entry>`;
         })
         .join('\n');

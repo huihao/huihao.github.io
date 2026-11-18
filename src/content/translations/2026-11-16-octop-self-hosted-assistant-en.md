@@ -6,6 +6,7 @@ tags: [AI Agent, Self-hosted, Multi-user, MCP, Open Source, Productivity]
 description: "Octop is Tencent's MIT-licensed, self-hosted AI assistant platform. One deployment gives every family member and colleague an expert that only remembers their own business; those experts live inside Feishu, WeChat and DingTalk, take over a real browser, terminal and desktop, and can both recruit coding CLIs over ACP and be called by other agents over MCP. A document-based teardown of the seven designs worth copying, plus how it compares to Claude Code, Codex, Open WebUI and Dify."
 translation_key: octop-self-hosted-assistant
 lang: en
+ai_written: true
 permalink: /en/2026/11/16/octop-self-hosted-assistant.html
 image: /dist/img/cover-octop-self-hosted-assistant.png
 ---

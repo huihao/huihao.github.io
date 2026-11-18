@@ -6,6 +6,7 @@ tags: [AI, 前端, AI Coding, 职业发展, 组织]
 description: 2026 年国内大厂几乎同时在做三件事：把 AI 写进研发流程、把团队经验做成 AI 可复用的资产、把「前端 / 后端」这个岗位分类从组织架构上抹掉。本文用美团、阿里、字节、腾讯、得物在 2026 年写下的一手材料，加上一份深度采访和几组公开数据，拆开前端岗位被改造的三个转折点，并回答那个真正的问题——岗位名没了之后，个人往哪站。
 translation_key: ai-frontend-role-evolution
 lang: zh
+ai_written: true
 image: /dist/img/cover-ai-frontend-role-evolution.png
 ---
 

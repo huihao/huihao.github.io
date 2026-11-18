@@ -1,6 +1,7 @@
 ---
 import { urlOf, descriptionOf, formatDate } from '../lib/posts';
 import type { Post } from '../lib/posts';
+import AiBadge from './AiBadge.astro';
 
 export interface TaxonomyGroup {
     name: string;
@@ -40,7 +41,10 @@ const { groups, icon, label } = Astro.props;
                         <div class="con">
                             <h2><a href={urlOf(post)}>{post.data.title}</a></h2>
                             <div class="tip">{descriptionOf(post).slice(0, 160)}</div>
-                            <p class="date"><span>{formatDate(post.data.date, 'zh')}</span></p>
+                            <div class="taxonomy-meta">
+                                <p class="date"><span>{formatDate(post.data.date, 'zh')}</span></p>
+                                <AiBadge lang={post.data.lang} hidden={!post.data.ai_written} />
+                            </div>
                         </div>
                     </article>
                 ))}

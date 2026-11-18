@@ -369,6 +369,24 @@
           cat.textContent = entry.cat;
         }
 
+        /* The disclosure marker follows the language of the card: it says
+           the words came from AI, so it has to say it in the language the
+           reader is reading. */
+        var aiBadge = card.querySelector('.ai-badge');
+
+        if (aiBadge) {
+          if (entry.aiLabel) {
+            aiBadge.textContent = entry.aiLabel;
+          }
+
+          if (entry.aiTitle) {
+            aiBadge.setAttribute('title', entry.aiTitle);
+            aiBadge.setAttribute('aria-label', entry.aiTitle);
+          }
+
+          aiBadge.hidden = !entry.ai;
+        }
+
         if (cover) {
           cover.setAttribute('href', entry.url);
         }

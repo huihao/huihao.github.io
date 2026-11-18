@@ -6,6 +6,7 @@ tags: [大模型, 本地部署, 显卡, 显存, 硬件]
 description: "显卡还要等到 2028 年底才可能松动，但如果把问题定义成「普通人能不能本地跑一个日常可用的大模型」，答案在 2026 年的今天就已经成立。本文给出机构对存储与显卡价格的完整时间表，解释这一轮为什么不是挖矿潮那种一年崩盘的周期，并用一张显存预算表说明 16GB 与 24GB 分别能跑什么、该买还是该等。"
 translation_key: local-frontier-llm
 lang: zh
+ai_written: true
 image: /dist/img/cover-local-frontier-llm.png
 ---
 

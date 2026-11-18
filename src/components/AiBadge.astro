@@ -1,0 +1,20 @@
+---
+/**
+ * The marker on an article that was written by AI.
+ *
+ * It is a label, not a link: it tells the reader where the words came
+ * from, so it never pretends to be something to click. The two
+ * languages carry their own wording.
+ */
+interface Props {
+    lang?: 'zh' | 'en';
+    hidden?: boolean;
+}
+
+const { lang = 'zh', hidden = false } = Astro.props;
+
+const label = lang === 'en' ? 'AI-written' : 'AI 文';
+const title = lang === 'en' ? 'This article was written by AI.' : '本文由 AI 撰写。';
+---
+
+<span class="ai-badge" title={title} aria-label={title} hidden={hidden}>{label}</span>

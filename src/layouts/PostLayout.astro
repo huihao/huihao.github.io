@@ -6,6 +6,7 @@ import Toc from '../components/Toc.astro';
 import PostNav from '../components/PostNav.astro';
 import Comments from '../components/Comments.astro';
 import Share from '../components/Share.astro';
+import AiBadge from '../components/AiBadge.astro';
 import { urlOf, formatDate, categoryOf, coverOf, wordCount } from '../lib/posts';
 import type { AnyPost, Translation } from '../lib/posts';
 
@@ -81,6 +82,7 @@ const slug = (value: string) =>
                                     <span class="cat">{category}</span>
                                 <span class="meta-sep" aria-hidden="true">·</span>
                                     <p class="date"><span>{formatDate(post.data.date, lang)}</span></p>
+                                    <AiBadge lang={lang} hidden={!post.data.ai_written} />
                                     <span class="read-time" data-read-time></span>
                                     {translation && (
                                         <nav class="lang-switch" aria-label="语言切换">
