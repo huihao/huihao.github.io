@@ -1,0 +1,21 @@
+{
+  "accounts": [
+    {
+      "id": "main",
+      "name": "主号",
+      "app_id": "${env:WECHAT_APPID}",
+      "app_secret": "${env:WECHAT_APPSECRET}",
+      "mode": "draft",
+      "author": "运营团队",
+      "content_source_url": "",
+      "cover": "assets/cover-default.png",
+      "quota": {
+        "mass_per_day": 1,
+        "publish_per_day": 4,
+        "draft_per_day": 50
+      },
+      "need_open_comment": 0,
+      "only_fans_can_comment": 0
+    }
+  ]
+}

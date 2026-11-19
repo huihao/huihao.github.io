@@ -13,3 +13,11 @@ drafts/ai-frontend-role-evolution/wechat/out/
 drafts/ai-frontend-role-evolution/wechat/credentials.json
 .env
 .env.*
+
+# gzh（公众号发布工具）在本仓库内的副本：运行时状态与凭据不入库
+tools/gzh/.env
+tools/gzh/.env.*
+tools/gzh/var/
+tools/gzh/logs/
+tools/gzh/**/__pycache__/
+tools/gzh/**/*.pyc

@@ -1,0 +1,81 @@
+{
+  "timezone": "Asia/Shanghai",
+  "plans": [
+    {
+      "id": "daily-draft",
+      "account": "main",
+      "enabled": true,
+      "at": [
+        "08:10",
+        "20:30"
+      ],
+      "source": {
+        "type": "local",
+        "path": "content/sample"
+      },
+      "select": {
+        "limit": 1,
+        "strategy": "oldest",
+        "require_tags": [],
+        "exclude_tags": []
+      },
+      "mode": "draft",
+      "window": {
+        "start": "07:00",
+        "end": "22:30"
+      },
+      "require_approval": false,
+      "dry_run": false,
+      "catch_up": true,
+      "misfire_grace_minutes": 120
+    },
+    {
+      "id": "rss-digest",
+      "account": "main",
+      "enabled": false,
+      "cron": "30 9 * * 1-5",
+      "source": {
+        "type": "rss",
+        "url": "https://example.com/feed.xml",
+        "limit": 5
+      },
+      "select": {
+        "limit": 1,
+        "strategy": "newest"
+      },
+      "mode": "draft",
+      "window": {
+        "start": "08:00",
+        "end": "20:00"
+      },
+      "require_approval": true
+    },
+    {
+      "id": "frontend-role-202611",
+      "account": "main",
+      "enabled": false,
+      "at": [
+        "21:30"
+      ],
+      "source": {
+        "type": "local",
+        "path": "content/2026-11"
+      },
+      "select": {
+        "limit": 1,
+        "strategy": "oldest",
+        "require_tags": [],
+        "exclude_tags": []
+      },
+      "mode": "draft",
+      "window": {
+        "start": "07:00",
+        "end": "22:30"
+      },
+      "require_approval": true,
+      "dry_run": false,
+      "catch_up": false,
+      "misfire_grace_minutes": 0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[Unit]
+Description=gzh 公众号自动发布调度器
+Documentation=file:///opt/gzh/docs/SOP.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gzh
+Group=gzh
+# 安装时把 /opt/gzh 替换为实际部署目录：
+#   sudo sed -i "s#/opt/gzh#$(pwd)#g" /etc/systemd/system/gzh-scheduler.service
+WorkingDirectory=/opt/gzh
+Environment="PYTHONPATH=/opt/gzh/src"
+Environment="PYTHONUNBUFFERED=1"
+# 凭据通过 EnvironmentFile 注入，不要写进本文件
+EnvironmentFile=-/etc/gzh/gzh.env
+ExecStart=/usr/bin/python3 -m gzh.cli run --interval 20
+Restart=always
+RestartSec=30
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+# 基础加固
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/gzh/var /opt/gzh/logs
+
+[Install]
+WantedBy=multi-user.target

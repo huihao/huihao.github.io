@@ -1,0 +1,33 @@
+{
+  "timezone": "Asia/Shanghai",
+  "publish_window": {
+    "start": "07:00",
+    "end": "22:30"
+  },
+  "quota": {
+    "mass_per_day": 1,
+    "publish_per_day": 4,
+    "draft_per_day": 50
+  },
+  "retry": {
+    "max_attempts": 3,
+    "backoff_seconds": 60
+  },
+  "digest_max_length": 120,
+  "upload_remote_images": true,
+  "allow_missing_cover": false,
+  "blackout_dates": [],
+  "forbidden_keywords": [
+    "最强",
+    "第一",
+    "国家级",
+    "永久",
+    "包治",
+    "稳赚"
+  ],
+  "forbidden_keyword_safe_contexts": {
+    "第一": [
+      "\\s*(?:条|件|次|级|位|人|轮|批|手|财|时|间|行|版|天|场|步|站|篇|道|类|种|份|张|的|点|代|届|波|款|项|则|要|梯|圈|个|句|反|直)"
+    ]
+  }
+}

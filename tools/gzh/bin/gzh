@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# gzh 命令行入口（无需安装即可使用）。
+#
+#   ./bin/gzh init
+#   ./bin/gzh check
+#   ./bin/gzh publish --plan daily-draft --dry-run
+#
+# 也可以按标准方式安装：pip install -e . 之后直接用 gzh 命令。
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname -- "$SCRIPT_DIR")"
+export PYTHONPATH="${PROJECT_ROOT}/src${PYTHONPATH:+:${PYTHONPATH}}"
+
+# 若存在 .env 则自动注入环境变量（凭据不落盘在代码里）
+if [[ -f "${PROJECT_ROOT}/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "${PROJECT_ROOT}/.env"
+  set +a
+fi
+
+# 兜底凭据：.env 里没有时，从共享凭据文件读
+#   默认 ~/.config/wechat-publish/credentials.json  {"appid": "...", "appsecret": "..."}
+#   可用 GZH_CREDENTIALS_FILE 覆盖
+CREDENTIALS_FILE="${GZH_CREDENTIALS_FILE:-${HOME}/.config/wechat-publish/credentials.json}"
+if [[ ( -z "${WECHAT_APPID:-}" || -z "${WECHAT_APPSECRET:-}" ) && -f "${CREDENTIALS_FILE}" ]]; then
+  while IFS=$'\t' read -r _key _value; do
+    case "${_key}" in
+      WECHAT_APPID) export WECHAT_APPID="${_value}" ;;
+      WECHAT_APPSECRET) export WECHAT_APPSECRET="${_value}" ;;
+    esac
+  done < <(python3 - "${CREDENTIALS_FILE}" <<'PY'
+import json
+import sys
+
+try:
+    with open(sys.argv[1], encoding="utf-8") as fh:
+        data = json.load(fh)
+except Exception:
+    sys.exit(0)
+
+if not isinstance(data, dict):
+    sys.exit(0)
+
+for field, env_name in (("appid", "WECHAT_APPID"), ("appsecret", "WECHAT_APPSECRET")):
+    value = data.get(field) or data.get(env_name.lower()) or data.get(env_name)
+    if value:
+        print(f"{env_name}\t{value}")
+PY
+)
+fi
+
+exec "${GZH_PYTHON:-python3}" -m gzh.cli "$@"

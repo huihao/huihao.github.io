@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gzh"
+version = "1.0.0"
+description = "微信公众号管理 SOP 自动化套件：定时采集、排版并发布指定资源中的内容"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "运营团队" }]
+keywords = ["wechat", "official-account", "automation", "scheduler", "sop"]
+
+# 刻意不声明第三方依赖：全部功能基于 Python 标准库实现，
+# 便于在内网/离线环境部署，避免 pip 依赖带来的升级与安全负担。
+dependencies = []
+
+[project.scripts]
+gzh = "gzh.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501", "B008"]
