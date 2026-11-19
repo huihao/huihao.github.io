@@ -38,6 +38,13 @@
  * that catches the light along the top edge, and a soft shadow that lifts
  * the surface off the page.
  *
+ * The latest Apple systems pulled this back a little. The first Liquid
+ * Glass builds were all shine — laminated, wet, almost chrome — and Apple
+ * toned them down before shipping, so that a panel reads as a flat pane of
+ * frosted glass instead of a slab of it. The light here is a hint rather
+ * than a highlight, the grain is a whisper, and the shadow stays close to
+ * the surface.
+ *
  * Two details turn a translucent wash into glass:
  *
  *   - the rim. The hairline is not a flat colour but a gradient that runs
@@ -96,8 +103,9 @@
  * A button and a pill are small, convex pieces of glass. On top of the
  * grain and the rim they get a third layer — the specular light that
  * gathers in the corner the light comes from — and a hairline that
- * catches the light along their edge. Without them a small glass surface
- * reads as a grey smudge: the light has nowhere to sit.
+ * catches the light along their edge. The light is deliberately faint:
+ * a small glass surface that glares reads as a plastic gem, and the
+ * newest systems let it be just a pane of glass with an edge.
  */
 @mixin glass-lens {
   --glass-edge: var(--glass-button-edge);
@@ -137,7 +145,7 @@
   }
 
   &:active {
-    transform: scale(0.97);
+    transform: scale(0.985);
 
     box-shadow:
       var(--glass-button-shadow-press),
@@ -174,7 +182,7 @@
   }
 
   &:active {
-    transform: scale(0.96);
+    transform: scale(0.985);
   }
 }
 
