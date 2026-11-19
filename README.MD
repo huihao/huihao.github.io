@@ -82,6 +82,7 @@ image: /dist/img/cover-xxx.png
 - 代码块请标注语言：```` ```js ```` → Shiki 会高亮，复制按钮也会显示语言名。
 - 译稿用 `translation_key` 与主稿配对，文章页会出现语言切换，列表页不会出现重复条目。
 - URL 规则：主稿 `/YYYY/MM/DD/slug.html`，译稿 `/en/YYYY/MM/DD/slug.html`。
+- 写新文章（尤其是公众号稿件）的标题、摘要、开头、排版、CTA 与合规规范见 [`AGENT.md`](./AGENT.md)。
 
 ## 视觉与材质
 
