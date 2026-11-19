@@ -144,21 +144,85 @@
   --material-thick: rgb(255 255 255 / 88%);
   /* The refraction recipe of a glass surface: saturate the colours behind
      it, then blur them. */
-  --glass-filter: saturate(180%) blur(20px);
-  --glass-filter-soft: saturate(160%) blur(12px);
+  --glass-filter: saturate(190%) blur(24px);
+  --glass-filter-soft: saturate(170%) blur(14px);
   --glass-border: rgb(255 255 255 / 60%);
 
   /* The frosted glass surfaces of the page: cards, the sidebar, the
      directory, the menus. They are translucent, so the ambient colours
      behind them bleed through. */
-  --glass-bg: rgb(255 255 255 / 72%);
-  --glass-bg-strong: rgb(255 255 255 / 86%);
-  --glass-bg-subtle: rgb(255 255 255 / 48%);
+  --glass-bg: rgb(255 255 255 / 66%);
+  --glass-bg-strong: rgb(255 255 255 / 80%);
+  --glass-bg-subtle: rgb(255 255 255 / 42%);
   /* The hairline that separates a glass surface from what is behind it. */
   --glass-hairline: rgb(60 60 67 / 14%);
-  --glass-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 10px 30px rgb(0 0 0 / 8%);
-  /* The light that catches the top edge of a glass surface. */
-  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 85%);
+  /* The rim of a glass surface: light from the top left, shade at the
+     bottom right, the way a real pane catches the room around it. The
+     shade is kept close to the corner so that the middle of the surface
+     stays bright instead of turning grey. */
+  --glass-rim: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 95%) 0%,
+    rgb(255 255 255 / 52%) 32%,
+    rgb(60 60 67 / 9%) 74%,
+    rgb(255 255 255 / 70%) 100%
+  );
+  /* The rim of a small, convex piece of glass: a button, a pill. Its
+     light is tighter and its shade thinner, because the surface it sits
+     on is small too. */
+  --glass-rim-lens: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 98%) 0%,
+    rgb(255 255 255 / 60%) 34%,
+    rgb(60 60 67 / 7%) 78%,
+    rgb(255 255 255 / 80%) 100%
+  );
+  /* The grain of the frost. Without it a translucent surface is a flat
+     wash of colour; with it, it is glass. */
+  --glass-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)' opacity='0.32'/%3E%3C/svg%3E");
+  --glass-grain-size: 160px 160px;
+  /* The layers a glass surface is painted with: the grain of the frost on
+     top of the rim of the edge. A button adds a third layer, the specular
+     light of a lens. They live in variables so that a surface can change
+     its own layers without a new rule. */
+  --glass-layers: var(--glass-grain), var(--glass-rim);
+  --glass-layer-size: var(--glass-grain-size), auto;
+  --glass-layer-repeat: repeat, no-repeat;
+  --glass-layer-clip: padding-box, border-box;
+  --glass-layer-blend: soft-light, normal;
+  /* The light that sits in the corner of a piece of glass. */
+  --glass-specular: radial-gradient(
+    120% 95% at 16% 4%,
+    rgb(255 255 255 / 42%) 0%,
+    rgb(255 255 255 / 0%) 58%
+  );
+  /* The hairline that catches the light along the edge of a surface. */
+  --glass-edge: transparent;
+  /* The tint a glass surface takes while the pointer is over it. */
+  --glass-tint-hover: rgb(255 255 255 / 62%);
+  /* The glass of a button: a smaller and denser surface than a panel. */
+  --glass-button-bg: rgb(255 255 255 / 58%);
+  --glass-button-bg-hover: rgb(255 255 255 / 84%);
+  --glass-button-edge: rgb(255 255 255 / 70%);
+  --glass-button-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 6px 16px rgb(0 0 0 / 10%);
+  --glass-button-shadow-hover: 0 2px 4px rgb(0 0 0 / 10%), 0 10px 24px rgb(0 0 0 / 14%);
+  --glass-button-shadow-press: 0 1px 2px rgb(0 0 0 / 10%);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 14px 34px rgb(0 0 0 / 10%);
+  /* The light that catches the top edge of a glass surface, and the shade
+     that gathers along its bottom edge. */
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(60 60 67 / 6%);
+  /* The knob of a segmented control: a bright piece of glass on a dimmer
+     track. */
+  --segment-knob-bg: rgb(255 255 255 / 88%);
+  --segment-knob-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 10px rgb(0 0 0 / 10%);
+  /* The glass of a small pill. There are dozens of them on one page, so
+     the frost on them is shallow: the light and the rim carry the glass,
+     the blur only softens the wash behind the edge. */
+  --glass-chip-bg: rgb(255 255 255 / 50%);
+  --glass-chip-bg-hover: rgb(255 255 255 / 76%);
+  --glass-filter-chip: saturate(160%) blur(8px);
+  --glass-chip-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 3px 8px rgb(0 0 0 / 6%);
+  --glass-chip-shadow-hover: 0 2px 4px rgb(0 0 0 / 7%), 0 6px 14px rgb(0 0 0 / 9%);
   /* The fine engineering grid that sits behind the page. */
   --grid-dot: rgb(60 60 67 / 8%);
 
@@ -235,12 +299,48 @@
   /* In the dark appearance a glass surface is a thin veil of white over
      black, not a slab of dark grey: the panel has to end up lighter than
      the page, the way an iOS card does. */
-  --glass-bg: rgb(255 255 255 / 9%);
-  --glass-bg-strong: rgb(255 255 255 / 14%);
-  --glass-bg-subtle: rgb(255 255 255 / 6%);
+  --glass-bg: rgb(255 255 255 / 11%);
+  --glass-bg-strong: rgb(255 255 255 / 16%);
+  --glass-bg-subtle: rgb(255 255 255 / 7%);
   --glass-hairline: rgb(255 255 255 / 14%);
-  --glass-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 50%);
-  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 9%);
+  --glass-rim: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 30%) 0%,
+    rgb(255 255 255 / 10%) 28%,
+    rgb(0 0 0 / 32%) 70%,
+    rgb(255 255 255 / 16%) 100%
+  );
+  --glass-rim-lens: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 36%) 0%,
+    rgb(255 255 255 / 12%) 32%,
+    rgb(0 0 0 / 26%) 76%,
+    rgb(255 255 255 / 20%) 100%
+  );
+  --glass-tint-hover: rgb(255 255 255 / 12%);
+  /* The light that sits in the corner of a piece of glass. In the dark
+     there is no daylight to reflect, so it is a faint glow. */
+  --glass-specular: radial-gradient(
+    120% 95% at 16% 4%,
+    rgb(255 255 255 / 16%) 0%,
+    rgb(255 255 255 / 0%) 58%
+  );
+  --glass-edge: transparent;
+  --glass-button-bg: rgb(255 255 255 / 11%);
+  --glass-button-bg-hover: rgb(255 255 255 / 18%);
+  --glass-button-edge: rgb(255 255 255 / 18%);
+  --glass-button-shadow: 0 1px 2px rgb(0 0 0 / 45%), 0 4px 14px rgb(0 0 0 / 45%);
+  --glass-button-shadow-hover: 0 2px 4px rgb(0 0 0 / 50%), 0 8px 22px rgb(0 0 0 / 55%);
+  --glass-button-shadow-press: 0 1px 2px rgb(0 0 0 / 55%);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 45%), 0 16px 40px rgb(0 0 0 / 55%);
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 13%), inset 0 -1px 0 rgb(0 0 0 / 35%);
+  --segment-knob-bg: rgb(255 255 255 / 16%);
+  --segment-knob-shadow: 0 2px 6px rgb(0 0 0 / 55%);
+  --glass-chip-bg: rgb(255 255 255 / 8%);
+  --glass-chip-bg-hover: rgb(255 255 255 / 14%);
+  --glass-filter-chip: saturate(160%) blur(8px);
+  --glass-chip-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 3px 8px rgb(0 0 0 / 40%);
+  --glass-chip-shadow-hover: 0 2px 4px rgb(0 0 0 / 45%), 0 6px 14px rgb(0 0 0 / 50%);
   --grid-dot: rgb(235 235 245 / 7%);
 
   --accent: #4ed4ff;

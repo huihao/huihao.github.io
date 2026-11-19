@@ -75,6 +75,27 @@
     -webkit-backdrop-filter: none !important;
   }
 
+  /* The small glass surfaces lose their frost as well. They keep their
+     shape — on paper they are still buttons, pills and chips. */
+  .chip-list a,
+  .categories-list-item,
+  .lang-filter,
+  .lang-filter-item,
+  .lang-badge,
+  .tag-chip,
+  .ai-badge,
+  .search-result,
+  .search-clear,
+  .not-found-actions .base-link,
+  .share-button,
+  .theme-toggle,
+  #main .category article.article {
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   /* The cover art is worth keeping, but not as a huge band. */
   .article--featured .cover .img {
     max-height: 60mm;

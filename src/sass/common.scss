@@ -2,6 +2,8 @@
  * Shared primitives: links, the pill button and the category artwork.
  */
 
+@use "theme" as *;
+
 a {
   color: var(--accent-text);
   text-decoration: none;
@@ -47,15 +49,12 @@ a:active {
     min-height: 30px;
     padding: 4px 12px;
     border-radius: var(--radius-pill);
-    background: var(--fill-tertiary);
     color: var(--label-secondary);
     font-size: var(--text-footnote);
     line-height: 1.4;
     text-decoration: none;
-    transition:
-      background-color var(--duration-fast) var(--ease-standard),
-      color var(--duration-fast) var(--ease-standard),
-      transform var(--duration-fast) var(--ease-spring);
+
+    @include glass-chip;
   }
 
   /* A visited pill keeps the quiet label colour: the rail is a map of the
@@ -67,7 +66,7 @@ a:active {
 
   a:hover,
   a:active {
-    background: var(--accent-tint);
+    background-color: var(--accent-tint-hover);
     color: var(--accent-text-hover);
   }
 
@@ -103,7 +102,6 @@ a:active {
   align-items: center;
   padding: 1px 8px;
   border-radius: var(--radius-pill);
-  background: var(--ai-tint);
   color: var(--ai-text);
   font-family: var(--font-mono);
   font-size: var(--text-caption-2);
@@ -111,6 +109,11 @@ a:active {
   letter-spacing: 0.04em;
   line-height: 1.6;
   white-space: nowrap;
+
+  @include glass-chip;
+
+  /* The tint of the marker, seen through the frost. */
+  background-color: var(--ai-tint);
 
   /* The attribute wins over the display above, or the badge would show
      up on every article that has nothing to disclose. */

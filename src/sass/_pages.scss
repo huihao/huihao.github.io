@@ -123,6 +123,24 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-3);
+
+    /* The two ways out of the page, as a pair of glass buttons. */
+    .base-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 var(--space-5);
+      border-radius: var(--radius-pill);
+      color: var(--label);
+      font-size: var(--text-footnote);
+      font-weight: 500;
+
+      @include glass-button;
+
+      &:hover {
+        color: var(--accent-text-hover);
+      }
+    }
   }
 }
 
