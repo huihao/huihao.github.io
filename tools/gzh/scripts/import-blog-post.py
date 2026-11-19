@@ -33,7 +33,9 @@ from pathlib import Path
 # --------------------------------------------------------------------------
 
 FRONT_MATTER_RE = re.compile(r"^﻿?---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|$)", re.DOTALL)
-LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
+#: 外链语法。前面是 ``!`` 的是图片语法（``![alt](src)``），要留给渲染阶段转成
+#: ``<img>``，所以用否定回顾排除掉，避免被当成外链剥成纯文本。
+LINK_RE = re.compile(r"(?<!!)\[([^\]]*)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 BOLD_RE = re.compile(r"\*\*(.+?)\*\*", re.DOTALL)
 TABLE_ROW_RE = re.compile(r"^\s*\|(.+)\|\s*$")
 TABLE_DIVIDER_RE = re.compile(r"^\s*\|?[\s:\-|]+\|[\s:\-|]*$")
@@ -179,7 +181,8 @@ def filter_bold(block: str) -> str:
     def replace(match: re.Match[str]) -> str:
         position = counter["n"]
         counter["n"] += 1
-        return match.group(1) if position in keep else match.group(1)
+        # 保留下来的加粗要重新包回 **，否则整段加粗等于全被解包
+        return f"**{match.group(1)}**" if position in keep else match.group(1)
 
     return BOLD_RE.sub(replace, block)
 

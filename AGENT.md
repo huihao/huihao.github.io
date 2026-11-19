@@ -280,6 +280,9 @@ AI 领域更新极快、信息噪声大，专业性体现在细节的准确上�
 - CLI（`/root/code/opc/gzh/bin/gzh`）：`check` / `collect --plan` / `list` / `preview --id [--html]` / `approve --id` / `publish --plan [--dry-run]` / `status` / `retry`。状态机：`pending → approved → rendered → drafted → published`。
 - `require_approval=true` 时必须先 `approve`；`--dry-run` 会把状态置为 `rendered`，之后 `publish` 会被拦。
 - 当前工作流是**写草稿箱 + 人工点发表**：写完只到 `drafted`，最后一步在公众号后台人工完成。
+- 正文图片路径写成**相对内容资源库根目录**的 `2026-11/assets/xxx.png`；站点绝对路径 `/dist/img/...` 在 gzh 里解析不到（`ImageUploader` 只认 content_dir / root / assets_dir）。图片要先拷进 `/root/code/opc/gzh/content/<年月>/assets/`。
+- 改完稿子重新导入时，内容哈希变了会**多出一条 pending 记录**（`articles` 表按 `content_hash` 去重）；先把旧 pending 行删掉再 `collect`，否则池子里会留两条同题稿件。
+- 站内图片源在 `src/img/`，`npm run build`（`build:img` / `build:assets`）才生成 `public/dist/img/`；`public/dist/` 已在 `.gitignore` 里，图片要提交的是 `src/img/`。封面 SVG 会被渲染成 570×144 的 PNG（`cover-*.svg`）。
 
 ## B. 公众号硬限制（超了直接发不出去）
 
