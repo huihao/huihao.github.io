@@ -471,6 +471,8 @@ AI 有重复惩罚机制，会换着叫同一个东西，显得不自然。向�
 - 当前工作流是**写草稿箱 + 人工点发表**：写完只到 `drafted`，最后一步在公众号后台人工完成。
 - 正文图片路径写成**相对内容资源库根目录**的 `2026-11/assets/xxx.png`；站点绝对路径 `/dist/img/...` 在 gzh 里解析不到（`ImageUploader` 只认 content_dir / root / assets_dir）。图片要先拷进 `/root/code/opc/gzh/content/<年月>/assets/`。
 - 改完稿子重新导入时，内容哈希变了会**多出一条 pending 记录**（`articles` 表按 `content_hash` 去重）；先把旧 pending 行删掉再 `collect`，否则池子里会留两条同题稿件。
+- **站内主稿不写公众号 CTA**：博客正文只留内容，「回复关键词『××』领取××」这类引流句在 `import-blog-post.py` 转换**之后**追加到 gzh 稿件末尾分隔线之前（读者在站内没有公众号，CTA 放站内是无效引流）。追加后要覆盖 `content/<年月>/<slug>.md`，再更新 `articles` 表的 `markdown` 与 `content_hash`（`models.content_hash(title, source_key, markdown)`），`status` 置 `approved`（`error` 字段必须写空串，否则 NOT NULL 报错），然后 `preview --id <前 10 位> --html` → `publish --plan <plan>`。
+- 微信侧**没有 draft/delete API**，改稿只能新建草稿；草稿箱会堆多版同名稿，发布完要在后台手动删旧版（WorkBuddy 这篇一度堆到第 5 版）。回读用 `client.http.post_json(base_url + "/cgi-bin/draft/get?access_token=" + tok, {"media_id": ...})`（必须 POST），列表用 `/cgi-bin/draft/batchget`。
 - 站内图片源在 `src/img/`，`npm run build`（`build:img` / `build:assets`）才生成 `public/dist/img/`；`public/dist/` 已在 `.gitignore` 里，图片要提交的是 `src/img/`。封面 SVG 会被渲染成 570×144 的 PNG（`cover-*.svg`）。
 
 ## B. 公众号硬限制（超了直接发不出去）
@@ -497,6 +499,7 @@ AI 有重复惩罚机制，会换着叫同一个东西，显得不自然。向�
 - 引用必须能回溯到原文链接与发布日期；写清是**实测**还是**引用**，网传内容一律标"网传"。
 - 大厂一手材料 > 深度媒体采访 > 官方社区/高管发言 > 媒体转述，弱来源不要写成硬数据。
 - 百分比、薪资、版本号这类数字没有出处就删掉。
+- 产品侧的**运营类机制**（签到、连续登录奖励、做任务换积分、邀请返积分）官方文档常常**没有专页**：先抓文档站 nav 全量链接确认没有，再从客户端更新日志里找版本条目佐证入口确实存在；具体数额只能引社区文章，并写明「社区记录，官方未公示，以客户端显示为准」。WorkBuddy 的签到与成长计划就是这么处理的（见 `drafts/workbuddy-model-selection/sources.md` 的 A17 / C3 / C4）。
 - 详细素材与分级（A/B/C 级）放在 `drafts/<slug>/sources.md`，提纲与写作清单放在 `drafts/<slug>/outline.md`。
 
 ## E. 长期写作偏好（与上方规范同源，写作时别走样）
