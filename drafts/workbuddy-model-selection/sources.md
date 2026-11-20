@@ -1,6 +1,6 @@
 # 素材来源清单 · WorkBuddy 模型选择（草稿目录 `drafts/workbuddy-model-selection/`）
 
-- 抓取日期：2026-11-19
+- 抓取日期：2026-11-19（首轮）／2026-11-20（复核，模型部分更新）
 - 对应客户端版本：WorkBuddy 5.11.3（2026-11-15 发布，见官方更新日志）
 - 分级口径：**A** 官方文档（可作事实引用）｜**B** 官方产品界面截图（可作配图，注明出处）｜**C** 第三方测算（只能标为第三方观点，不能当官方数据）
 - 使用纪律：所有数字必须能落到本文档某一行；官方未公示的数据（如各模型倍率）一律标注「第三方测算，官方未逐条公示」。
@@ -20,6 +20,7 @@
   - 经济模式：原模型面板里的「Max 模式」开关已移到 **设置 → 智能体 → 经济模式**（个人版默认开启）。开启后系统在合适时机自动压缩上下文、降低积分消耗；关闭后全程保留完整上下文，长对话消耗明显增加。
   - 模型下线后的自动切换：优先同系列新模型（如 Kimi-K3 → Kimi 系列对应新模型），没有则用系统默认模型；切到同系列新模型时思考强度与上下文窗口不沿用旧模型；定时任务每次运行前先切换再执行并同步更新任务配置；本地自定义模型不会被自动替换；切换后仍失败则该次按失败处理，不重复执行同一提示词。
   - 内置模型（个人版当前，14 个）：Hy4 preview、Hy3、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5.1、GLM-5v-Turbo、MiniMax-M3、MiniMax-m2.7、Kimi-K3、Kimi-K2.7-Code、Kimi-K2.6、Deepseek-V4-Flash、Deepseek-V4-Pro。官方标注：GLM-5.3 支持 1M 上下文窗口；DeepSeek V4 系列支持 1M；GLM-5.2 1M 上下文、擅长长程任务；Deepseek-V4-Flash「速度优先」。
+  - **文档滞后（2026-11-20 复核确认）**：文档表里仍写「Hy4 preview」且只有 14 个模型，而客户端里已经是 Hy4 正式版并多出 Hy4 flash（用户 2026-11-20 实机观察）→ 正文必须写「以你客户端里看到的为准」。
   - 自定义模型：配置（含 API Key）只存在本地 `workbuddy/models.json`，不上传云端；接入方式＝提供商接入（腾讯云 Token Plan / Coding Plan / 自定义 API）、本地 Ollama（默认监听 11434，兼容 OpenAI 协议）、自定义；配置不完整的自定义模型在选择器中置灰不可选，报错码 4100；自定义模型产生的费用由用户直接付给第三方。
   - 企业管理员可在后台禁用模型，被禁模型在客户端隐藏或置灰（含 auto）。
 - 原文可直接引用：
@@ -81,6 +82,27 @@
 ### A11 腾讯云 Token Plan（延伸阅读，未抓正文）
 - https://cloud.tencent.com/document/product/1823/130657 —— 面向个人与企业的订阅套餐，兼容混元、MiniMax、Kimi、GLM 等模型；个人版 API Key 获取指引 https://cloud.tencent.com/document/product/1823/130119
 
+### A12 腾讯混元 Hy4 正式版发布口径（2026-11-04）
+- 报道：央广网 https://tech.cnr.cn/techgd/20261104/t20261104_527862108.shtml （页面 GB18030 编码，抓取需 `raw.decode("gb18030")`，正文存 /tmp/wb/docs/hy4_cnr.txt）
+- 关键事实：相比 preview 扩展数据与训练规模，首次引入视觉理解能力、首次支持 Computer Use；WorkBuddy 办公场景评测平均 83.18 分、任务通过率 96.15%、12 个场景里 9 个排在国产模型首位；腾讯金融科技 FiT 专家众测（213 位专家、153 位来自外部机构、七成 5 年以上经验、579 个真实金融任务）综合分 Hy4 3.04、Kimi K3.1 Pro 2.68、GLM-5.3 2.68、DeepSeek-V4.1-Flash-1017 2.97；讯兔 IRAB 较 preview 提升 12.03 个百分点；幻觉率 12.95% → 7.2%，猜测导致的错误率 23.1% → 5.6%；GameDev / GameLogic 较 preview 提升 19.1% / 9.8%；定价不变＝输入 6 元 / 输出 18 元 / 缓存命中 0.3 元每百万 token；Hy3 系列参数 < 300B，Hy4 系列 770B；发布节奏＝先 Preview 再正式版，每两个月一个大版本；官方自认与顶尖闭源模型仍有较大差距。
+- 注意：正文引「9 个排国内第一」在公众号会被红线词「第一」拦下，必须写成「排在国产模型首位」（或「拿下榜首」）。
+
+### A13 腾讯混元 Hy4 flash 发布口径（2026-11-16）
+- 报道：新浪科技 https://finance.sina.com.cn/tob/2026-11-16/doc-iniyxcia5712243.shtml
+- 关键事实：总参 224B（含 64B Engram）、激活 12B，多模态 + 1M 上下文；价格输入 0.5 元 / 输出 2 元 / 缓存命中 0.02 元每百万 token；KV cache 约为 Hy3 的 1/24、Hy4 的 1/6；解码速度 > 150 tps；自蒸馏 Hy4 + RL 让端到端输出长度降 50%；内部评测集 WorkIndex（PPT 制作与修改、文档编辑、表格修复、音视频处理、视觉理解）上单任务成本约为 Hy4 preview 的 1/13、Hy4 的 1/20、DeepSeek-V4.1-Flash-1027 的 1/8，综合效果略优于 Hy4 preview；已上线 TokenHub / WorkBuddy / 元宝 / 企业微信 / QQ / ima / Marvis；11 月 30 日前 WorkBuddy 限时免费，TokenHub API 到 2026-12-31 五折。
+
+### A14 智谱 GLM-5.3 发布口径（2026-08-14）
+- 报道：快科技 http://m.mydrivers.com/newsview/1143745.html
+- 关键事实：与 GLM-5.2 同基座、7400 多亿参数（未到万亿）；Terminal-Bench 3.0 由 4.6 升至 28.3；DeepSWE v1.1 由 46.2 升至 66.9；Agents' Last Exam 由 23.8 升至 28.5；GDPval-AA v2 得分 1769；自研 Z.ai Code Bench 高档准确率 31.4%，高于 Claude Opus 4.8 最高档的 29.5%，且每任务平均输出约 5 万 token，Opus 4.8 约 12 万。
+
+### A15 MiniMax M3 官方模型页
+- https://www.minimax.cn/models/text/m3
+- 关键事实：MSA 稀疏注意力架构，API 最高 1M 上下文（保障至少 512K 可用），原生多模态；BrowseComp 智能体评测 83.5 分，Opus 4.7 为 79.3；官方案例：连续 12 小时自主复现一篇 ICLR 杰出论文（18 次 commit、23 张图表）；24 小时优化 CUDA 算子，147 次迭代，硬件峰值利用率 7.6% → 71.3%，9.4 倍加速；PostTrainBench 37.1（第三，次于 Opus 4.7 的 42.4、GPT-5.5 的 39.3）。
+
+### A16 DeepSeek V4 官方公告（2026-04-24）
+- https://api-docs.deepseek.com/zh-cn/news/news260424.md
+- 关键事实：分 Pro 与 Flash，均 1M 上下文，API 名 deepseek-v4-pro / deepseek-v4-flash；Pro 在 Agentic Coding 达开源最佳，内部实测体验优于 Sonnet 4.5，交付质量接近 Opus 4.6 非思考模式但仍有差距；世界知识大幅领先开源、仅稍逊 Gemini-Pro-3.1；Flash 知识稍逊但推理接近，简单 Agent 任务与 Pro 旗鼓相当；DSA 稀疏注意力 + token 维度压缩；支持 reasoning_effort（high/max）；旧模型名 deepseek-chat / deepseek-reasoner 于 2026-07-24 停用；权重与技术报告已开源。
+
 ---
 
 ## B 级 · 官方界面截图（配图候选，已下载到 `assets/`）
@@ -118,6 +140,11 @@
   - 结论：默认停均衡；倍率 0.20 以下的模型直选更省；省钱优先级＝新任务开新窗口 ＞ 保持 Max 模式关闭（对应现在的经济模式）＞ 压缩上下文 ＞ 最后才降档。
 - **风险提示**：文中模型清单是 2026-10-19 的快照（含 Space-Bunny、GLM-4.6、GLM-4.6V、DeepSeek-V4.1-Flash、MiniMax-M2.5、Kimi-K2.5、GLM-5.0-Turbo、Kimi-K2.8-Preview 等），与 A1 当前官方表不一致，正文若引用需说明时间差。
 - **版权提示**：该文末尾有「原创声明：未经许可，不得转载」，因此**只引用其中的数据与结论并注明出处，不下载、不转载它的配图**。
+
+### C2 钛媒体对 Kimi K3 的实测（媒体报道实测，属第三方口径）
+- URL：https://caifuhao.eastmoney.com/news/20260718153736384247060 （2026-07-18）
+- 关键事实：Kimi K3 为 2.8 万亿参数、原生视觉、1M 上下文（会员档位限制：49 元档不支持、99 元档 256K、199 元档起完整 1M）；Arena Code Arena 盲测 1679 分居首，Fable 5 1631、GPT-5.6 Sol 1618；API 输入 20 元 / 输出 100 元每百万 token（较 K2.6 输入涨 3 倍多、输出近 4 倍）；官方承认三个局限；实测评价：3D 与视觉生成最突出、前端 UI 设计水准接近 Fable 5、编码强但未超最强闭源、速度是最大短板，同一场景生成时间约为 GPT-5.6 Sol 的 2–3 倍，剪一个 30 秒宣传片花了近两小时；官方称全球首个开源 3 万亿级模型。
+- **引用要求**：性能评测数是厂商或媒体口径，正文写「某家评测里…」「媒体实测…」并标时间，不要写成 WorkBuddy 内的实测结论；红线下「排第一」要改写为「拿下榜首」。
 
 ---
 
