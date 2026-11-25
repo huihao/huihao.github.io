@@ -26,7 +26,7 @@ Meta 工程博客 10 月 15 日那篇《[How Meta Built Forum With AI-Native Eng
 
 Meta 的分工表述可以直接搬：工程师驱动每一步、AI 在每一步里辅助，这叫 human-in-the-loop；agent 自己跑「计划 → 实现 → 构建 → 测试 → 纠正 → 重试」的循环，人定目标、看运行、跑偏时介入、最后签字，这叫 human-on-the-loop。
 
-Meta 说后者是目标，不是既成事实——有些阶段仍然要人盯着每一轮。挪位置要付代价，这点他们没绕过去。
+Meta 说后者是目标，不是既成事实——有些阶段仍然要人盯着每一轮。
 
 阿里云 11 月 16 日那篇《[企业 AI Native 研发流程升级与重塑](https://www.infoq.cn/article/4z7Bbxy92tjAI7MB5evM)》换了一套措辞：人在 loop 之内，还是人在 loop 之上。把 agent 塞进旧流程里，或者人和 agent 都困在同一个环里，改善都有限。
 
@@ -36,7 +36,7 @@ Shopify 的做法更具体。他们 11 月 10 日发布《[How we rebuilt the Sh
 
 Shopify 那篇里我最认同的一句是 "No vibe coding"。他们给 agent 的护栏要回答三个问题：符合架构吗？行为和现有 app 一致吗？人能不能不逐行读 diff 就看懂意图。
 
-第三个问题有意思。它默认人不再逐行读 diff，但要求人**看得懂意图**。判断这件事没被放弃，只是换了个人来做。
+第三个问题有意思：它默认人不再逐行读 diff，但要求人**看得懂意图**。
 
 | 环节 | 环里：human-in-the-loop | 环上：human-on-the-loop |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ Shopify 那篇里我最认同的一句是 "No vibe coding"。他们给 agent 的
 
 这套模式把专家从执行者变成了守门人，而守门人手里的旧激励（按写的代码量、按审的份数算）没跟着改。改不动激励，环上就只是个说法。
 
-你现在的用法，大概率还在环里：你在给每一步派活，agent 在等你的下一条指令，瓶颈就是你手速。
+环里的人有个共同特征：每一步都要人派活，agent 在等下一条指令，瓶颈是手速。
 
 ## 二、上下文不是越多越好，它有权威等级
 
@@ -86,7 +86,7 @@ Google 那句结论是：被遗忘的代码角落，现在对 agent 收的税比
 
 还有一条来自 Anthropic 11 月 6 日的《[The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory)》，实测结论跟直觉相反：**给 agent 判断的自由，比写死规则更管用**。他们试过规定 agent「只记录失败」，Opus 5 和 4.7 的记忆增益反而被削弱。同一篇里还有个工程细节：Claude Code 的自动记忆只注入 MEMORY.md 的前 200 行或 25KB，当索引用；更长的指令文件会降低遵从度。
 
-Google Cloud 11 月 3 日那篇《[Evaluate agent skills before they bloat your context window](https://cloud.google.com/blog/topics/developers-practitioners/evaluate-agent-skills-before-they-bloat-your-context-window)》给了一组更冷的数字。它引了一份 8 月的预印本《[Agent Skills Can Be Harmful](https://arxiv.org/abs/2608.11888)》：在两个 skill 基准上，307 个确认由 skill 诱发的失败被归因到 skill，其中 125 个功能性失败、182 个效率退化。这个数字只统计「被归因到 skill 的失败对」，不是普遍失败率。它说明的是另一件事：**你加进去的每一条 skill 都在花模型的注意力预算**。
+Google Cloud 11 月 3 日那篇《[Evaluate agent skills before they bloat your context window](https://cloud.google.com/blog/topics/developers-practitioners/evaluate-agent-skills-before-they-bloat-your-context-window)》给了一组更冷的数字。它引了一份 8 月的预印本《[Agent Skills Can Be Harmful](https://arxiv.org/abs/2608.11888)》：在两个 skill 基准上，307 个确认由 skill 诱发的失败被归因到 skill，其中 125 个功能性失败、182 个效率退化。这个数字只统计「被归因到 skill 的失败对」，不是普遍失败率。**你加进去的每一条 skill 都在花模型的注意力预算。**
 
 给模型上下文像给新人发入职材料：给错版本比不给更糟。不给只是慢，给错是方向错了。
 
@@ -98,7 +98,7 @@ Meta 那篇 Forum 里有一句我读了好几遍的话：门槛应该设在 veri
 
 Meta 紧接着补了一句：弱信号不会解除约束，只是把约束从写代码挪到读代码。你还是得读，只是读得少一点、值得读一点。
 
-Uber 10 月 20 日那篇《[Using AI to Delete Code](https://www.uber.com/us/en/blog/ai-code-cleanup/)》是另一条路的样本。他们做的是 agentic 技术债清理，清理了 16000 多个 feature flag、100 多万行代码。这篇真正可抄的是它的克制：
+Uber 10 月 20 日那篇《[Using AI to Delete Code](https://www.uber.com/us/en/blog/ai-code-cleanup/)》是另一条路的样本。他们做的是 agentic 技术债清理，清理了 16000 多个 feature flag、100 多万行代码。这篇的做法很克制：
 
 - **AutoClean 是个 agentic 系统，不意味着 agent 该处理每一步**。布尔代数和条件简化这种确定性的活儿，交给确定性的 PolyglotPiranha。
 - **CI 是唯一真相源**。本地绿不代表全仓绿，因为单次清理会波及整个 monorepo。
@@ -145,7 +145,7 @@ Google 另外两篇补的是方法论。9 月 9 日《[The Anatomy of Harness En
 
 美团那篇文章里有三句话很硬：**流畅不是证据，一致不是正确，变绿不是解决。**
 
-验收要落到一条会变红的检查上。这条没有，其余都是空谈。
+验收要落到一条会变红的检查上。
 
 ## 四、人管的是"哪一类可以不看"
 
@@ -153,13 +153,13 @@ Google 另外两篇补的是方法论。9 月 9 日《[The Anatomy of Harness En
 
 Zalando 8 月那篇《[Agentic Engineering snapshot](https://engineering.zalando.com/posts/2026/08/agentic-engineering-at-zalando-a-snapshot.html)》的做法很具体：他们的风险级 PR 审批 bot 把 **33% 的 PR 判为低风险并自动批准**，PR lead time 降低 20–40%。规则不是拍脑袋定的，是从生产事故和典型故障倒推出来的——破坏向后兼容算中风险，破坏配置的笔误算高风险。
 
-这条规则还有个副作用：**工程师会主动把改动拆小**，好让自己的 PR 落进低风险区间。授权规则反过来塑造了人的行为。
+这条规则还有个副作用：**工程师会主动把改动拆小**，好让自己的 PR 落进低风险区间。
 
 Runway 11 月 20 日那篇《[Building a Software Factory](https://runway.com/news/engineering/building-a-software-factory)》给了一组让人有点难相信的数字（注意这是厂商自报）：云端 agent 驱动的合并 PR 占比从 6 月的 0.1% 涨到 10 月的 38%；首个审批的等待中位数从 2.3 小时降到 5 分钟；AI 单独批准的 PR 回滚率 0.10%，人批大约是 1/200；9 到 10 月 AI 批掉的 977 个 PR 里，人事后反对 15 个，1.5%。
 
 他们还给工程师写了四条新职责：找 agent 在哪儿浪费力气、清掉阻塞、把路径改造成 agent-friendly、**保持度量诚实**。
 
-最后一条最容易被忽略。一旦 agent 承担了产出，团队很容易拿产出量当成绩，而这些数字恰恰是最容易被做假的。
+第四条就是保持度量诚实。一旦 agent 承担了产出，团队很容易拿产出量当成绩，而这些数字恰恰是最容易被做假的。
 
 Shopify 那套是另一种排法：agent 当第一审。明显的问题在人类评审之前就被修掉，人类只看剩下的。配套动作是每天有 agent 汇总当天的全部评审意见，更新 skills 和 Architecture.md——**一次评论，变成此后每个 PR 的规则**。
 
@@ -171,7 +171,7 @@ OpenAI 11 月 18 日那篇《[Inside the Codex sandbox](https://openai.com/index
 
 美团的做法是分四层授权：只读分析 → 受控修改 → 受控执行 → 人工决策。同一篇里还有一条边界我信：**AI Debug 只能当假设生成器，根因认定必须由人做。**
 
-真正省时间的是让你有理由不看。
+省下来的时间，得落在「不用看」的那部分改动上。
 
 ## 五、五个动作
 
@@ -228,11 +228,11 @@ OpenAI 的 Performance Factory 把状态放在 agent 上下文之外：可配置
 
 Anthropic 11 月 23 日那篇《Working with AI》访谈了 66 个人、覆盖 58 家企业客户。
 
-先把最容易被误读的数字放前面：**只有 2 家**因为 AI 自动化彻底消灭了一个岗位并导致失业，**10 家**因为 AI 增加了招聘。
+这两个数字容易被读反：**只有 2 家**因为 AI 自动化彻底消灭了一个岗位并导致失业，**10 家**因为 AI 增加了招聘。
 
 但同一份材料里有另一组数字：**2/3 的公司因为 AI 减少了招聘**。原话是「我们可能不裁人，但我们不招人」。其中三分之一是自然减员不回补，其余是本来要扩的规模不扩了。还有 **9 家砍掉了外包**——软件外包、客服、法务后职能，大多是已经离岸的。
 
-两个数字凑在一起看，真正大规模发生的是另一种消失——没有通知，没有补偿，没有申诉。
+两个数字凑在一起看，大规模发生的是另一种消失——没有通知，没有补偿，没有申诉。
 
 还有一个数字：近 300 个 AI 应用案例里，只有 **1/10** 的价值被员工自己拿走了。剩下的九成进了公司的口袋。
 
@@ -240,7 +240,7 @@ Anthropic 11 月 23 日那篇《Working with AI》访谈了 66 个人、覆盖 5
 
 最具体的一个画面在法律行业。初级律师以前写初稿，现在 AI 写初稿，初级律师改成必须和资深律师一起逐句改 AI 的初稿。问为什么，答案是：「如果不写，初级律师怎么知道这是好草稿还是坏草稿？」
 
-判断力从「写」迁移到了「看」。这一层的门槛没降，反而升了——你能看的前提是你写过。
+判断力从「写」迁移到了「看」，门槛没降，反而升了——你能看的前提是你写过。
 
 同篇给出的组织解法叫「围绕 AI 重新组织」：拓宽岗位，一个人端到端负责一条工作流；把人 redeploy 到 AI 做不了的瓶颈任务。
 
@@ -264,7 +264,7 @@ Anthropic 11 月 23 日那篇《Working with AI》访谈了 66 个人、覆盖 5
 
 AI 应用的收益分布里，自下而上那层被削得最狠。Anthropic 那篇说非技术领域专家收益最高（会计师把 80 小时的审计做成了应用），但也说了零散自建工具的通病：维护成本上去了，总体收益有限。
 
-站内那篇《[前端岗位的消失论](https://bio.wuhh.cc/2026/11/17/ai-frontend-role-evolution.html)》讲岗位结构怎么被重排。这篇讲另一件事：你的工作流跟不跟得上。岗位没了是组织的事，活儿换了承接人之后你还能不能签字，是自己的事。
+站内那篇《[前端岗位的消失论](https://bio.wuhh.cc/2026/11/17/ai-frontend-role-evolution.html)》讲岗位结构怎么被重排。这篇讲另一件事：你的工作流跟不跟得上。岗位没了是组织的事，活儿换了承接人之后你还能不能签字，是另一回事。
 
 ## 七、一个今天就能做的动作
 
