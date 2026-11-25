@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383" role="img" aria-label="代码快了 4 倍，团队只快了 10%：大厂怎么驾驭 AI">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1526"/>
+      <stop offset="1" stop-color="#141d33"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.15"/>
+      <stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#7c5cff" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.76" cy="0.52" r="0.46">
+      <stop offset="0" stop-color="#7c5cff" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#7c5cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="383" fill="url(#bg)"/>
+  <rect width="900" height="383" fill="url(#glow)"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.05">
+    <path d="M0 128H900"/>
+    <path d="M0 255H900"/>
+  </g>
+
+  <g font-family="WenQuanYi Micro Hei, sans-serif">
+    <text x="64" y="150" font-size="62" font-weight="bold" fill="#ffffff">代码快了 4 倍</text>
+    <text x="64" y="212" font-size="36" fill="#22d3ee">团队只快了 10%</text>
+    <text x="64" y="266" font-size="20" fill="#93a3c2">Meta · Shopify · Uber · Google 给出的答案</text>
+  </g>
+
+  <g>
+    <circle cx="716" cy="188" r="108" fill="none" stroke="url(#orbit)" stroke-width="1.8"/>
+    <circle cx="716" cy="188" r="58" fill="none" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1"/>
+    <g fill="#7c5cff" fill-opacity="0.55">
+      <circle cx="716" cy="80" r="5"/>
+      <circle cx="813" cy="242" r="4.4"/>
+      <circle cx="619" cy="242" r="4.4"/>
+    </g>
+    <circle cx="716" cy="188" r="11" fill="#22d3ee"/>
+    <circle cx="716" cy="188" r="19" fill="none" stroke="#22d3ee" stroke-opacity="0.45" stroke-width="1.4"/>
+    <path d="M716 80V60" stroke="#22d3ee" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="3 4"/>
+  </g>
+
+  <g>
+    <path d="M596 322H846" stroke="url(#orbit)" stroke-width="1.8"/>
+    <g fill="#22d3ee">
+      <circle cx="628" cy="322" r="3.4"/>
+      <circle cx="682" cy="322" r="3.4"/>
+      <circle cx="736" cy="322" r="3.4"/>
+      <circle cx="790" cy="322" r="3.4"/>
+    </g>
+    <g fill="#7c5cff" fill-opacity="0.5">
+      <circle cx="682" cy="322" r="7.5"/>
+      <circle cx="790" cy="322" r="7.5"/>
+    </g>
+  </g>
+</svg>
