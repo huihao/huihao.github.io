@@ -14,13 +14,11 @@ image: /dist/img/cover-agent-direction-workflow.png
 
 同一个月，Atlassian 内部 6000 名工程师跑完 100 万次以上 agent session，AI 参与的 PR 接近 100%——团队吞吐提升卡在 10% 左右。同一篇复盘里还引用了 Faros AI 的一项研究：团队从低 AI 采纳走向高采纳，PR 在评审队列里多花 441% 的时间。
 
-写代码的速度翻了几倍，团队整体的产出几乎没动。模型一样，工具一样，为什么有人提速，有人只是更忙？
+写代码的速度翻了几倍，团队整体的产出几乎没动。
 
-我把 2026 下半年大厂自己写的工程博客翻了一遍：Meta、Shopify、Uber、Google、GitHub、OpenAI、Anthropic，加上美团、阿里、华为的中文实践。这些互不认识的技术团队，解法撞到了一块。
+我把 2026 下半年大厂自己写的工程博客翻了一遍：Meta、Shopify、Uber、Google、GitHub、OpenAI、Anthropic，加上美团、阿里、华为的中文实践。这些互不认识的技术团队，解法撞到了一块，动的是流程里几件没人写下来的事——喂什么上下文进模型、怎么判定一个任务做完、哪些改动可以不看、长任务的状态放哪。
 
-他们做的是同一件事：把「指哪到哪」拆成四个能写下来的决定——**喂什么上下文，怎么算做完，哪一类改动可以不看，长任务的状态搁哪**。
-
-这四件事都能练。
+模型一样，工具一样，为什么有人提速，有人只是更忙？
 
 ## 一、人从环里挪到环上
 
@@ -94,7 +92,7 @@ Google Cloud 11 月 3 日那篇《[Evaluate agent skills before they bloat your 
 
 ## 三、"做完了"必须落在证据上
 
-四件事里，这一件最贵，大厂在这上面花的钱也最多。
+这几件里面，验收最贵，大厂在这上面花的钱也最多。
 
 Meta 那篇 Forum 里有一句我读了好几遍的话：门槛应该设在 verification，而不是 compilation。代码能编译不算完，自动测试和 UI 视觉检查都过了才算完。agent 先自检再交人，送到人面前的是「更少但更可信」的一批。
 
@@ -107,7 +105,7 @@ Uber 10 月 20 日那篇《[Using AI to Delete Code](https://www.uber.com/us/en/
 - **每个 fixer 的权限被严格收窄**。测试 fixer 只准改测试文件——不限的话，agent 会通过改生产代码让失败的测试变绿。这条我认为是全套材料里最实用的一条。
 - **CodeCourt**：把观察到的失败模式写成显式属性（不新增、保持语义、不跑偏、不留 agent 痕迹），一条属性一个 reviewer agent，并行跑，全过才给人看。他们试过单个 agent 端到端审，效果反而不如拆成聚焦的子 agent。
 
-Uber 这套的核心是一句话：能确定的就别交给模型判断。这跟美团在 QCon 上海讲的那个《[企业级 Agent 平台化实践](https://www.infoq.cn/article/BQJltkL1FJ9AG3cMeUmB)》里说的「确定性逻辑交给代码，不确定性判断交给模型」是同一句。
+Uber 的做法很直接：能确定的就别交给模型判断。这跟美团在 QCon 上海讲的那个《[企业级 Agent 平台化实践](https://www.infoq.cn/article/BQJltkL1FJ9AG3cMeUmB)》里说的「确定性逻辑交给代码，不确定性判断交给模型」是同一句。
 
 美团那篇《[如何在"不能出错"的系统里使用 AI Coding](https://tech.meituan.com/2026/10/29/AI-Coding-IN-Distributed-Storage-System.html)》把「证据」做成了分层表，四层各自回答不同的问题：
 
@@ -167,7 +165,7 @@ Shopify 那套是另一种排法：agent 当第一审。明显的问题在人类
 
 OpenAI 11 月 18 日那篇《[Inside the Codex sandbox](https://openai.com/index/inside-the-codex-sandbox)》是权限层的做法：命名 profile（`:workspace` 可写工作区、`.git` 和 `.codex` 只读、默认禁网）、按命令覆盖、分层配置加 `requirements.toml` 由管理员收口。
 
-这条路的逻辑跟阿里那句「code is cheap，甚至可以不看代码，show me your SPEC」是配套的：既然不看代码，就得看别的。OpenAI 的答案是把边界做成配置。
+这条路的逻辑跟阿里那句「code is cheap，甚至可以不看代码，show me your SPEC」是配套的：既然不看代码，就得看别的。OpenAI 把边界做成了配置。
 
 阿里云引 Anthropic 的一句话把这层意思讲得更透：模型不该被要求去记住一条系统本来就能低成本执行的规则。规则只要系统能执行，就别指望模型记得住。
 
@@ -176,8 +174,6 @@ OpenAI 11 月 18 日那篇《[Inside the Codex sandbox](https://openai.com/index
 真正省时间的是让你有理由不看。
 
 ## 五、五个动作
-
-落到日常操作上，能落地的有这么五步。
 
 **一、把"完成"写成一条会变红的检查。**
 
@@ -271,8 +267,6 @@ AI 应用的收益分布里，自下而上那层被削得最狠。Anthropic 那�
 站内那篇《[前端岗位的消失论](https://bio.wuhh.cc/2026/11/17/ai-frontend-role-evolution.html)》讲岗位结构怎么被重排。这篇讲另一件事：你的工作流跟不跟得上。岗位没了是组织的事，活儿换了承接人之后你还能不能签字，是自己的事。
 
 ## 七、一个今天就能做的动作
-
-四件事里最容易被忽略的是「状态放哪」，最贵的是「拿什么算完成」，最能立刻见效的是「哪一类可以不看」。
 
 挑你手上一个真实的待办，用「验收命令 + 禁止事项 + 证据要求」重写一遍任务描述，交给 agent 跑一轮，然后看它交回来的证据够不够你签字。
 
