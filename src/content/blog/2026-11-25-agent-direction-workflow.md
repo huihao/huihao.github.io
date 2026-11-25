@@ -43,7 +43,7 @@ Shopify 那篇里我最认同的一句是 "No vibe coding"。他们给 agent 的
 | 定目标 | 人拆到每一个具体动作 | 人给验收标准和边界，agent 自己排 |
 | 写实现 | 人下指令，AI 补全 | agent 写完先自检再交上来 |
 | 验证 | 人看 diff、跑测试 | 验证写成会变红的命令，红了才算完 |
-| 评审 | 人逐行读 | agent 当第一审，人只看它挑出来的 |
+| 评审 | 人逐行读 | agent 先审一轮，人只看它挑出来的 |
 | 放行 | 人点按钮 | 按风险分级，低风险自动批 |
 
 把人从环里挪到环上，比放权难。Anthropic 11 月 23 日的《[Working with AI](https://www.anthropic.com/research/working-with-ai)》记录了一个很典型的翻车：某公司专家抵制部署 AI，理由是「能审双倍案例，怎么激励他审双倍？」——结果 agent 被搁在一边。
@@ -161,7 +161,7 @@ Runway 11 月 20 日那篇《[Building a Software Factory](https://runway.com/ne
 
 第四条就是保持度量诚实。一旦 agent 承担了产出，团队很容易拿产出量当成绩，而这些数字恰恰是最容易被做假的。
 
-Shopify 那套是另一种排法：agent 当第一审。明显的问题在人类评审之前就被修掉，人类只看剩下的。配套动作是每天有 agent 汇总当天的全部评审意见，更新 skills 和 Architecture.md——**一次评论，变成此后每个 PR 的规则**。
+Shopify 那套是另一种排法：agent 先审一轮。明显的问题在人类评审之前就被修掉，人类只看剩下的。配套动作是每天有 agent 汇总当天的全部评审意见，更新 skills 和 Architecture.md——**一次评论，变成此后每个 PR 的规则**。
 
 OpenAI 11 月 18 日那篇《[Inside the Codex sandbox](https://openai.com/index/inside-the-codex-sandbox)》是权限层的做法：命名 profile（`:workspace` 可写工作区、`.git` 和 `.codex` 只读、默认禁网）、按命令覆盖、分层配置加 `requirements.toml` 由管理员收口。
 
