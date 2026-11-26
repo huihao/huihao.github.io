@@ -118,6 +118,14 @@
     font-weight: 600;
   }
 
+  /* Reference markers, written as <sup>N</sup> in the source. */
+  sup {
+    font-size: 0.7em;
+    line-height: 0;
+    color: var(--accent-text);
+    vertical-align: super;
+  }
+
   ul,
   ol {
     margin: 0 0 var(--space-5);
